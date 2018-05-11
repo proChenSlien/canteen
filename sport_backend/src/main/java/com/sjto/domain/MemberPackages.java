@@ -6,6 +6,11 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.persistence.*;
 import java.util.Date;
 
+/**
+ * @Description: 会员充值套餐信息
+ * @Author:
+ * @Date: 18/5/10 15:37
+ */
 @Entity
 @Table(name = "member_packages")
 @JsonIgnoreProperties({"hibernateLazyInitializer","handler"})

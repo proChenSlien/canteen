@@ -11,21 +11,30 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "family_ties_info")
-@JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class FamilyTiesInfo {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id",unique = true, nullable = false, length = 20)
+    private Long id;
+
     @Column(name = "user_id", nullable = false, columnDefinition = "bigint(20) COMMENT '用户唯一编号'")
     private Long userId;
 
-    @Column(name = "sid", nullable = false, columnDefinition = "bigint(20) COMMENT 亲密卡实体编号'")
-    private Integer sid;
+    @Column(name = "sid", nullable = false, columnDefinition = "bigint(20) COMMENT '亲密卡实体编号'")
+    private Long sid;
 
     @Column(name = "ship_name", nullable = false, columnDefinition = "varchar(64) COMMENT '关系称谓'")
     private String shipName;
 
-    @Column
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public Long getUserId() {
         return userId;
     }
@@ -34,11 +43,11 @@ public class FamilyTiesInfo {
         this.userId = userId;
     }
 
-    public Integer getSid() {
+    public Long getSid() {
         return sid;
     }
 
-    public void setSid(Integer sid) {
+    public void setSid(Long sid) {
         this.sid = sid;
     }
 

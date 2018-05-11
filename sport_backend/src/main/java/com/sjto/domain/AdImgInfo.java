@@ -6,6 +6,11 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.persistence.*;
 import java.util.Date;
 
+/**
+ * @Description: 广告位图片信息
+ * @Author: fanyongjiu
+ * @Date: 18/5/10 15:37
+ */
 @Entity
 @Table(name = "ad_img_info")
 @JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
