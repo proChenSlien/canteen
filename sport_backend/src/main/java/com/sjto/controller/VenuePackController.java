@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/system/venuePackages")
+@RequestMapping("/manager/system/venuePackages")
 public class VenuePackController extends BaseController<VenuePackages, Long>{
 
     @Autowired
@@ -18,4 +18,6 @@ public class VenuePackController extends BaseController<VenuePackages, Long>{
     protected BaseService<VenuePackages, Long> getService() {
         return venuePackService;
     }
+
+
 }

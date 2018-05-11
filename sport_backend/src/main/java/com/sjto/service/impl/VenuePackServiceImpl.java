@@ -5,7 +5,11 @@ import com.sjto.repository.VenuePackRepository;
 import com.sjto.service.VenuePackService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Service;
 
+import java.util.List;
+
+@Service("venuePackages")
 public class VenuePackServiceImpl extends AbstractGenericServiceImpl<VenuePackages, Long> implements VenuePackService{
 
     @Autowired
@@ -14,5 +18,17 @@ public class VenuePackServiceImpl extends AbstractGenericServiceImpl<VenuePackag
     @Override
     public JpaRepository<VenuePackages, Long> getRepository() {
         return repository;
+    }
+
+
+    @Override
+    public List<VenuePackages> queryVenuePackList() {
+
+        return repository.queryVenuePackList();
+    }
+
+    @Override
+    public List<VenuePackages> queryVenuePackMain() {
+        return repository.queryVenuePackMain();
     }
 }
