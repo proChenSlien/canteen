@@ -22,7 +22,7 @@ public class UseRecordInfo {
     private Long userId;
 
     @Column(name = "pid", nullable = false, columnDefinition = "bigint(20) COMMENT '使用的健身卡实体编号'")
-    private Integer pid;
+    private Long pid;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     @Column(name = "begin_time", nullable = false, columnDefinition = "datetime COMMENT '开始使用时间'")
@@ -48,11 +48,11 @@ public class UseRecordInfo {
         this.userId = userId;
     }
 
-    public Integer getPid() {
+    public Long getPid() {
         return pid;
     }
 
-    public void setPid(Integer pid) {
+    public void setPid(Long pid) {
         this.pid = pid;
     }
 
