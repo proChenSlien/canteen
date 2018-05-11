@@ -4,7 +4,10 @@ import com.sjto.controller.BaseController;
 import com.sjto.domain.Card;
 import com.sjto.service.BaseService;
 import com.sjto.service.CardService;
+import com.sjto.utils.Result;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,6 +22,14 @@ public class CardApiController extends BaseController<Card, Long> {
 
     @Autowired
     private CardService cardService;
+
+
+    @Override
+    @ApiOperation("更新或新增会员卡")
+    @PostMapping("/merge")
+    public Result saveOrUpdate(Card entity) {
+        return cardService.saveOrUpdate(entity);
+    }
 
     @Override
     protected BaseService<Card, Long> getService() {

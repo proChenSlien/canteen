@@ -1,6 +1,7 @@
 package com.sjto.service;
 
 import com.sjto.domain.Card;
+import com.sjto.utils.Result;
 
 /**
  * @ClassName CardService
@@ -9,4 +10,5 @@ import com.sjto.domain.Card;
  **/
 public interface CardService extends BaseService<Card, Long>{
 
+    Result saveOrUpdate(Card card);
 }
