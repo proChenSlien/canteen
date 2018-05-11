@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
  * @Author: fanyongjiu
  * @Date: 18/5/11 11:35
  */
-@Service("sysButtonInfo")
+@Service("sysButtonInfoService")
 public class SysButtonInfoServiceImpl extends AbstractGenericServiceImpl<SysButtonInfo, Long> implements SysButtonInfoService {
 
     @Autowired
