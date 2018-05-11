@@ -11,18 +11,18 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "content_info")
-@JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class ContentInfo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id",unique = true, nullable = false, length = 20)
+    @Column(name = "id", unique = true, nullable = false, length = 20)
     private Long id;
 
     @Column(name = "name", nullable = false, columnDefinition = "varchar(64) COMMENT '内容名称'")
     private String name;
 
-    @Column(name = "type", nullable = false, columnDefinition = "bigint(20) COMMENT '内容类型'")
-    private Integer type;
+    @Column(name = "type", nullable = false, columnDefinition = "varchar(64) COMMENT '内容类型，格式如2|4，以“|”分割，前部分是分组编号后部分是对应字典值。'")
+    private String type;
 
     @Column(name = "content", columnDefinition = "text COMMENT '内容说明'")
     private String content;
@@ -45,10 +45,12 @@ public class ContentInfo {
     public void setName(String name) {
         this.name = name;
     }
-    public Integer getType() {
+
+    public String getType() {
         return type;
     }
-    public void setType(Integer type) {
+
+    public void setType(String type) {
         this.type = type;
     }
 

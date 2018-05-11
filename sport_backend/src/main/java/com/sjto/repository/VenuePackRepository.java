@@ -6,9 +6,12 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.stereotype.Repository;
 
+<<<<<<< HEAD
 import java.util.List;
 
 
+=======
+>>>>>>> 0e72ffeb9dad37ab9113ff80bd5808d26ba29c02
 @Repository
 public interface VenuePackRepository extends JpaRepository<VenuePackages,Long>,QuerydslPredicateExecutor<VenuePackages> {
 

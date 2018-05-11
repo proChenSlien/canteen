@@ -11,15 +11,18 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "use_record_info")
-@JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class UseRecordInfo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", unique = true, nullable = false, length = 20)
+    private Long id;
+
     @Column(name = "user_id", nullable = false, columnDefinition = "bigint(20) COMMENT '用户唯一编号'")
     private Long userId;
 
     @Column(name = "pid", nullable = false, columnDefinition = "bigint(20) COMMENT '使用的健身卡实体编号'")
-    private Integer pid;
+    private Long pid;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     @Column(name = "begin_time", nullable = false, columnDefinition = "datetime COMMENT '开始使用时间'")
@@ -29,6 +32,14 @@ public class UseRecordInfo {
     @Column(name = "end_time", columnDefinition = "datetime COMMENT '结束使用时间'")
     private Date endTime;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public Long getUserId() {
         return userId;
     }
@@ -37,11 +48,11 @@ public class UseRecordInfo {
         this.userId = userId;
     }
 
-    public Integer getPid() {
+    public Long getPid() {
         return pid;
     }
 
-    public void setPid(Integer pid) {
+    public void setPid(Long pid) {
         this.pid = pid;
     }
 

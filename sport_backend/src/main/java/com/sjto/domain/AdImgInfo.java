@@ -13,15 +13,15 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "ad_img_info")
-@JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class AdImgInfo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id",unique = true, nullable = false, length = 20)
+    @Column(name = "id", unique = true, nullable = false, length = 20)
     private Long id;
 
-    @Column(name = "type", nullable = false, columnDefinition = "bigint(20) COMMENT '广告类型'")
-    private Integer type;
+    @Column(name = "type", nullable = false, columnDefinition = "varchar(64) COMMENT '广告类型，格式如1|3，以“|”分割，前部分是分组编号后部分是对应字典值。'")
+    private String type;
 
     @Column(name = "bg_img_url", columnDefinition = "varchar(512) COMMENT '背景图片地址'")
     private String bgImgUrl;
@@ -35,8 +35,8 @@ public class AdImgInfo {
     @Column(name = "url", columnDefinition = "varchar(512) COMMENT '跳转链接'")
     private String url;
 
-    @Column(name = "imges", columnDefinition = "text COMMENT '副背景图地址，以“|”分割'")
-    private String imges;
+    @Column(name = "images", columnDefinition = "varchar(512) COMMENT '副背景图地址，以“|”分割'")
+    private String images;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     @Column(name = "create_time", nullable = false, columnDefinition = "datetime COMMENT '创建时间'")
@@ -54,11 +54,11 @@ public class AdImgInfo {
         this.id = id;
     }
 
-    public Integer getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(Integer type) {
+    public void setType(String type) {
         this.type = type;
     }
 
@@ -94,12 +94,12 @@ public class AdImgInfo {
         this.url = url;
     }
 
-    public String getImges() {
-        return imges;
+    public String getImages() {
+        return images;
     }
 
-    public void setImges(String imges) {
-        this.imges = imges;
+    public void setImages(String images) {
+        this.images = images;
     }
 
     public Date getCreateTime() {
