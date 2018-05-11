@@ -31,20 +31,19 @@ public class VipSingleGymcardInfoServiceImpl extends AbstractGenericServiceImpl<
     public Result<Map> getAuthState(Long id){
         Optional<VipSingleGymcardInfo> optional= findById(id);
         if(!optional.isPresent()){
-            return Result.createByErrorMessage("没有找到信息");
+            return Result.createBySuccess(AuthState.NO_AUTHED.toMap());
         }
         VipSingleGymcardInfo vipSingleGymcardInfo = optional.get();
         switch (vipSingleGymcardInfo.getAuthState()){
-            case 1:
-                return Result.createBySuccess(AuthState.NO_AUTHED.toMap());
             case 2:
                 return Result.createBySuccess(AuthState.IN_AUTHING.toMap());
             case 3:
                 return Result.createBySuccess(AuthState.AUTHED.toMap());
             case 4:
                 return Result.createBySuccess(AuthState.FALSE_AUTH.toMap());
+            default:
+                return Result.createByErrorMessage("非法的认证信息");
         }
-        return Result.createByErrorMessage("认证状态异常");
     }
 
     @Override
