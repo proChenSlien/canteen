@@ -16,5 +16,5 @@ public interface BaseService<T, ID>  extends JpaRepository<T, ID> {
 
     Page<T> findAll(int page, int size, T entity);
 
-    Page<T> findAll(int page, int size, T entity, Sort.Direction direction, String... order);
+    Page<T> findAll(int page, int size, T entity, Sort sort);
 }
