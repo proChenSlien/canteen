@@ -41,7 +41,7 @@ public class VenuePackages {
         this.money = money;
     }
 
-    @Column(name = "title", nullable = false, columnDefinition = "double COMMENT '单次票标题'")
+    @Column(name = "title", nullable = false, columnDefinition = "varchar(64) COMMENT '单次票标题'")
     public String getTitle() {
         return title;
     }
@@ -59,6 +59,7 @@ public class VenuePackages {
         this.oid = oid;
     }
 
+    @Column(name = "remark", nullable = false, columnDefinition = "varchar(128) COMMENT '描述'")
     public String getRemark() {
         return remark;
     }
