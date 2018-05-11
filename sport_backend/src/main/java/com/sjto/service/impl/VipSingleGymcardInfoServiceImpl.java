@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.Date;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * @ClassName VipSingleGymcardInfoServiceImpl
@@ -28,28 +29,20 @@ public class VipSingleGymcardInfoServiceImpl extends AbstractGenericServiceImpl<
     private VipSingleGymcardInfoReponsitory  reponsitory;
 
     public Result<Map> getAuthState(Long id){
-        VipSingleGymcardInfo vipSingleGymcardInfo = this.getOne(id);
-        if(vipSingleGymcardInfo == null){
+        Optional<VipSingleGymcardInfo> optional= findById(id);
+        if(!optional.isPresent()){
             return Result.createByErrorMessage("没有找到信息");
         }
-        Map map  = Maps.newHashMap();
+        VipSingleGymcardInfo vipSingleGymcardInfo = optional.get();
         switch (vipSingleGymcardInfo.getAuthState()){
             case 1:
-                map.put("status",AuthState.NO_AUTHED.getCode());
-                map.put("msg",AuthState.NO_AUTHED.getMessage());
-                return Result.createBySuccess(map);
+                return Result.createBySuccess(AuthState.NO_AUTHED.toMap());
             case 2:
-                map.put("status",AuthState.IN_AUTHING.getCode());
-                map.put("msg",AuthState.IN_AUTHING.getMessage());
-                return Result.createBySuccess(map);
+                return Result.createBySuccess(AuthState.IN_AUTHING.toMap());
             case 3:
-                map.put("status",AuthState.AUTHED.getCode());
-                map.put("msg",AuthState.AUTHED.getMessage());
-                return Result.createBySuccess(map);
+                return Result.createBySuccess(AuthState.AUTHED.toMap());
             case 4:
-                map.put("status",AuthState.FALSE_AUTH.getCode());
-                map.put("msg",AuthState.FALSE_AUTH.getMessage());
-                return Result.createBySuccess(map);
+                return Result.createBySuccess(AuthState.FALSE_AUTH.toMap());
         }
         return Result.createByErrorMessage("认证状态异常");
     }

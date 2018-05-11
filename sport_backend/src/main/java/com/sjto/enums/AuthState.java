@@ -1,5 +1,9 @@
 package com.sjto.enums;
 
+import com.google.common.collect.Maps;
+
+import java.util.Map;
+
 /**
  * @ClassName AuthState
  * @Description 认证状态枚举
@@ -18,6 +22,13 @@ public enum  AuthState {
     AuthState(Integer code, String message){
         this.code = code;
         this.message = message;
+    }
+
+    public Map toMap(){
+        Map map = Maps.newHashMap();
+        map.put("status", code);
+        map.put("msg", message);
+        return map;
     }
 
     public Integer getCode() {
