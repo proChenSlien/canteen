@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 /**
- * @Description: 内容说明信息Service接口层
+ * @Description: 内容说明信息BLL层实现类
  * @Author: fanyongjiu
  * @Date: 18/5/11 18:00
  */

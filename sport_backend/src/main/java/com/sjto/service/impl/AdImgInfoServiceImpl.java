@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 
 /**
- * @Description: 广告位图片信息Service接口层
+ * @Description: 广告位图片信息BLL层实现类
  * @Author: fanyongjiu
  * @Date: 18/5/11 16:09
  */
