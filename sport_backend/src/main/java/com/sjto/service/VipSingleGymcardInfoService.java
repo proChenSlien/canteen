@@ -15,9 +15,7 @@ import java.util.Map;
  **/
 public interface VipSingleGymcardInfoService extends BaseService<VipSingleGymcardInfo,Long>{
 
-    Result<Map> getAuthState(Long id);
-
-    Result<VipSingleGymcardInfo> saveOrUpdate(VipSingleGymcardInfo vipSingleGymcardInfo);
+    Result<Map> getAuthState(Long userId);
 
     Result<VipSingleGymcardInfoRo> queryVipCardInfo(Long userId);
 
