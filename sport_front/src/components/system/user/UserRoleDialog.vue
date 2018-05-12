@@ -69,7 +69,7 @@
       loadRoleData() {
         this.axios.get('/manage/role/list')
           .then((r) => {
-            this.page = r.data.content.page
+            this.page = r.data.data
           })
       },
       //选中角色

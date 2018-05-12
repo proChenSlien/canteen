@@ -32,7 +32,7 @@ axios.interceptors.request.use(
 axios.interceptors.response.use(
   response => {
     let model = response.data
-    if (model && !model.success) {   //status false 或者 true
+    if (model && !model.ok) {   //status false 或者 true
 
       Message.error(model.msg, 2)
       return Promise.reject({response})
