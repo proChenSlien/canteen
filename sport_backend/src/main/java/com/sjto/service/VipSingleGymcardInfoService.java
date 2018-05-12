@@ -20,4 +20,6 @@ public interface VipSingleGymcardInfoService extends BaseService<VipSingleGymcar
     Result<VipSingleGymcardInfoRo> queryVipCardInfo(Long userId);
 
     Result<VipSingleGymcardInfoRo> auth(String authImgUrl, Long userId);
+
+    Result<VipSingleGymcardInfoRo> recharge(Integer days, Long userId);
 }

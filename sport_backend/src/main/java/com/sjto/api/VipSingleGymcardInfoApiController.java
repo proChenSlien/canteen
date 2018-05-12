@@ -44,13 +44,20 @@ public class VipSingleGymcardInfoApiController extends BaseController<VipSingleG
         return vipSingleGymcardInfoService.queryVipCardInfo(userId);
     }
 
-
-    @ApiOperation("会员单人健身实体卡认证")
+    @ApiOperation("单人会员健身实体卡认证")
     @ApiImplicitParams({ @ApiImplicitParam(paramType = "query", dataType = "String", name = "authImgUrl", value = "认证图片地址", required = true),
             @ApiImplicitParam(paramType = "query", dataType = "Long", name = "userId", value = "认证的用户id", required = true)})
     @PostMapping("/auth")
     public Result<VipSingleGymcardInfoRo> auth(String authImgUrl, Long userId) {
         return vipSingleGymcardInfoService.auth(authImgUrl, userId);
+    }
+
+    @ApiOperation("单人会员健身实体卡到期天数充值及天数兑换")
+    @ApiImplicitParams({ @ApiImplicitParam(dataType = "Long", name = "days", value = "充值的天数", required = true),
+            @ApiImplicitParam(dataType = "Long", name = "userId", value = "认证的用户id", required = true)})
+    @PostMapping("/recharge")
+    public Result<VipSingleGymcardInfoRo> recharge(@RequestParam Integer days, @RequestParam Long userId){
+        return vipSingleGymcardInfoService.recharge(days, userId);
     }
 
     @Override
