@@ -26,4 +26,19 @@ public class ContentInfoServiceImpl extends AbstractGenericServiceImpl<ContentIn
     public ContentInfo getByType(String type) {
         return repository.findByType(type);
     }
+
+    @Override
+    public Boolean isExist(ContentInfo entity) {
+        Long id = entity.getId();
+        String type = entity.getType();
+        if (id == null) {
+            //不存在
+            ContentInfo contentInfo = repository.findByType(type);
+            return contentInfo != null;
+        } else {
+            //存在
+            ContentInfo contentInfo = repository.findByTypeAndIdNot(type, id);
+            return contentInfo != null;
+        }
+    }
 }

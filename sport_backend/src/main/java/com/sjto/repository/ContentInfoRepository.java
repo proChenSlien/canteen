@@ -13,4 +13,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ContentInfoRepository extends JpaRepository<ContentInfo, Long>, JpaSpecificationExecutor<ContentInfo> {
     ContentInfo findByType(String type);
+
+    ContentInfo findByTypeAndIdNot(String type, Long id);
 }

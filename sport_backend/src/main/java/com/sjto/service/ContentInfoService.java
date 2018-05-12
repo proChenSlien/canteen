@@ -9,4 +9,6 @@ import com.sjto.domain.ContentInfo;
  */
 public interface ContentInfoService extends BaseService<ContentInfo, Long> {
     ContentInfo getByType(String type);
+
+    Boolean isExist(ContentInfo entity);
 }
