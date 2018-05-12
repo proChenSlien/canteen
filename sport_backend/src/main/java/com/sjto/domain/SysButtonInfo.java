@@ -15,7 +15,7 @@ public class SysButtonInfo {
     private String image;
     private String title;
     private String remark;
-    private Long typeId;
+    private String type;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -55,12 +55,12 @@ public class SysButtonInfo {
         this.remark = remark;
     }
 
-    @Column(name = "type_id", nullable = false, columnDefinition = "bigint(20) COMMENT '字典编号'")
-    public Long getTypeId() {
-        return typeId;
+    @Column(name = "type", nullable = false, columnDefinition = "varchar(64) COMMENT '按钮类型，格式如1|3，以“|”分割，前部分是分组编号后部分是对应字典值。'")
+    public String getType() {
+        return type;
     }
 
-    public void setTypeId(Long typeId) {
-        this.typeId = typeId;
+    public void setType(String type) {
+        this.type = type;
     }
 }
