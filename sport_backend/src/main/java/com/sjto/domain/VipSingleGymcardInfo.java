@@ -23,21 +23,21 @@ public class VipSingleGymcardInfo {
     @Column(name = "user_id", nullable = false, columnDefinition = "bigint(20) COMMENT '用户唯一编号'")
     private Long userId;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     @Column(name = "end_date", columnDefinition = "datetime COMMENT '结束使用时间'")
     private Date endDate;
 
-    @Column(name = "auth_state", nullable = false, columnDefinition = "bigint(20) COMMENT '认证状态【0-未认证 | 1-认证中 | 2-已认证 | 3-认证失败】'")
+    @Column(name = "auth_state", nullable = false, columnDefinition = "tinyint default 1 COMMENT '认证状态【0-未认证 | 1-认证中 | 2-已认证 | 3-认证失败】'")
     private Integer authState;
 
     @Column(name = "auth_img_url", columnDefinition = "varchar(512) COMMENT '上传的认证图片地址'")
     private String authImgUrl;
 
-    @Column(name = "status", nullable = false, columnDefinition = "bigint(20) COMMENT '状态【0-无效 | 1-有效】'")
+    @Column(name = "status", columnDefinition = "bigint(20) default 1 COMMENT '状态【0-无效 | 1-有效】'")
     private Integer status;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    @Column(name = "active_time", nullable = false, columnDefinition = "datetime COMMENT '第一次激活使用时间'")
+    @Column(name = "active_time", columnDefinition = "datetime COMMENT '第一次激活使用时间'")
     private Date activeTime;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
