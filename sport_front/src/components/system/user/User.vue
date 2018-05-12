@@ -103,7 +103,8 @@
 
         this.axios.get('/manage/user/list?' + qs.stringify(this.searchForm))
           .then((response) => {
-            this.page = response.data.content.page
+          console.log('response',response)
+            this.page = response.data.data;
           })
           .catch(err => {
             this.$message.error('列表加载出错' + err, 2)

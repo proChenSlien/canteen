@@ -53,8 +53,7 @@
               this.loading = true  //蒙板
               this.axios.post('/login', `username=${this.User.name}&password=${this.User.password}`)
                 .then((response) => {
-                  let authInfo = response.data.content
-
+                  let authInfo = response.data.data
                   if (authInfo.access_token) {
                     this.$store.commit(types.LOGIN, {authInfo})   //持久化用户信息
                     let redirect = decodeURIComponent(this.$route.query.redirect || '/home')   //重定向到登陆后页面
@@ -64,7 +63,7 @@
                   }
 
                 }).catch(err => {
-
+                console.log(err);
                 this.$message.error('登录出错' + err, 2)
               })
 

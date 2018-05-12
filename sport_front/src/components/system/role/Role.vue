@@ -80,7 +80,7 @@
         this.authDialogVisible = false
         this.axios.get('/manage/role/list?' + qs.stringify(this.searchForm))
           .then((response) => {
-            this.page = response.data.content.page
+            this.page = response.data.data;
           })
           .catch(err => {
             this.$message.error('列表加载出错' + err, 2)
@@ -130,6 +130,7 @@
           this.$message.error('请先选中数据', 2)
           return
         }
+        console.log('currentRow',this.currentRow)
 
         this.authDialogVisible = true
       },
