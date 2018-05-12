@@ -76,7 +76,7 @@ public class VipChildCardInfo {
         this.authImgUrl = authImgUrl;
     }
 
-    @Column(name = "auth_state", nullable = false, columnDefinition = "bigint(20) COMMENT '认证状态【0-未认证 | 1-认证中 | 2-已认证 | 3-认证失败】'")
+    @Column(name = "auth_state", nullable = false, columnDefinition = "bigint(20) default 0 COMMENT '认证状态【0-未认证 | 1-认证中 | 2-已认证 | 3-认证失败】'")
     public Integer getAuthState() {
         return authState;
     }
@@ -114,7 +114,7 @@ public class VipChildCardInfo {
     }
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    @Column(name = "active_time", nullable = false, columnDefinition = "datetime COMMENT '第一次激活使用时间'")
+    @Column(name = "active_time",  columnDefinition = "datetime COMMENT '第一次激活使用时间'")
     public Date getActiveTime() {
         return activeTime;
     }
