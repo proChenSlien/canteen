@@ -31,9 +31,9 @@ public class VipSingleGymcardInfoApiController extends BaseController<VipSingleG
 
     @ApiOperation("获取认证状态")
     @GetMapping("/auth/state")
-    @ApiImplicitParams({ @ApiImplicitParam(paramType = "query", dataType = "Long", name = "id", value = "会员单人健身会员卡卡号", required = true) })
-    public Result<Map> getAuthState(@RequestParam Long id){
-        return vipSingleGymcardInfoService.getAuthState(id);
+    @ApiImplicitParams({ @ApiImplicitParam(paramType = "query", dataType = "Long", name = "userId", value = "用户id", required = true) })
+    public Result<Map> getAuthState(@RequestParam Long userId){
+        return vipSingleGymcardInfoService.getAuthState(userId);
     }
 
 

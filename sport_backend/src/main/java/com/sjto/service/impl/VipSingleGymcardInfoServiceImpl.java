@@ -38,44 +38,22 @@ public class VipSingleGymcardInfoServiceImpl extends AbstractGenericServiceImpl<
     @Autowired
     private CommonUtil commonUtil;
 
-    public Result<Map> getAuthState(Long id){
-        Optional<VipSingleGymcardInfo> optional= findById(id);
-        if(!optional.isPresent()){
+    @Override
+    public Result<Map> getAuthState(Long userId){
+        VipSingleGymcardInfo vipSingleGymcardInfo = reponsitory.findByUserId(userId);
+
+        if(vipSingleGymcardInfo == null){
             return Result.createBySuccess(AuthState.NO_AUTHED.toMap());
         }
-        VipSingleGymcardInfo vipSingleGymcardInfo = optional.get();
-        switch (vipSingleGymcardInfo.getAuthState()){
-            case 0:
-                return Result.createBySuccess(AuthState.NO_AUTHED.toMap());
-            case 1:
-                return Result.createBySuccess(AuthState.IN_AUTHING.toMap());
-            case 2:
-                return Result.createBySuccess(AuthState.AUTHED.toMap());
-            case 3:
-                return Result.createBySuccess(AuthState.FALSE_AUTH.toMap());
-            default:
-                return Result.createByErrorMessage("非法的认证信息");
+        // 获取认证状态
+        AuthState authState = AuthState.getEnumByCode(vipSingleGymcardInfo.getAuthState());
+        if(authState == null){
+            authState = AuthState.NO_AUTHED;
         }
+
+        return Result.createBySuccess(authState.toMap());
     }
 
-    @Override
-    @Transactional
-    public Result<VipSingleGymcardInfo> saveOrUpdate (VipSingleGymcardInfo vipSingleGymcardInfo){
-        vipSingleGymcardInfo.setUpdateTime(new Date());
-        Long id = vipSingleGymcardInfo.getId();
-        try {
-            if((id != null && !findById(id).isPresent()) || id == null){// 如果ID为空 或者数据不存在
-                vipSingleGymcardInfo.setCreateTime(new Date());
-                return Result.createBySuccess(reponsitory.save(vipSingleGymcardInfo));
-            }
-            // TODO
-            //reponsitory.update();
-        }catch (Exception e){
-            e.printStackTrace();
-            return Result.createByErrorCodeMessage(ResultCode.EXCEPTION.getCode(),ResultCode.EXCEPTION.getDesc());
-        }
-        return Result.createBySuccess(vipSingleGymcardInfo);
-    }
 
     @Override
     public Result<VipSingleGymcardInfoRo> queryVipCardInfo(Long userId) {
