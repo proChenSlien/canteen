@@ -67,7 +67,7 @@
           .then((r) => {
             console.log(r);
 
-            this.authorityData = r.data.data.root
+            this.authorityData = r.data.content.root
           })
       },
 

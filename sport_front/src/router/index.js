@@ -7,6 +7,7 @@ import Home from '@/components/system/home/Home'
 import User from '@/components/system/user/User'
 import Role from '@/components/system/role/Role'
 import store from '@/store'
+import AdImgInfo from '@/components/common/advertisement/AdImgInfo'
 
 Vue.use(Router)
 
@@ -42,6 +43,20 @@ let businessRouters = [
         icon: 'icon-lightbulb'
       }*/
     ]
+  },
+  {
+    path: '/advertisement',
+    name: '广告管理',
+    icon: 'icon-lock',
+    component: Sub,
+    children: [
+      {
+        path: 'ad',
+        component: AdImgInfo,
+        name: '广告管理',
+        icon: 'icon-user'
+      }
+    ]
   }
 ]
 
@@ -55,7 +70,8 @@ control.mapIt = function (router, path) {
 
   router.map((one) => {
     if (one.children) {
-      one.hidden = control.mapIt(one.children, path)
+      // one.hidden = control.mapIt(one.children, path)
+    one.hidden = false
     } else {
       if (one.path == path) {
         one.hidden = false
