@@ -12,4 +12,20 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface AdImgInfoRepository extends JpaRepository<AdImgInfo, Long>, JpaSpecificationExecutor<AdImgInfo> {
+    /**
+     * 广告实体
+     *
+     * @param type 广告类型
+     * @return
+     */
+    AdImgInfo findByType(String type);
+
+    /**
+     * 广告实体
+     *
+     * @param type 广告类型
+     * @param id   编号
+     * @return
+     */
+    AdImgInfo findByTypeAndIdNot(String type, Long id);
 }

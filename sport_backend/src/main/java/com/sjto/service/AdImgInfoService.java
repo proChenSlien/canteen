@@ -14,4 +14,6 @@ public interface AdImgInfoService extends BaseService<AdImgInfo, Long> {
     Map<String, Object> getImgInfo(Long id);
 
     List<Map<String, Object>> getList();
+
+    Boolean isExist(AdImgInfo entity);
 }

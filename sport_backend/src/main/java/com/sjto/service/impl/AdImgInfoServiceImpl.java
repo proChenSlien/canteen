@@ -66,6 +66,21 @@ public class AdImgInfoServiceImpl extends AbstractGenericServiceImpl<AdImgInfo, 
         return result;
     }
 
+    @Override
+    public Boolean isExist(AdImgInfo entity) {
+        Long id = entity.getId();
+        String type = entity.getType();
+        if (id == null) {
+            //不存在
+            AdImgInfo adImgInfo = repository.findByType(type);
+            return adImgInfo != null;
+        } else {
+            //存在
+            AdImgInfo adImgInfo = repository.findByTypeAndIdNot(type, id);
+            return adImgInfo != null;
+        }
+    }
+
     private List<String> dealImages(String images) {
         if (images == null || images.isEmpty()) {
             return new ArrayList<>();
