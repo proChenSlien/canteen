@@ -5,12 +5,14 @@ import com.sjto.domain.VenuePackages;
 import com.sjto.service.BaseService;
 import com.sjto.service.VenuePackService;
 import com.sjto.utils.Result;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+
 
 @RestController
 @RequestMapping("/api/system/venuePackages")
@@ -25,7 +27,8 @@ public class VenuePackApiController extends BaseController<VenuePackages, Long> 
         return venuePackService;
     }
 
-    //与多个场馆合作则查询列表
+
+    @ApiOperation("次票列表查询（后期可能会对次票配置多个场馆）")
     @PostMapping("/venuePackList")
     public Result queryVenuePackList(){
 
@@ -33,7 +36,7 @@ public class VenuePackApiController extends BaseController<VenuePackages, Long> 
         return Result.createBySuccess(current);
     }
 
-    //一个主场馆
+    @ApiOperation("次票列表查询(一个主场馆)")
     @PostMapping("/venuePackMain")
     public Result queryVenuePackMain(){
 
