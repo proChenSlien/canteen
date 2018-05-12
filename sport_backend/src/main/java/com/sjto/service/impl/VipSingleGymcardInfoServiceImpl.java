@@ -158,8 +158,6 @@ public class VipSingleGymcardInfoServiceImpl extends AbstractGenericServiceImpl<
 
         vipSingleGymcardInfoRo.setUserId(vipSingleGymcardInfo.getUserId());
 
-        vipSingleGymcardInfoRo.setActiveTime(vipSingleGymcardInfo.getActiveTime());
-
         // 获取认证状态
         AuthState authState = AuthState.getEnumByCode(vipSingleGymcardInfo.getAuthState());
 
@@ -180,6 +178,7 @@ public class VipSingleGymcardInfoServiceImpl extends AbstractGenericServiceImpl<
         if (date == null) {
             vipSingleGymcardInfoRo.setUseState(UseState.UN_USE.toMap());
         } else {
+            vipSingleGymcardInfoRo.setActiveTime(vipSingleGymcardInfo.getActiveTime());
             vipSingleGymcardInfoRo.setEndDate(date);
             SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
             Integer queryDate = Integer.valueOf(sdf.format(date));

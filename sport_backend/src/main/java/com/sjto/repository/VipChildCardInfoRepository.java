@@ -19,4 +19,7 @@ public interface VipChildCardInfoRepository extends JpaRepository<VipChildCardIn
 
     @Query(nativeQuery = true,value = "select a.* from vip_child_card_info a, family_ties_info b where a.id = b.sid and b.user_id = ?1")
     List<VipChildCardInfo> queryByUserId(Long userId);
+
+    @Query(nativeQuery = true,value = "select a.* from vip_child_card_info a, family_ties_info b where a.id = b.sid and b.user_id = ?1 and a.id = ?2")
+    VipChildCardInfo queryByUserIdAndId(Long userId, Long id);
 }

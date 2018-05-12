@@ -1,9 +1,12 @@
 package com.sjto.service;
 
 import com.sjto.domain.VipChildCardInfo;
+import com.sjto.dto.ro.VipChildCardInfoRo;
+import com.sjto.dto.vo.VipChildCardInfoVo;
 import com.sjto.utils.Result;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @ClassName VipChildCardInfoService
@@ -13,6 +16,11 @@ import java.util.List;
  **/
 public interface VipChildCardInfoService {
 
-    Result<VipChildCardInfo> queryByUserId(Long userId);
+    Result<List<VipChildCardInfoRo>> queryByUserId(Long userId);
 
+    Result<VipChildCardInfoRo> queryVipCardInfo(Long userId, Long id);
+
+    Result<Map> getAuthState(Long id);
+
+    Result<VipChildCardInfoRo> add(Long userId, VipChildCardInfoVo info);
 }
