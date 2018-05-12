@@ -1,5 +1,6 @@
 package com.sjto.controller;
 
+import com.google.common.collect.Maps;
 import com.sjto.utils.Result;
 import com.sjto.service.BaseService;
 import org.slf4j.Logger;
@@ -7,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 import java.lang.reflect.ParameterizedType;
+import java.util.Map;
 
 /**
  * TODO 按需使用，无需所有controller都继承此类。     基础crud功能，覆盖时override 时，需要和路径一起复写
@@ -79,9 +81,11 @@ public abstract class BaseController<T, ID> {
      * @return
      */
     @GetMapping(value = "/list")
-    public Result<Page> list(@RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "1") int page, @ModelAttribute T entity) {
+    public Result<Map> list(@RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "1") int page, @ModelAttribute T entity) {
         Page<T> current = this.getService().findAll(page -1 ,size,entity);
-        return Result.createBySuccess(current);
+        Map map = Maps.newHashMap();
+        map.put("page", current);
+        return Result.createBySuccess(map);
     }
 
 
