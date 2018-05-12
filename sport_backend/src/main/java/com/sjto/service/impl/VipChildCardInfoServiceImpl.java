@@ -5,6 +5,7 @@ import com.sjto.domain.VipChildCardInfo;
 import com.sjto.dto.ro.VipChildCardInfoRo;
 import com.sjto.dto.vo.VipChildCardInfoVo;
 import com.sjto.enums.AuthState;
+import com.sjto.enums.CardKind;
 import com.sjto.enums.UseState;
 import com.sjto.repository.CardReponsitory;
 import com.sjto.repository.VipChildCardInfoRepository;
@@ -111,10 +112,17 @@ public class VipChildCardInfoServiceImpl extends AbstractGenericServiceImpl<VipC
         vipChildCardInfo.setBabySex(info.getBabySex());
 
         if(StringUtils.isAllEmpty(info.getAuthImgUrl())){
-
+            vipChildCardInfo.setAuthState(AuthState.NO_AUTHED.getCode());
+        }else{
+            vipChildCardInfo.setAuthImgUrl(info.getAuthImgUrl());
+            vipChildCardInfo.setAuthState(AuthState.IN_AUTHING.getCode());
         }
+        vipChildCardInfo.setCid(CardKind.VIP_CHILD.getCode());
+        vipChildCardInfo.setCreateTime(new Date());
+        vipChildCardInfo.setUpdateTime(new Date());
+        vipChildCardInfo.setMainUserId(userId);
 
-        return null;
+        return Result.createBySuccess(renderVipChildCardInfoRo(vipChildCardInfo));
     }
 
 
