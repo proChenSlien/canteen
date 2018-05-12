@@ -35,7 +35,7 @@ public class VenueConfigController extends BaseController<VenueConfigure, Long>{
         if(list.size() == 0){
             super.saveOrUpdate(entity);
         }else{
-            result = Result.createByErrorMessage("请勿配置重复场馆");
+            result = Result.createByErrorMessage("请勿重复配置场馆");
         }
         return result;
     }
