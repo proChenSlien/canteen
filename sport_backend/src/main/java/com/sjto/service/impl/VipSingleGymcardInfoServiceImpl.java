@@ -12,6 +12,7 @@ import com.sjto.service.VipSingleGymcardInfoService;
 import com.sjto.utils.CommonUtil;
 import com.sjto.utils.Result;
 import com.sjto.utils.ResultCode;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
@@ -97,6 +98,26 @@ public class VipSingleGymcardInfoServiceImpl extends AbstractGenericServiceImpl<
         }
 
         return Result.createByErrorMessage("没有找到该会员信息");
+    }
+
+    @Override
+    public Result<VipSingleGymcardInfoRo> auth(String authImgUrl, Long userId) {
+        if(userId == null || StringUtils.isAllEmpty(authImgUrl)){
+            return Result.createByErrorCodeMessage(ResultCode.ILLEGAL_ARGUMENT.getCode(), ResultCode.ILLEGAL_ARGUMENT.getDesc());
+        }
+        if(!reponsitory.existsByUserId(userId)){
+            // 如果用户不存在
+            return Result.createByErrorMessage("认证用户不存在");
+        }
+        VipSingleGymcardInfo vipSingleGymcardInfo = reponsitory.findByUserId(userId);
+
+        vipSingleGymcardInfo.setAuthImgUrl(commonUtil.imageShortToUrl(authImgUrl));
+
+        vipSingleGymcardInfo.setAuthState(AuthState.IN_AUTHING.getCode());
+
+        save(vipSingleGymcardInfo);
+
+        return this.queryVipCardInfo(userId);
     }
 
 

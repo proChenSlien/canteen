@@ -45,11 +45,12 @@ public class VipSingleGymcardInfoApiController extends BaseController<VipSingleG
     }
 
 
-    @Override
-    @ApiOperation("会员单人健身实体卡新增不可修改")
-    @PostMapping("/merge")
-    public Result saveOrUpdate(VipSingleGymcardInfo entity) {
-        return vipSingleGymcardInfoService.saveOrUpdate(entity);
+    @ApiOperation("会员单人健身实体卡认证")
+    @ApiImplicitParams({ @ApiImplicitParam(paramType = "query", dataType = "String", name = "authImgUrl", value = "认证图片地址", required = true),
+            @ApiImplicitParam(paramType = "query", dataType = "Long", name = "userId", value = "认证的用户id", required = true)})
+    @PostMapping("/auth")
+    public Result<VipSingleGymcardInfoRo> auth(String authImgUrl, Long userId) {
+        return vipSingleGymcardInfoService.auth(authImgUrl, userId);
     }
 
     @Override
