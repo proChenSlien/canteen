@@ -6,14 +6,8 @@ import com.sjto.service.VenuePackService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
-
-<<<<<<< HEAD
 import java.util.List;
-
-@Service("venuePackages")
-=======
 @Service("venuePackService")
->>>>>>> 0e72ffeb9dad37ab9113ff80bd5808d26ba29c02
 public class VenuePackServiceImpl extends AbstractGenericServiceImpl<VenuePackages, Long> implements VenuePackService{
 
     @Autowired

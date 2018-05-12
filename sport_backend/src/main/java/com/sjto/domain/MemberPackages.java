@@ -13,7 +13,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "member_packages")
-@JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class MemberPackages {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,6 +22,7 @@ public class MemberPackages {
     private String remark;
     private Integer days;
     private Double money;
+    private String awardType;
     private Integer award;
     private Integer status;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
@@ -29,7 +30,7 @@ public class MemberPackages {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date updateTime;
 
-    @Column(name = "id",unique = true, nullable = false, length = 20)
+    @Column(name = "id", unique = true, nullable = false, length = 20)
     public Long getId() {
         return id;
     }
@@ -56,7 +57,7 @@ public class MemberPackages {
         this.remark = remark;
     }
 
-    @Column(name = "days", nullable = false, columnDefinition = "int(10) COMMENT '充值天数'")
+    @Column(name = "days", nullable = false, columnDefinition = "int(11) COMMENT '充值天数'")
     public Integer getDays() {
         return days;
     }
@@ -74,7 +75,16 @@ public class MemberPackages {
         this.money = money;
     }
 
-    @Column(name = "award", nullable = false, columnDefinition = "int COMMENT '奖励银两或其他币种数量'")
+    @Column(name = "award_type", nullable = false, columnDefinition = "varchar(64) COMMENT '奖励币种类型'")
+    public String getAwardType() {
+        return awardType;
+    }
+
+    public void setAwardType(String awardType) {
+        this.awardType = awardType;
+    }
+
+    @Column(name = "award", nullable = false, columnDefinition = "int(11) COMMENT '奖励银两或其他币种数量'")
     public Integer getAward() {
         return award;
     }
@@ -83,7 +93,7 @@ public class MemberPackages {
         this.award = award;
     }
 
-    @Column(name = "status", nullable = false, columnDefinition = "int COMMENT '状态【0-无效 | 1-有效】'")
+    @Column(name = "status", nullable = false, columnDefinition = "int(11) COMMENT '状态【0-无效 | 1-有效】'")
     public Integer getStatus() {
         return status;
     }

@@ -23,7 +23,7 @@ import java.util.Optional;
  */
 @RestController
 @RequestMapping("/api/card/useRec")
-public class UseRecordInfoController extends BaseController<UseRecordInfo, Long> {
+public class UseRecordInfoApiController extends BaseController<UseRecordInfo, Long> {
     @Autowired
     private UseRecordInfoService useRecordInfoService;
 
