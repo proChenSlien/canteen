@@ -65,7 +65,9 @@
       loadResource() {
         this.axios.get('/manage/resource/root')
           .then((r) => {
-            this.authorityData = r.data.content.root
+            console.log(r);
+
+            this.authorityData = r.data.data.root
           })
       },
 
