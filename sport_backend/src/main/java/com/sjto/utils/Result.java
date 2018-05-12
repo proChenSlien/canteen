@@ -16,40 +16,40 @@ import java.io.Serializable;
 	*/
 public class Result<T> implements Serializable {
 
-    private int status;
+    private int code;
     private String msg;
-    private T data;
+    private T content;
 
-    private Result(int status){
-        this.status = status;
+    private Result(int code){
+        this.code = code;
     }
-    private Result(int status, T data){
-        this.status = status;
-        this.data = data;
+    private Result(int status, T content){
+        this.code = status;
+        this.content = content;
     }
 
-    private Result(int status, String msg, T data){
-        this.status = status;
+    private Result(int code, String msg, T content){
+        this.code = code;
         this.msg = msg;
-        this.data = data;
+        this.content = content;
     }
 
-    private Result(int status, String msg){
-        this.status = status;
+    private Result(int code, String msg){
+        this.code = code;
         this.msg = msg;
     }
 
     @JsonIgnore
     //使之不在json序列化结果当中
-    public boolean isSuccess(){
-        return this.status == ResultCode.SUCCESS.getCode();
+    public boolean isOk(){
+        return this.code == ResultCode.SUCCESS.getCode();
     }
 
-    public int getStatus(){
-        return status;
+    public int getCode(){
+        return code;
     }
-    public T getData(){
-        return data;
+    public T getContent(){
+        return content;
     }
     public String getMsg(){
         return msg;
