@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service("venueConfigService")
 public class VenueConfigServiceImpl extends AbstractGenericServiceImpl<VenueConfigure, Long> implements VenueConfigService{
 
@@ -18,5 +20,10 @@ public class VenueConfigServiceImpl extends AbstractGenericServiceImpl<VenueConf
     @Override
     public JpaRepository<VenueConfigure, Long> getRepository() {
         return repository;
+    }
+
+    @Override
+    public List<VenueConfigure> findVenueConfigure(Long kid, Long oid) {
+        return repository.findVenueConfigure(kid, oid);
     }
 }
