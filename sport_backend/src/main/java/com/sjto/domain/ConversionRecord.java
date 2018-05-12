@@ -6,11 +6,16 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.persistence.*;
 import java.util.Date;
 
+/**
+ * @Description: 兑换信息
+ * @Author:
+ * @Date: 18/5/10 15:26
+ */
 @Entity
 @Table(name = "conversion_record")
 @JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
 public class ConversionRecord {
-
+    private Long id;
     private Long sid;
     private Long userId;
     private Long pid;
@@ -20,6 +25,15 @@ public class ConversionRecord {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", unique = true, nullable = false, length = 20)
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     @Column(name = "sid", nullable = false, columnDefinition = "bigint(20) COMMENT '兑换的礼品卡编号'")
     public Long getSid() {
         return sid;
