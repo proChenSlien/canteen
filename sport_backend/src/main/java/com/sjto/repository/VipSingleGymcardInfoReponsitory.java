@@ -18,12 +18,9 @@ import java.util.Date;
 @Repository
 public interface VipSingleGymcardInfoReponsitory extends JpaRepository<VipSingleGymcardInfo,Long>,QuerydslPredicateExecutor<VipSingleGymcardInfo> {
 
-    @Modifying
-    @Query("update VipSingleGymcardInfo set cid=?1, userId=?2, authImgUrl=?3, updateTime=?4 where id=?5")
-    void update();
-
     Boolean existsByUserId(Long userId);
 
+    @Query("select o from VipSingleGymcardInfo o where o.userId=?1 and o.status = 1")
     VipSingleGymcardInfo findByUserId(Long userId);
 
 }

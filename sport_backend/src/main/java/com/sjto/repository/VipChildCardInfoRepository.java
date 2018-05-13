@@ -17,9 +17,13 @@ import java.util.List;
 @Repository
 public interface VipChildCardInfoRepository extends JpaRepository<VipChildCardInfo,Long>,QuerydslPredicateExecutor<VipChildCardInfo> {
 
-    @Query(nativeQuery = true,value = "select a.* from vip_child_card_info a, family_ties_info b where a.id = b.sid and b.user_id = ?1 and a.status = 1")
+    @Query("select a from VipChildCardInfo a where a.status = 1 and a.mainUserId = ?1 or id in (select sid from FamilyTiesInfo b where b.userId = ?1)")
     List<VipChildCardInfo> queryByUserId(Long userId);
 
-    @Query(nativeQuery = true,value = "select a.* from vip_child_card_info a, family_ties_info b where a.id = b.sid and b.user_id = ?1 and a.id = ?2 and a.status = 1")
+    @Query("select a from VipChildCardInfo a where a.mainUserId = ?1 and a.id = ?2 and a.status = 1")
     VipChildCardInfo queryByUserIdAndId(Long userId, Long id);
+
+    @Query("select a from VipChildCardInfo a where a.id = ?1 and a.status = 1")
+    VipChildCardInfo queryById(Long id);
+
 }

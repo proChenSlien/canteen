@@ -13,6 +13,8 @@ public class VipSingleGymcardInfoRo {
     private Long id;
     @ApiModelProperty("用户id")
     private Long userId;
+    @ApiModelProperty("用户名")
+    private String loginName;
     @ApiModelProperty("认证状态【未认证 | 认证中 | 已认证 | 认证失败】")
     private Map authState;
     @ApiModelProperty("第一次开通会员的激活时间")
@@ -44,6 +46,14 @@ public class VipSingleGymcardInfoRo {
 
     public void setUserId(Long userId) {
         this.userId = userId;
+    }
+
+    public String getLoginName() {
+        return loginName;
+    }
+
+    public void setLoginName(String loginName) {
+        this.loginName = loginName;
     }
 
     public Map getAuthState() {

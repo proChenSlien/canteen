@@ -31,32 +31,60 @@ public class VipSingleGymcardInfoApiController extends BaseController<VipSingleG
 
     @ApiOperation("获取认证状态")
     @GetMapping("/auth/state")
-    @ApiImplicitParams({ @ApiImplicitParam(paramType = "query", dataType = "Long", name = "userId", value = "用户id", required = true) })
-    public Result<Map> getAuthState(@RequestParam Long userId){
+    public Result<Map> getAuthState(){
+        //用户是否登录
+        /*RemoteUser user = getCurrentUser();
+        if (user == null) {
+            return  Result.createByErrorCodeMessage(ResultCode.NEED_LOGIN.getCode(), ResultCode.NEED_LOGIN.getDesc());
+        }*/
+        Long userId = 123L;
         return vipSingleGymcardInfoService.getAuthState(userId);
     }
 
 
     @ApiOperation("获取会员单人健身实体卡信息")
-    @ApiImplicitParams({ @ApiImplicitParam(paramType = "query", dataType = "Long", name = "userId", value = "用户id", required = true) })
     @GetMapping("/card/info")
-    public Result<VipSingleGymcardInfoRo> queryCardInfo(@RequestParam Long userId){
-        return vipSingleGymcardInfoService.queryVipCardInfo(userId);
+    public Result<VipSingleGymcardInfoRo> queryCardInfo(){
+
+        //用户是否登录
+        /*RemoteUser user = getCurrentUser();
+        if (user == null) {
+            return  Result.createByErrorCodeMessage(ResultCode.NEED_LOGIN.getCode(), ResultCode.NEED_LOGIN.getDesc());
+        }*/
+
+        Long userId = 123L;
+        Long phone = 13888888888L;
+        String loginName = "administrator";
+        return vipSingleGymcardInfoService.queryVipCardInfo(userId, loginName, phone);
     }
 
     @ApiOperation("单人会员健身实体卡认证")
-    @ApiImplicitParams({ @ApiImplicitParam(paramType = "query", dataType = "String", name = "authImgUrl", value = "认证图片地址", required = true),
-            @ApiImplicitParam(paramType = "query", dataType = "Long", name = "userId", value = "认证的用户id", required = true)})
+    @ApiImplicitParams({ @ApiImplicitParam(paramType = "query", dataType = "String", name = "authImgUrl", value = "认证图片地址", required = true)})
     @PostMapping("/auth")
-    public Result<VipSingleGymcardInfoRo> auth(String authImgUrl, Long userId) {
+    public Result<VipSingleGymcardInfoRo> auth(String authImgUrl) {
+
+        //用户是否登录
+        /*RemoteUser user = getCurrentUser();
+        if (user == null) {
+            return  Result.createByErrorCodeMessage(ResultCode.NEED_LOGIN.getCode(), ResultCode.NEED_LOGIN.getDesc());
+        }*/
+
+        Long userId = 123L;
+
         return vipSingleGymcardInfoService.auth(authImgUrl, userId);
     }
 
     @ApiOperation("单人会员健身实体卡到期天数充值及天数兑换")
-    @ApiImplicitParams({ @ApiImplicitParam(dataType = "Long", name = "days", value = "充值的天数", required = true),
-            @ApiImplicitParam(dataType = "Long", name = "userId", value = "认证的用户id", required = true)})
+    @ApiImplicitParams({ @ApiImplicitParam(dataType = "Long", name = "days", value = "充值的天数")})
     @PostMapping("/recharge")
-    public Result<VipSingleGymcardInfoRo> recharge(@RequestParam Integer days, @RequestParam Long userId){
+    public Result<VipSingleGymcardInfoRo> recharge(@RequestParam Integer days){
+        //用户是否登录
+        /*RemoteUser user = getCurrentUser();
+        if (user == null) {
+            return  Result.createByErrorCodeMessage(ResultCode.NEED_LOGIN.getCode(), ResultCode.NEED_LOGIN.getDesc());
+        }*/
+
+        Long userId = 123L;
         return vipSingleGymcardInfoService.recharge(days, userId);
     }
 

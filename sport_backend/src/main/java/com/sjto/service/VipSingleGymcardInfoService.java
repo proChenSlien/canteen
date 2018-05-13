@@ -17,7 +17,7 @@ public interface VipSingleGymcardInfoService extends BaseService<VipSingleGymcar
 
     Result<Map> getAuthState(Long userId);
 
-    Result<VipSingleGymcardInfoRo> queryVipCardInfo(Long userId);
+    Result<VipSingleGymcardInfoRo> queryVipCardInfo(Long userId, String loginName, Long phone);
 
     Result<VipSingleGymcardInfoRo> auth(String authImgUrl, Long userId);
 
