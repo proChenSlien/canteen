@@ -15,7 +15,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/api/system/venuePackages")
+@RequestMapping("/api/venue/venuePackages")
 public class VenuePackApiController extends BaseController<VenuePackages, Long> {
 
     @Autowired

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/system/venueInfo")
+@RequestMapping("/api/venue/venueInfo")
 public class VenueInfoApiController extends BaseController<VenueInfo, Long> {
 
     @Autowired
