@@ -39,6 +39,7 @@ public class ConversionRecordApiController extends BaseController<ConversionReco
 //        }
 
         Long userId = 1L;
+        String userName = "范永久";
 //        //校验兑换的礼品卡
 //        Long sid = entity.getSid();
 //
@@ -47,6 +48,7 @@ public class ConversionRecordApiController extends BaseController<ConversionReco
 
         entity.setCreateTime(new Date());
         entity.setUserId(userId);
+        entity.setUserName(userName);
         conversionRecordService.save(entity);
         return result;
     }

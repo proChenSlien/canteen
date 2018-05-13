@@ -18,6 +18,7 @@ public class ConversionRecord {
     private Long id;
     private Long sid;
     private Long userId;
+    private String userName;
     private Long pid;
     private Integer days;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
@@ -50,6 +51,15 @@ public class ConversionRecord {
 
     public void setUserId(Long userId) {
         this.userId = userId;
+    }
+
+    @Column(name = "user_name", nullable = false, columnDefinition = "varchar(128) COMMENT '用户名'")
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     @Column(name = "pid", nullable = false, columnDefinition = "bigint(20) COMMENT '使用的健身卡实体编号【关联运动会员单人健身卡信息】'")

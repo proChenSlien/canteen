@@ -10,4 +10,5 @@ import java.util.List;
  * @Date: 18/5/12 9:28
  */
 public interface MemberPackagesService extends BaseService<MemberPackages, Long> {
+    Boolean isExist(MemberPackages entity);
 }

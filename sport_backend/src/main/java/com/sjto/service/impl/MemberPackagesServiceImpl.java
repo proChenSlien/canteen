@@ -24,4 +24,19 @@ public class MemberPackagesServiceImpl extends AbstractGenericServiceImpl<Member
     public JpaRepository<MemberPackages, Long> getRepository() {
         return repository;
     }
+
+    @Override
+    public Boolean isExist(MemberPackages entity) {
+        Long id = entity.getId();
+        String title = entity.getTitle();
+        if (id == null) {
+            //不存在
+            MemberPackages memberPackages = repository.findByTitle(title);
+            return memberPackages != null;
+        } else {
+            //存在
+            MemberPackages memberPackages = repository.findByTitleAndIdNot(title, id);
+            return memberPackages != null;
+        }
+    }
 }

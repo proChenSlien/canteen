@@ -1,6 +1,9 @@
 package com.sjto.service;
 
 import com.sjto.domain.ConversionRecord;
+import com.sjto.dto.vo.ConversionRecordVo;
+
+import java.util.List;
 
 /**
  * @Description: 兑换信息Service接口层

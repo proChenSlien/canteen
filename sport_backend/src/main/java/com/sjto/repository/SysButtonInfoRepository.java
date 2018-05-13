@@ -15,8 +15,12 @@ import org.springframework.stereotype.Repository;
 public interface SysButtonInfoRepository extends JpaRepository<SysButtonInfo, Long>, JpaSpecificationExecutor<SysButtonInfo> {
     /**
      * 按钮信息
-     * @param type 
+     *
+     * @param type
      * @return
      */
     SysButtonInfo findByType(String type);
+
+    SysButtonInfo findByTypeAndIdNot(String type, Long id);
+
 }

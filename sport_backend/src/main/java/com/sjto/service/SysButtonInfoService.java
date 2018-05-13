@@ -15,4 +15,6 @@ public interface SysButtonInfoService extends BaseService<SysButtonInfo, Long> {
      * @return
      */
     SysButtonInfo getOneByType(String type);
+
+    Boolean isExist(SysButtonInfo entity);
 }

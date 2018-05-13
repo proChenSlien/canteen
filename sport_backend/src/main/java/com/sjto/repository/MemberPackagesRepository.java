@@ -12,4 +12,7 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface MemberPackagesRepository extends JpaRepository<MemberPackages, Long>, JpaSpecificationExecutor<MemberPackages> {
+    MemberPackages findByTitle(String title);
+
+    MemberPackages findByTitleAndIdNot(String title, Long id);
 }

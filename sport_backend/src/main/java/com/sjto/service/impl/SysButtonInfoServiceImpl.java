@@ -36,4 +36,19 @@ public class SysButtonInfoServiceImpl extends AbstractGenericServiceImpl<SysButt
         sysButtonInfo.setImage(commonUtil.imageShortToUrl(sysButtonInfo.getImage()));
         return sysButtonInfo;
     }
+
+    @Override
+    public Boolean isExist(SysButtonInfo entity) {
+        Long id = entity.getId();
+        String type = entity.getType();
+        if (id == null) {
+            //不存在
+            SysButtonInfo sysButtonInfo = repository.findByType(type);
+            return sysButtonInfo != null;
+        } else {
+            //存在
+            SysButtonInfo sysButtonInfo = repository.findByTypeAndIdNot(type, id);
+            return sysButtonInfo != null;
+        }
+    }
 }
