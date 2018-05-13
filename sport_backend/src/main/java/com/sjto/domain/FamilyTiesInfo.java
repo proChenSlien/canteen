@@ -21,6 +21,9 @@ public class FamilyTiesInfo {
     @Column(name = "user_id", nullable = false, columnDefinition = "bigint(20) COMMENT '用户唯一编号'")
     private Long userId;
 
+    @Column(name = "phone", nullable = false, columnDefinition = "bigint(20) COMMENT '用户号码'")
+    private Long phone;
+
     @Column(name = "sid", nullable = false, columnDefinition = "bigint(20) COMMENT '亲密卡实体编号'")
     private Long sid;
 
@@ -57,5 +60,13 @@ public class FamilyTiesInfo {
 
     public void setShipName(String shipName) {
         this.shipName = shipName;
+    }
+
+    public Long getPhone() {
+        return phone;
+    }
+
+    public void setPhone(Long phone) {
+        this.phone = phone;
     }
 }

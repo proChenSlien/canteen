@@ -76,7 +76,7 @@ public class VipChildCardInfo {
         this.authImgUrl = authImgUrl;
     }
 
-    @Column(name = "auth_state", nullable = false, columnDefinition = "bigint(20) default 0 COMMENT '认证状态【0-未认证 | 1-认证中 | 2-已认证 | 3-认证失败】'")
+    @Column(name = "auth_state", columnDefinition = "bigint(20) default 0 COMMENT '认证状态【0-未认证 | 1-认证中 | 2-已认证 | 3-认证失败】'")
     public Integer getAuthState() {
         return authState;
     }
@@ -104,7 +104,7 @@ public class VipChildCardInfo {
         this.mainUserId = mainUserId;
     }
 
-    @Column(name = "status", nullable = false, columnDefinition = "bigint(20) default 1 COMMENT '状态【0-无效 | 1-有效】'")
+    @Column(name = "status", columnDefinition = "bigint(20) default 1 COMMENT '状态【0-无效 | 1-有效】'")
     public Integer getStatus() {
         return status;
     }

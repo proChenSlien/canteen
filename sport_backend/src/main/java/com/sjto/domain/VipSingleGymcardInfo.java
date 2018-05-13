@@ -23,6 +23,12 @@ public class VipSingleGymcardInfo {
     @Column(name = "user_id", nullable = false, columnDefinition = "bigint(20) COMMENT '用户唯一编号'")
     private Long userId;
 
+    @Column(name = "login_name", nullable = false, columnDefinition = "varchar(64) COMMENT '用户登录名'")
+    private String loginName;
+
+    @Column(name = "phone", nullable = false, columnDefinition = "bigint(20) COMMENT '手机号码'")
+    private Long phone;
+
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     @Column(name = "end_date", columnDefinition = "datetime COMMENT '结束使用时间'")
     private Date endDate;
@@ -70,6 +76,14 @@ public class VipSingleGymcardInfo {
 
     public void setUserId(Long userId) {
         this.userId = userId;
+    }
+
+    public String getLoginName() {
+        return loginName;
+    }
+
+    public void setLoginName(String loginName) {
+        this.loginName = loginName;
     }
 
     public Date getEndDate() {
@@ -126,5 +140,13 @@ public class VipSingleGymcardInfo {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public Long getPhone() {
+        return phone;
+    }
+
+    public void setPhone(Long phone) {
+        this.phone = phone;
     }
 }
