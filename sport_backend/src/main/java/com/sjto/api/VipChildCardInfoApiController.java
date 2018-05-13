@@ -89,6 +89,23 @@ public class VipChildCardInfoApiController extends BaseController<VipChildCardIn
         return vipChildCardInfoService.recharge(days, id);
     }
 
+    @ApiOperation("儿童会员健身实体卡认证")
+    @ApiImplicitParams({ @ApiImplicitParam(paramType = "query", dataType = "String", name = "authImgUrl", value = "认证图片地址", required = true),
+            @ApiImplicitParam(paramType = "query", dataType = "String", name = "authImgUrl", value = "认证会员卡id", required = true)})
+    @PostMapping("/auth")
+    public Result<VipChildCardInfoRo> auth(String authImgUrl, Long id) {
+
+        //用户是否登录
+        /*RemoteUser user = getCurrentUser();
+        if (user == null) {
+            return  Result.createByErrorCodeMessage(ResultCode.NEED_LOGIN.getCode(), ResultCode.NEED_LOGIN.getDesc());
+        }*/
+
+        Long userId = 123L;
+
+        return vipChildCardInfoService.auth(authImgUrl, id);
+    }
+
     @Override
     protected BaseService<VipChildCardInfo, Long> getService() {
         return vipChildCardInfoService;

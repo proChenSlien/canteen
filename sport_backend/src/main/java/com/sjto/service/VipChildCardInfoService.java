@@ -1,6 +1,7 @@
 package com.sjto.service;
 
 import com.sjto.dto.ro.VipChildCardInfoRo;
+import com.sjto.dto.ro.VipSingleGymcardInfoRo;
 import com.sjto.dto.vo.VipChildCardInfoVo;
 import com.sjto.utils.Result;
 import java.util.List;
@@ -23,4 +24,6 @@ public interface VipChildCardInfoService {
     Result<VipChildCardInfoRo> add(Long userId, VipChildCardInfoVo info);
 
     Result<VipChildCardInfoRo> recharge(Integer days, Long id);
+
+    Result<VipChildCardInfoRo> auth(String authImgUrl, Long id);
 }

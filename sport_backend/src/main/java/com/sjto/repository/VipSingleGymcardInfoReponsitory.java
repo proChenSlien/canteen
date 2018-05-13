@@ -23,4 +23,7 @@ public interface VipSingleGymcardInfoReponsitory extends JpaRepository<VipSingle
     @Query("select o from VipSingleGymcardInfo o where o.userId=?1 and o.status = 1")
     VipSingleGymcardInfo findByUserId(Long userId);
 
+    @Modifying
+    @Query("update VipSingleGymcardInfo o set o.authState=?2 where o.id = ?1")
+    void updateAuthState(Long id, Integer authState);
 }

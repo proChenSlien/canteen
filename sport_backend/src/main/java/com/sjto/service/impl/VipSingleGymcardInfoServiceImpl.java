@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -136,6 +137,18 @@ public class VipSingleGymcardInfoServiceImpl extends AbstractGenericServiceImpl<
             return Result.createByErrorCodeMessage(ResultCode.EXCEPTION.getCode(),ResultCode.EXCEPTION.getDesc());
         }
         return this.queryVipCardInfo(userId, vipSingleGymcardInfo.getLoginName(), vipSingleGymcardInfo.getPhone());
+    }
+
+    @Override
+    @Transactional
+    public Result<VipSingleGymcardInfoRo> verify(Long id, Integer authState) {
+
+        if(id == null){
+            return Result.createByErrorMessage("用户id不能为空");
+        }
+        reponsitory.updateAuthState(id, authState);
+        Optional<VipSingleGymcardInfo> optional = findById(id);
+        return queryVipCardInfo(optional.get().getUserId(),optional.get().getLoginName(),optional.get().getPhone());
     }
 
 

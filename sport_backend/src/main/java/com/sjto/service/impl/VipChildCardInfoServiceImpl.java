@@ -163,6 +163,28 @@ public class VipChildCardInfoServiceImpl extends AbstractGenericServiceImpl<VipC
         return this.queryVipCardInfo(vipChildCardInfo.getMainUserId(),id);
     }
 
+    @Override
+    public Result<VipChildCardInfoRo> auth(String authImgUrl, Long id) {
+
+        if(id == null){
+            return Result.createByErrorMessage("儿童卡id不能为空");
+        }
+
+        if("".equals(authImgUrl)){
+            return Result.createByErrorMessage("请上传照片");
+        }
+        Optional<VipChildCardInfo> optional = findById(id);
+        if(!optional.isPresent()){
+            return Result.createByErrorMessage("认证的会员信息不存在");
+        }
+        VipChildCardInfo vipChildCardInfo = optional.get();
+        vipChildCardInfo.setUpdateTime(new Date());
+        vipChildCardInfo.setAuthState(AuthState.IN_AUTHING.getCode());
+        vipChildCardInfo.setAuthImgUrl(authImgUrl);
+        vipChildCardInfo = save(vipChildCardInfo);
+        return queryVipCardInfo(vipChildCardInfo.getMainUserId(),vipChildCardInfo.getId());
+    }
+
 
     private VipChildCardInfoRo renderVipChildCardInfoRo(VipChildCardInfo vipChildCardInfo) {
         if (vipChildCardInfo == null) {

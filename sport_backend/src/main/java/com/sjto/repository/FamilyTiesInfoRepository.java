@@ -14,7 +14,7 @@ public interface FamilyTiesInfoRepository extends JpaRepository<FamilyTiesInfo, 
 
     @Query(value = "select new com.sjto.dto.vo.FamilyTiesVo(f.id, f.userId, f.shipName, f.phone, vs.authImgUrl" +
             ") from FamilyTiesInfo f " +
-            "left join VipSingleGymcardInfo vs on f.userid = vs.userId " +
+            "left join VipSingleGymcardInfo vs on f.userId = vs.userId " +
             "where f.id = ?1")
     List<FamilyTiesVo> findListFamily(Long id);
 }
