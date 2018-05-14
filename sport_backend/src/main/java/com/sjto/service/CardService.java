@@ -3,6 +3,8 @@ package com.sjto.service;
 import com.sjto.domain.Card;
 import com.sjto.utils.Result;
 
+import java.util.Map;
+
 /**
  * @ClassName CardService
  * @Author wangsai
@@ -11,4 +13,6 @@ import com.sjto.utils.Result;
 public interface CardService extends BaseService<Card, Long>{
 
     Result saveOrUpdate(Card card);
+
+    Result<Map> queryList(int size, int page, Card entity);
 }

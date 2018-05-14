@@ -8,7 +8,10 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Map;
 
 /**
  * @ClassName CardController
@@ -27,6 +30,11 @@ public class CardController extends BaseController<Card, Long> {
     @PostMapping("/merge")
     public Result saveOrUpdate(Card entity) {
         return cardService.saveOrUpdate(entity);
+    }
+
+    @Override
+    public Result<Map> list(@RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "1") int page, Card entity) {
+        return cardService.queryList(size, page, entity);
     }
 
     @Override
