@@ -10,13 +10,12 @@
       </el-button-group>
     </div>
     <el-table :data="tableData" ref="singleTable" highlight-current-row @current-change="selectRow" stripe style="width: 100%">
-
-      <el-table-column type="type" width="100"></el-table-column>
+      <el-table-column type="index" width="100"></el-table-column>
       <el-table-column prop="title" label="广告标题" width="120" ></el-table-column>
-      <el-table-column prop="typeName" label="广告类型" width="130" ></el-table-column>
+      <el-table-column prop="type" label="广告类型" width="130" ></el-table-column>
 
-      <el-table-column prop="url" label="跳转小程序链接" ></el-table-column>
-      <el-table-column prop="url" label="跳转h5链接" ></el-table-column>
+      <el-table-column prop="urlXCX" label="跳转小程序链接" ></el-table-column>
+      <el-table-column prop="urlH5" label="跳转h5链接" ></el-table-column>
       <el-table-column prop="status" label="状态" width="100">
         <template slot-scope="scope">
           <el-tag
@@ -28,7 +27,7 @@
 
       <el-table-column label="操作" width="100">
         <template slot-scope="scope">
-          <el-button type="text" @click="updateFlag(scope.row)">{{ scope.row.flag=='1' ? '禁用' : '启用'}}</el-button>
+          <el-button type="text" @click="updateFlag(scope.row)">{{ scope.row.status=='1' ? '无效' : '有效'}}</el-button>
         </template>
       </el-table-column>
 
@@ -48,6 +47,58 @@
     </el-pagination>
 
     <!--添加-->
+    <el-dialog :title="title" :visible.sync="dialogShow" width="50%">
+      <el-form ref="form" :model="dialogForm" :rules="rules" label-width="100px">
+
+        <el-form-item label="广告名称" prop="name" style="margin-top: 25px;">
+          <el-input v-model="dialogForm.name" style="width: 50%;"></el-input>
+        </el-form-item>
+
+        <el-form-item label="图片" prop="imageUrl" style="margin-top: 25px;">
+          <el-upload
+            drag
+            :action="imageUploadSrc"
+            :on-remove="fileHandleRemove"
+            :before-remove="fileBeforeRemove"
+            :on-exceed="fileHandleExceed"
+            :on-success="fileHandleSuccess"
+            :limit="1"
+            :file-list="fileL"
+            list-type="picture-card"
+            multiple>
+            <i class="el-icon-upload"></i>
+          </el-upload>
+        </el-form-item>
+
+        <el-form-item label="广告类型" style="margin-top: 70px;">
+          <el-select v-model="dialogForm.type" placeholder="状态">
+            <el-option label="商城首页" value="1"></el-option>
+            <el-option label="积分中心入口" value="2"></el-option>
+            <el-option label="积分首页" value="3"></el-option>
+            <el-option label="签到页广告" value="4"></el-option>
+          </el-select>
+        </el-form-item>
+
+        <el-form-item label="跳转小程序地址" prop="pageUrlXCX" style="margin-top: 25px;">
+          <el-input v-model="dialogForm.pageUrlXCX" style="width: 90%;"></el-input>
+        </el-form-item>
+        <el-form-item label="跳转h5地址" prop="pageUrlH5" style="margin-top: 25px;">
+          <el-input v-model="dialogForm.pageUrlH5" style="width: 90%;"></el-input>
+        </el-form-item>
+
+        <el-form-item label="状态" style="margin-top: 25px;">
+          <el-select v-model="dialogForm.flag" placeholder="状态">
+            <el-option label="启用" value="1"></el-option>
+            <el-option label="禁用" value="0"></el-option>
+          </el-select>
+        </el-form-item>
+
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogShow = false">取 消</el-button>
+        <el-button type="primary" @click="onSubmit('form')">确 定</el-button>
+      </div>
+    </el-dialog>
 
 
   </div>
@@ -391,9 +442,9 @@
           }
         })
           .then((response) => {
-          this.tableData = response.data.data.content;
-          this.page = response.data.data.pageable;
-
+          this.tableData = response.data.content.page.content;
+          this.page = response.data.content.page;
+          this.totalCount = this.page.totalElements;
         }).catch(err => {
           this.$message.error('列表加载出错' + err, 2)
         })

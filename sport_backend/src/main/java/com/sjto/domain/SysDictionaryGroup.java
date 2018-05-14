@@ -28,7 +28,7 @@ public class SysDictionaryGroup {
     }
 
     @Basic
-    @Column(name = "gtoup_name", nullable = false, columnDefinition = "varchar(64) COMMENT '字典组名称'")
+    @Column(name = "group_name", nullable = false, columnDefinition = "varchar(64) COMMENT '字典组名称'")
     public String getGroupName() {
         return groupName;
     }
@@ -37,7 +37,7 @@ public class SysDictionaryGroup {
         this.groupName = groupName;
     }
 
-    @Column(name = "group_remark", nullable = false, columnDefinition = "text COMMENT '字典组描述'")
+    @Column(name = "group_remark", nullable = false, columnDefinition = "varchar(128) COMMENT '字典组描述'")
     public String getGroupRemark() {
         return groupRemark;
     }

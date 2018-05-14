@@ -12,7 +12,7 @@ import javax.persistence.*;
 public class SysDictionary {
     private Long id;
     private Long groupId;
-    private String val;
+    private Integer val;
     private String remark;
     private Integer orderNum;
     private Integer status;
@@ -37,12 +37,12 @@ public class SysDictionary {
         this.groupId = groupId;
     }
 
-    @Column(name = "val", nullable = false, columnDefinition = "varchar(64) COMMENT '字典值'")
-    public String getVal() {
+    @Column(name = "val", nullable = false, columnDefinition = "int(11) COMMENT '字典值'")
+    public Integer getVal() {
         return val;
     }
 
-    public void setVal(String val) {
+    public void setVal(Integer val) {
         this.val = val;
     }
 

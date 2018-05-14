@@ -1,6 +1,7 @@
 package com.sjto.service;
 
 import com.sjto.domain.AdImgInfo;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 import java.util.Map;
@@ -16,4 +17,6 @@ public interface AdImgInfoService extends BaseService<AdImgInfo, Long> {
     List<Map<String, Object>> getList();
 
     Boolean isExist(AdImgInfo entity);
+
+    Page<AdImgInfo> getAll(int page, int size, AdImgInfo entity);
 }

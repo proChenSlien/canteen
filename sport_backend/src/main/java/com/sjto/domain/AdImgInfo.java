@@ -32,8 +32,11 @@ public class AdImgInfo {
     @Column(name = "status", nullable = false, columnDefinition = "bigint(20) COMMENT '状态【0-无效 | 1-有效】'")
     private Integer status;
 
-    @Column(name = "url", columnDefinition = "varchar(512) COMMENT '跳转链接'")
-    private String url;
+    @Column(name = "url_xcx", columnDefinition = "varchar(512) COMMENT '跳转小程序链接'")
+    private String urlXCX;
+
+    @Column(name = "url_h5", columnDefinition = "varchar(512) COMMENT '跳转H5链接'")
+    private String urlH5;
 
     @Column(name = "images", columnDefinition = "varchar(512) COMMENT '副背景图地址，以“|”分割'")
     private String images;
@@ -86,12 +89,20 @@ public class AdImgInfo {
         this.status = status;
     }
 
-    public String getUrl() {
-        return url;
+    public String getUrlXCX() {
+        return urlXCX;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setUrlXCX(String urlXCX) {
+        this.urlXCX = urlXCX;
+    }
+
+    public String getUrlH5() {
+        return urlH5;
+    }
+
+    public void setUrlH5(String urlH5) {
+        this.urlH5 = urlH5;
     }
 
     public String getImages() {

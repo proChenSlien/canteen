@@ -1,17 +1,17 @@
 package com.sjto.controller;
 
+import com.google.common.collect.Maps;
 import com.sjto.domain.AdImgInfo;
 import com.sjto.service.AdImgInfoService;
 import com.sjto.service.BaseService;
 import com.sjto.utils.Result;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.domain.Page;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
+import java.util.Map;
 
 /**
  * @Description: 广告位图片信息控制器
@@ -42,7 +42,7 @@ public class AdImgInfoController extends BaseController<AdImgInfo, Long> {
             //保存
             if (entity.getId() == null) {
                 entity.setCreateTime(new Date());
-            }else{
+            } else {
                 AdImgInfo adImgInfo = adImgInfoService.findById(entity.getId()).get();
                 entity.setCreateTime(adImgInfo.getCreateTime());
             }
@@ -52,5 +52,13 @@ public class AdImgInfoController extends BaseController<AdImgInfo, Long> {
         return result;
     }
 
-
+    @Override
+    @ApiOperation("使用记录查询（APP）")
+    @GetMapping(value = "/list")
+    public Result<Map> list(@RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "1") int page, @ModelAttribute AdImgInfo entity) {
+        Page<AdImgInfo> current = adImgInfoService.getAll(page, size, entity);
+        Map map = Maps.newHashMap();
+        map.put("page", current);
+        return Result.createBySuccess(map);
+    }
 }
