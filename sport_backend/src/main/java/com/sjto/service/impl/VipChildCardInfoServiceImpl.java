@@ -1,10 +1,9 @@
 package com.sjto.service.impl;
 
+import com.google.common.collect.Maps;
 import com.sjto.domain.Card;
-import com.sjto.domain.FamilyTiesInfo;
 import com.sjto.domain.VipChildCardInfo;
 import com.sjto.dto.ro.VipChildCardInfoRo;
-import com.sjto.dto.ro.VipSingleGymcardInfoRo;
 import com.sjto.dto.vo.VipChildCardInfoVo;
 import com.sjto.enums.AuthState;
 import com.sjto.enums.CardKind;
@@ -24,7 +23,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
@@ -76,7 +74,7 @@ public class VipChildCardInfoServiceImpl extends AbstractGenericServiceImpl<VipC
     }
 
     @Override
-    public Result<VipChildCardInfoRo> queryVipCardInfo(Long id) {
+    public Result<VipChildCardInfoRo> queryOne(Long id) {
 
         Optional<VipChildCardInfo> optional = findById(id);
 
@@ -130,7 +128,7 @@ public class VipChildCardInfoServiceImpl extends AbstractGenericServiceImpl<VipC
         vipChildCardInfo.setStatus(Status.TRUE.getCode());
         vipChildCardInfo = save(vipChildCardInfo);
 
-        return queryVipCardInfo(vipChildCardInfo.getId());
+        return queryOne(vipChildCardInfo.getId());
     }
 
     @Override
@@ -157,7 +155,7 @@ public class VipChildCardInfoServiceImpl extends AbstractGenericServiceImpl<VipC
         }catch (Exception e){
             return Result.createByErrorCodeMessage(ResultCode.EXCEPTION.getCode(),ResultCode.EXCEPTION.getDesc());
         }
-        return this.queryVipCardInfo(id);
+        return this.queryOne(id);
     }
 
     @Override
@@ -179,11 +177,11 @@ public class VipChildCardInfoServiceImpl extends AbstractGenericServiceImpl<VipC
         vipChildCardInfo.setAuthState(AuthState.IN_AUTHING.getCode());
         vipChildCardInfo.setAuthImgUrl(authImgUrl);
         vipChildCardInfo = save(vipChildCardInfo);
-        return queryVipCardInfo(vipChildCardInfo.getId());
+        return queryOne(vipChildCardInfo.getId());
     }
 
     @Override
-    public Result<Page<VipChildCardInfoRo>> queryAllVipCardInfoList(Integer page, Integer pageSize) {
+    public Result<Map> queryList(Integer page, Integer pageSize) {
         PageRequest pageRequest = PageRequest.of(page - 1, pageSize);
         Page<VipChildCardInfo> pageAll = repository.findAll(pageRequest);
         List<VipChildCardInfoRo> list = Lists.newArrayList();
@@ -193,7 +191,23 @@ public class VipChildCardInfoServiceImpl extends AbstractGenericServiceImpl<VipC
             list.add(this.renderVipChildCardInfoRo(vipChildCardInfo));
         }
         PageImpl resultPage = new PageImpl(list, pageAll.getPageable(), pageAll.getTotalPages());
-        return Result.createBySuccess(resultPage);
+        Map map = Maps.newHashMap();
+        map.put("page",resultPage);
+        return Result.createBySuccess(map);
+    }
+
+    @Override
+    public Result<VipChildCardInfoRo> verify(Long id, Integer authState) {
+
+        if(id == null){
+            return Result.createByErrorMessage("用户id不能为空");
+        }
+        repository.updateAuthState(id, authState);
+        Optional<VipChildCardInfo> optional = findById(id);
+        if(!optional.isPresent()){
+            return Result.createByErrorMessage("审核信息不存在");
+        }
+        return Result.createBySuccess(this.renderVipChildCardInfoRo(optional.get()));
     }
 
 

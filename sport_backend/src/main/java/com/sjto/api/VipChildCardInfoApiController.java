@@ -3,12 +3,10 @@ package com.sjto.api;
 import com.sjto.controller.BaseController;
 import com.sjto.domain.VipChildCardInfo;
 import com.sjto.dto.ro.VipChildCardInfoRo;
-import com.sjto.dto.ro.VipSingleGymcardInfoRo;
 import com.sjto.dto.vo.VipChildCardInfoVo;
 import com.sjto.service.BaseService;
 import com.sjto.service.impl.VipChildCardInfoServiceImpl;
 import com.sjto.utils.Result;
-import com.sjto.utils.ResultCode;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -53,7 +51,7 @@ public class VipChildCardInfoApiController extends BaseController<VipChildCardIn
         if (user == null) {
             return  Result.createByErrorCodeMessage(ResultCode.NEED_LOGIN.getCode(), ResultCode.NEED_LOGIN.getDesc());
         }*/
-        return vipChildCardInfoService.queryVipCardInfo(id);
+        return vipChildCardInfoService.queryOne(id);
     }
 
     @ApiOperation("获取儿童会员健身实体卡认证状态")

@@ -2,7 +2,6 @@ package com.sjto.controller;
 
 import com.sjto.domain.VipChildCardInfo;
 import com.sjto.dto.ro.VipChildCardInfoRo;
-import com.sjto.dto.vo.VipChildCardInfoVo;
 import com.sjto.service.BaseService;
 import com.sjto.service.impl.VipChildCardInfoServiceImpl;
 import com.sjto.utils.Result;
@@ -11,10 +10,8 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -32,18 +29,17 @@ public class VipChildCardInfoController extends BaseController<VipChildCardInfo,
     private VipChildCardInfoServiceImpl vipChildCardInfoService;
 
     @ApiOperation("获取所有的儿童会员健身实体卡列表")
-    @GetMapping("/query/child/cards")
-    public Result<Page<VipChildCardInfoRo>> queryChildCards(@RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "1") int page){
+    @GetMapping("/query/cards")
+    public Result<Map> queryChildCards(@RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "1") int page){
 
-        return vipChildCardInfoService.queryAllVipCardInfoList(page, size);
+        return vipChildCardInfoService.queryList(page, size);
     }
 
     @ApiOperation("获取儿童会员健身实体卡信息")
-    @ApiImplicitParams({ @ApiImplicitParam(paramType = "query", dataType = "Long", name = "id", value = "亲密卡id", required = true)})
-    @GetMapping("/card/info")
-    public Result<VipChildCardInfoRo> queryCardInfo(@RequestParam Long id){
+    @GetMapping("query/one/{id}")
+    public Result<VipChildCardInfoRo> queryCardInfo(@PathVariable Long id){
 
-        return vipChildCardInfoService.queryVipCardInfo(id);
+        return vipChildCardInfoService.queryOne(id);
     }
 
     @ApiOperation("儿童会员健身实体卡到期天数充值")
@@ -53,6 +49,11 @@ public class VipChildCardInfoController extends BaseController<VipChildCardInfo,
         return vipChildCardInfoService.recharge(days, id);
     }
 
+    @ApiOperation("儿童会员健身实体卡照片审核")
+    @PostMapping("/card/verify")
+    public Result<VipChildCardInfoRo> verify(Long id, Integer authState){
+        return vipChildCardInfoService.verify(id,authState);
+    }
 
     @Override
     protected BaseService<VipChildCardInfo, Long> getService() {

@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.stereotype.Repository;
@@ -26,5 +27,9 @@ public interface VipChildCardInfoRepository extends JpaRepository<VipChildCardIn
 
     @Query("select a from VipChildCardInfo a where a.id = ?1 and a.status = 1")
     VipChildCardInfo queryById(Long id);
+
+    @Modifying
+    @Query("update VipChildCardInfo o set o.authState=?2 where o.id = ?1")
+    void updateAuthState(Long id, Integer authState);
 
 }
