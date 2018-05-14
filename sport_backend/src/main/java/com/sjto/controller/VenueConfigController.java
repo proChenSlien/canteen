@@ -31,7 +31,7 @@ public class VenueConfigController extends BaseController<VenueConfigure, Long>{
     @ApiImplicitParam(name = "entity", value = "场馆配置信息对象", required = true, dataType = "VenueConfigure")
     @PostMapping("/merge")
     public Result saveOrUpdate(@ModelAttribute VenueConfigure entity) {
-        Result result = Result.createBySuccess();
+        Result result = Result.createBySuccess("配置成功");
         //判断配置是否重复
         List<VenueConfigure> list = venueConfigService.findVenueConfigure(entity.getKid(), entity.getOid());
         if(list.size() == 0){
