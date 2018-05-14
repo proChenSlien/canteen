@@ -65,7 +65,7 @@ public class VenuePackServiceImpl extends AbstractGenericServiceImpl<VenuePackag
     }
 
     @Override
-    public List<VenuePackages> querylist() {
-        return repository.querylist();
+    public List<VenuePackages> queryListConfigure() {
+        return repository.queryListConfigure();
     }
 }

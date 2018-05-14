@@ -80,4 +80,6 @@ public class FamilyTiesInfoApiController extends BaseController<FamilyTiesInfo, 
 
 
 
+
+
 }

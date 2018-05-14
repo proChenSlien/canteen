@@ -25,5 +25,5 @@ public interface VenuePackRepository extends JpaRepository<VenuePackages,Long>,Q
     List<VenueConfigVo> queryVenuePackMain();
 
     @Query(value = "select v.id from VenueConfigure v")
-    List<VenuePackages> querylist();
+    List<VenuePackages> queryListConfigure();
 }

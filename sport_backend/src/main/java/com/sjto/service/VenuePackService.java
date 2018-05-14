@@ -14,5 +14,5 @@ public interface VenuePackService extends BaseService<VenuePackages, Long>{
 
     List<Map<String, Object>> queryVenuePackMain();
 
-    List<VenuePackages> querylist();
+    List<VenuePackages> queryListConfigure();
 }
