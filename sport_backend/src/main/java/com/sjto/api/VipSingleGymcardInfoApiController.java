@@ -7,6 +7,7 @@ import com.sjto.enums.AuthState;
 import com.sjto.service.BaseService;
 import com.sjto.service.VipSingleGymcardInfoService;
 import com.sjto.utils.Result;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -21,6 +22,7 @@ import java.util.Map;
  * @Author wangsai
  * @Date 2018/5/11 15:39
  **/
+@Api(description = "成人卡前台请求接口列表")
 @RestController
 @RequestMapping("/api/system/vip/single")
 public class VipSingleGymcardInfoApiController extends BaseController<VipSingleGymcardInfo, Long> {

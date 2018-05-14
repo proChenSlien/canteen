@@ -1,5 +1,6 @@
 package com.sjto.service.impl;
 
+import com.google.common.collect.Maps;
 import com.sjto.domain.Card;
 import com.sjto.domain.VipSingleGymcardInfo;
 import com.sjto.dto.ro.VipSingleGymcardInfoRo;
@@ -11,19 +12,21 @@ import com.sjto.repository.CardReponsitory;
 import com.sjto.repository.VipSingleGymcardInfoReponsitory;
 import com.sjto.service.VipSingleGymcardInfoService;
 import com.sjto.utils.CommonUtil;
+import com.sjto.utils.DateUtil;
 import com.sjto.utils.Result;
 import com.sjto.utils.ResultCode;
 import org.apache.commons.lang3.StringUtils;
+import org.assertj.core.util.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * @ClassName VipSingleGymcardInfoServiceImpl
@@ -72,7 +75,7 @@ public class VipSingleGymcardInfoServiceImpl extends AbstractGenericServiceImpl<
         }
         vipSingleGymcardInfo = reponsitory.findByUserId(userId);
 
-        VipSingleGymcardInfoRo vipSingleGymcardInfoRo = getVipSingleGymcardInfoRo(vipSingleGymcardInfo);
+        VipSingleGymcardInfoRo vipSingleGymcardInfoRo = renderVipSingleGymcardInfoRo(vipSingleGymcardInfo);
 
         if (vipSingleGymcardInfoRo != null) {
             return Result.createBySuccess(vipSingleGymcardInfoRo);
@@ -97,9 +100,9 @@ public class VipSingleGymcardInfoServiceImpl extends AbstractGenericServiceImpl<
 
         vipSingleGymcardInfo.setAuthState(AuthState.IN_AUTHING.getCode());
 
-        save(vipSingleGymcardInfo);
+        vipSingleGymcardInfo = save(vipSingleGymcardInfo);
 
-        return this.queryVipCardInfo(userId, vipSingleGymcardInfo.getLoginName(), vipSingleGymcardInfo.getPhone());
+        return Result.createBySuccess(this.renderVipSingleGymcardInfoRo(vipSingleGymcardInfo));
     }
 
     @Override
@@ -117,26 +120,17 @@ public class VipSingleGymcardInfoServiceImpl extends AbstractGenericServiceImpl<
 
         try {
             Date endDate = vipSingleGymcardInfo.getEndDate();
-            if (endDate == null) {
-                endDate = new Date();
-            }
 
-            Calendar cal = Calendar.getInstance();
-
-            cal.setTime(endDate);
-
-            // 计算并累加日期
-            cal.add(Calendar.DATE, days);
-
-            vipSingleGymcardInfo.setEndDate(cal.getTime());
+            vipSingleGymcardInfo.setEndDate(DateUtil.addDay(endDate, days));
 
             vipSingleGymcardInfo.setUpdateTime(new Date());
 
-            save(vipSingleGymcardInfo);
+            vipSingleGymcardInfo = save(vipSingleGymcardInfo);
         }catch (Exception e){
             return Result.createByErrorCodeMessage(ResultCode.EXCEPTION.getCode(),ResultCode.EXCEPTION.getDesc());
         }
-        return this.queryVipCardInfo(userId, vipSingleGymcardInfo.getLoginName(), vipSingleGymcardInfo.getPhone());
+
+        return Result.createBySuccess(this.renderVipSingleGymcardInfoRo(vipSingleGymcardInfo));
     }
 
     @Override
@@ -148,7 +142,41 @@ public class VipSingleGymcardInfoServiceImpl extends AbstractGenericServiceImpl<
         }
         reponsitory.updateAuthState(id, authState);
         Optional<VipSingleGymcardInfo> optional = findById(id);
-        return queryVipCardInfo(optional.get().getUserId(),optional.get().getLoginName(),optional.get().getPhone());
+        if(!optional.isPresent()){
+            return Result.createByErrorMessage("审核信息不存在");
+        }
+        return Result.createBySuccess(this.renderVipSingleGymcardInfoRo(optional.get()));
+    }
+
+    @Override
+    public Result<Map> queryAllVipCardInfoList(int page, int pageSize) {
+        PageRequest pageRequest = PageRequest.of(page - 1, pageSize);
+        Page<VipSingleGymcardInfo> pageAll = reponsitory.findAll(pageRequest);
+        List<VipSingleGymcardInfoRo> list = Lists.newArrayList();
+        Iterator<VipSingleGymcardInfo> iterator = pageAll.iterator();
+        while (iterator.hasNext()){
+            list.add(this.renderVipSingleGymcardInfoRo(iterator.next()));
+        }
+        PageImpl resultPage = new PageImpl(list, pageAll.getPageable(), pageAll.getTotalPages());
+        Map map = Maps.newHashMap();
+        map.put("page",resultPage);
+        return Result.createBySuccess(map);
+    }
+
+    @Override
+    public Result<VipSingleGymcardInfoRo> queryOne(Long id) {
+
+        if(id == null){
+            return Result.createByErrorMessage("id不能为空");
+        }
+
+        Optional<VipSingleGymcardInfo> optional = findById(id);
+
+        if(!optional.isPresent()){
+            return Result.createByErrorMessage("查找不到信息");
+        }
+
+        return Result.createBySuccess(this.renderVipSingleGymcardInfoRo(optional.get()));
     }
 
 
@@ -158,7 +186,7 @@ public class VipSingleGymcardInfoServiceImpl extends AbstractGenericServiceImpl<
      * @param vipSingleGymcardInfo
      * @return
      */
-    private VipSingleGymcardInfoRo getVipSingleGymcardInfoRo(VipSingleGymcardInfo vipSingleGymcardInfo) {
+    private VipSingleGymcardInfoRo renderVipSingleGymcardInfoRo(VipSingleGymcardInfo vipSingleGymcardInfo) {
 
         if (vipSingleGymcardInfo == null) {
             return null;

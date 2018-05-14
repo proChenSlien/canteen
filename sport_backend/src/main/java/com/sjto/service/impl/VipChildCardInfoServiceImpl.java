@@ -1,10 +1,9 @@
 package com.sjto.service.impl;
 
+import com.google.common.collect.Maps;
 import com.sjto.domain.Card;
-import com.sjto.domain.FamilyTiesInfo;
 import com.sjto.domain.VipChildCardInfo;
 import com.sjto.dto.ro.VipChildCardInfoRo;
-import com.sjto.dto.ro.VipSingleGymcardInfoRo;
 import com.sjto.dto.vo.VipChildCardInfoVo;
 import com.sjto.enums.AuthState;
 import com.sjto.enums.CardKind;
@@ -15,11 +14,15 @@ import com.sjto.repository.VipChildCardInfoRepository;
 import com.sjto.repository.VipSingleGymcardInfoReponsitory;
 import com.sjto.service.VipChildCardInfoService;
 import com.sjto.utils.CommonUtil;
+import com.sjto.utils.DateUtil;
 import com.sjto.utils.Result;
 import com.sjto.utils.ResultCode;
 import org.apache.commons.lang3.StringUtils;
 import org.assertj.core.util.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
@@ -71,15 +74,15 @@ public class VipChildCardInfoServiceImpl extends AbstractGenericServiceImpl<VipC
     }
 
     @Override
-    public Result<VipChildCardInfoRo> queryVipCardInfo(Long userId, Long id) {
+    public Result<VipChildCardInfoRo> queryOne(Long id) {
 
-        VipChildCardInfo vipChildCardInfo = repository.queryByUserIdAndId(userId, id);
+        Optional<VipChildCardInfo> optional = findById(id);
 
-        if (vipChildCardInfo == null) {
+        if (!optional.isPresent()) {
             return Result.createByErrorMessage("没有找到该用户的亲密卡信息");
         }
 
-        return Result.createBySuccess(renderVipChildCardInfoRo(vipChildCardInfo));
+        return Result.createBySuccess(renderVipChildCardInfoRo(optional.get()));
     }
 
     @Override
@@ -125,7 +128,7 @@ public class VipChildCardInfoServiceImpl extends AbstractGenericServiceImpl<VipC
         vipChildCardInfo.setStatus(Status.TRUE.getCode());
         vipChildCardInfo = save(vipChildCardInfo);
 
-        return queryVipCardInfo(userId, vipChildCardInfo.getId());
+        return queryOne(vipChildCardInfo.getId());
     }
 
     @Override
@@ -141,18 +144,10 @@ public class VipChildCardInfoServiceImpl extends AbstractGenericServiceImpl<VipC
         }
         try {
             Date endDate = vipChildCardInfo.getEndDate();
-            if (endDate == null) {
-                endDate = new Date();
-            }
 
-            Calendar cal = Calendar.getInstance();
+            endDate = DateUtil.addDay(endDate, days); // 计算日期
 
-            cal.setTime(endDate);
-
-            // 计算并累加日期
-            cal.add(Calendar.DATE, days);
-
-            vipChildCardInfo.setEndDate(cal.getTime());
+            vipChildCardInfo.setEndDate(endDate);
 
             vipChildCardInfo.setUpdateTime(new Date());
 
@@ -160,7 +155,7 @@ public class VipChildCardInfoServiceImpl extends AbstractGenericServiceImpl<VipC
         }catch (Exception e){
             return Result.createByErrorCodeMessage(ResultCode.EXCEPTION.getCode(),ResultCode.EXCEPTION.getDesc());
         }
-        return this.queryVipCardInfo(vipChildCardInfo.getMainUserId(),id);
+        return this.queryOne(id);
     }
 
     @Override
@@ -182,7 +177,37 @@ public class VipChildCardInfoServiceImpl extends AbstractGenericServiceImpl<VipC
         vipChildCardInfo.setAuthState(AuthState.IN_AUTHING.getCode());
         vipChildCardInfo.setAuthImgUrl(authImgUrl);
         vipChildCardInfo = save(vipChildCardInfo);
-        return queryVipCardInfo(vipChildCardInfo.getMainUserId(),vipChildCardInfo.getId());
+        return queryOne(vipChildCardInfo.getId());
+    }
+
+    @Override
+    public Result<Map> queryList(Integer page, Integer pageSize) {
+        PageRequest pageRequest = PageRequest.of(page - 1, pageSize);
+        Page<VipChildCardInfo> pageAll = repository.findAll(pageRequest);
+        List<VipChildCardInfoRo> list = Lists.newArrayList();
+        Iterator<VipChildCardInfo> iterator = pageAll.iterator();
+        while (iterator.hasNext()){
+            VipChildCardInfo vipChildCardInfo = iterator.next();
+            list.add(this.renderVipChildCardInfoRo(vipChildCardInfo));
+        }
+        PageImpl resultPage = new PageImpl(list, pageAll.getPageable(), pageAll.getTotalPages());
+        Map map = Maps.newHashMap();
+        map.put("page",resultPage);
+        return Result.createBySuccess(map);
+    }
+
+    @Override
+    public Result<VipChildCardInfoRo> verify(Long id, Integer authState) {
+
+        if(id == null){
+            return Result.createByErrorMessage("用户id不能为空");
+        }
+        repository.updateAuthState(id, authState);
+        Optional<VipChildCardInfo> optional = findById(id);
+        if(!optional.isPresent()){
+            return Result.createByErrorMessage("审核信息不存在");
+        }
+        return Result.createBySuccess(this.renderVipChildCardInfoRo(optional.get()));
     }
 
 

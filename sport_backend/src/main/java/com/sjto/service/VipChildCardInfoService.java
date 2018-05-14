@@ -1,9 +1,12 @@
 package com.sjto.service;
 
+import com.sjto.domain.VipChildCardInfo;
 import com.sjto.dto.ro.VipChildCardInfoRo;
 import com.sjto.dto.ro.VipSingleGymcardInfoRo;
 import com.sjto.dto.vo.VipChildCardInfoVo;
 import com.sjto.utils.Result;
+import org.springframework.data.domain.Page;
+
 import java.util.List;
 import java.util.Map;
 
@@ -17,7 +20,7 @@ public interface VipChildCardInfoService {
 
     Result<List<VipChildCardInfoRo>> queryByUserId(Long userId);
 
-    Result<VipChildCardInfoRo> queryVipCardInfo(Long userId, Long id);
+    Result<VipChildCardInfoRo> queryOne(Long id);
 
     Result<Map> getAuthState(Long id);
 
@@ -26,4 +29,8 @@ public interface VipChildCardInfoService {
     Result<VipChildCardInfoRo> recharge(Integer days, Long id);
 
     Result<VipChildCardInfoRo> auth(String authImgUrl, Long id);
+
+    Result<Map> queryList(Integer page, Integer pageSize);
+
+    Result<VipChildCardInfoRo> verify(Long id, Integer authState);
 }

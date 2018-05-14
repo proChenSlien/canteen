@@ -5,6 +5,7 @@ import com.sjto.service.BaseService;
 import com.sjto.service.VenueConfigService;
 import com.sjto.service.VenuePackService;
 import com.sjto.utils.Result;
+import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -27,6 +28,7 @@ public class VenueConfigController extends BaseController<VenueConfigure, Long>{
     }
 
     @ApiOperation("添加或更新")
+    @ApiImplicitParam(name = "entity", value = "场馆配置信息对象", required = true, dataType = "VenueConfigure")
     @PostMapping("/merge")
     public Result saveOrUpdate(@ModelAttribute VenueConfigure entity) {
         Result result = Result.createBySuccess();
