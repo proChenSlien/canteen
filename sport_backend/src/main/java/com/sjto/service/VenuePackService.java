@@ -5,11 +5,14 @@ import org.springframework.data.domain.Example;
 
 import javax.jdo.annotations.Query;
 import java.util.List;
+import java.util.Map;
 
 public interface VenuePackService extends BaseService<VenuePackages, Long>{
 
 
-    List<VenuePackages> queryVenuePackList();
+    List<Map<String, Object>> queryVenuePackList();
 
-    List<VenuePackages> queryVenuePackMain();
+    List<Map<String, Object>> queryVenuePackMain();
+
+    List<VenuePackages> queryListConfigure();
 }
