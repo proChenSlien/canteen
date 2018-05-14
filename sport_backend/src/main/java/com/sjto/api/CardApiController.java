@@ -25,13 +25,6 @@ public class CardApiController extends BaseController<Card, Long> {
 
 
     @Override
-    @ApiOperation("更新或新增会员卡")
-    @PostMapping("/merge")
-    public Result saveOrUpdate(Card entity) {
-        return cardService.saveOrUpdate(entity);
-    }
-
-    @Override
     protected BaseService<Card, Long> getService() {
         return cardService;
     }
