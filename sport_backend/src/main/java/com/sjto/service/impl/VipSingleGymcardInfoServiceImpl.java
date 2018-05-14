@@ -11,6 +11,7 @@ import com.sjto.repository.CardReponsitory;
 import com.sjto.repository.VipSingleGymcardInfoReponsitory;
 import com.sjto.service.VipSingleGymcardInfoService;
 import com.sjto.utils.CommonUtil;
+import com.sjto.utils.DateUtil;
 import com.sjto.utils.Result;
 import com.sjto.utils.ResultCode;
 import org.apache.commons.lang3.StringUtils;
@@ -117,18 +118,8 @@ public class VipSingleGymcardInfoServiceImpl extends AbstractGenericServiceImpl<
 
         try {
             Date endDate = vipSingleGymcardInfo.getEndDate();
-            if (endDate == null) {
-                endDate = new Date();
-            }
 
-            Calendar cal = Calendar.getInstance();
-
-            cal.setTime(endDate);
-
-            // 计算并累加日期
-            cal.add(Calendar.DATE, days);
-
-            vipSingleGymcardInfo.setEndDate(cal.getTime());
+            vipSingleGymcardInfo.setEndDate(DateUtil.addDay(endDate, days));
 
             vipSingleGymcardInfo.setUpdateTime(new Date());
 

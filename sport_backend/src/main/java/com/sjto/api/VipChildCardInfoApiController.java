@@ -9,6 +9,7 @@ import com.sjto.service.BaseService;
 import com.sjto.service.impl.VipChildCardInfoServiceImpl;
 import com.sjto.utils.Result;
 import com.sjto.utils.ResultCode;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -23,6 +24,7 @@ import java.util.Map;
  * @Author wangsai
  * @Date 2018/5/12 17:53
  **/
+@Api(description = "儿童卡前台请求接口列表")
 @RestController
 @RequestMapping("/api/system/vip/child")
 public class VipChildCardInfoApiController extends BaseController<VipChildCardInfo, Long> {
@@ -51,8 +53,7 @@ public class VipChildCardInfoApiController extends BaseController<VipChildCardIn
         if (user == null) {
             return  Result.createByErrorCodeMessage(ResultCode.NEED_LOGIN.getCode(), ResultCode.NEED_LOGIN.getDesc());
         }*/
-        Long userId = 123L;
-        return vipChildCardInfoService.queryVipCardInfo(userId, id);
+        return vipChildCardInfoService.queryVipCardInfo(id);
     }
 
     @ApiOperation("获取儿童会员健身实体卡认证状态")

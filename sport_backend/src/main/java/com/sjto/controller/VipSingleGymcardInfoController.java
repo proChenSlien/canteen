@@ -5,6 +5,7 @@ import com.sjto.dto.ro.VipSingleGymcardInfoRo;
 import com.sjto.service.BaseService;
 import com.sjto.service.VipSingleGymcardInfoService;
 import com.sjto.utils.Result;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @Date 2018/5/11 15:39
  **/
 
+@Api(description = "成人卡后台请求接口列表")
 @RestController
 @RequestMapping("/manage/system/vip/single")
 public class VipSingleGymcardInfoController extends BaseController<VipSingleGymcardInfo, Long>  {
