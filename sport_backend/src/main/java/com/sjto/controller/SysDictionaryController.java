@@ -4,6 +4,8 @@ import com.sjto.domain.SysDictionary;
 import com.sjto.service.BaseService;
 import com.sjto.service.SysDictionaryService;
 import com.sjto.utils.Result;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +26,7 @@ public class SysDictionaryController extends BaseController<SysDictionary, Long>
     }
 
     @ApiOperation("字典查询")
+    @ApiImplicitParams({ @ApiImplicitParam(dataType = "Long", name = "id", value = "字典编号", required = true)})
     @GetMapping("/findDictionaryInfo/{id}")
     public Result findDictionaryInfoById(@PathVariable Long id){
         Map<String, Object> map = sysDictionaryService.findDictionaryInfoById(id);

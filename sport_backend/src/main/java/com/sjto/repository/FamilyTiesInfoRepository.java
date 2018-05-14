@@ -1,6 +1,8 @@
 package com.sjto.repository;
 
 import com.sjto.domain.FamilyTiesInfo;
+import com.sjto.domain.VipChildCardInfo;
+import com.sjto.dto.vo.FamilyAndVipChild;
 import com.sjto.dto.vo.FamilyTiesVo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
@@ -15,6 +17,11 @@ public interface FamilyTiesInfoRepository extends JpaRepository<FamilyTiesInfo, 
     @Query(value = "select new com.sjto.dto.vo.FamilyTiesVo(f.id, f.userId, f.shipName, f.phone, vs.authImgUrl" +
             ") from FamilyTiesInfo f " +
             "left join VipSingleGymcardInfo vs on f.userId = vs.userId " +
-            "where f.id = ?1")
+            "where f.sid = ?1")
     List<FamilyTiesVo> findListFamily(Long id);
+
+    @Query(value = "select new com.sjto.dto.vo.FamilyAndVipChild(v.mainUserId) " +
+            "from FamilyTiesInfo f left join VipChildCardInfo v on v.id = f.sid " +
+            "where f.sid = ?1" )
+    FamilyAndVipChild findChildMainUser(Long id);
 }
