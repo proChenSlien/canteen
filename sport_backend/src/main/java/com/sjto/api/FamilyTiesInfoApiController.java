@@ -19,6 +19,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @Description:监护人
+ * @Author: chenpeng
+ * @Date: 2018/5/13  15:30
+ */
 @RestController
 @RequestMapping("/api/family/familyTies")
 public class FamilyTiesInfoApiController extends BaseController<FamilyTiesInfo, Long> {
