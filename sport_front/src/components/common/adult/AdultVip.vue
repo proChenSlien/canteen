@@ -114,7 +114,7 @@
           })
       },
       loadCardGroups: function () {
-        this.axios.get('/manage/system/sysDictionary/findDictionaryInfo/3')
+        this.axios.get('/manage/system/sysDictionary/findDictionaryInfoByGroupId/3')
           .then((response) => {
             console.log('response',response)
             this.cardGroups = response.data.content;

@@ -26,6 +26,17 @@
         <img class="form-value" style="width: 200px;height: 200px" src="https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100"/>
       </el-form-item>
 
+      <el-form-item label="是否通过">
+        <el-select v-model="authState" placeholder="请选择活动区域">
+          <el-option
+            v-for="item in authGroups"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value">
+          </el-option>
+        </el-select>
+      </el-form-item>
+
     </el-form>
     <div slot="footer" class="dialog-footer">
       <el-button @click="opened = false">取 消</el-button>
@@ -47,6 +58,8 @@
     },
     data() {
       return {
+        authState: '',
+        AuthGroups: [],
         authTagTypes : ['info', 'warning', 'success', 'danger'],// 未认证，认证中，已认证，认证失败
         useTagTypes: ['info', 'success', 'danger']// 未开通，已开通，已到期
       }
@@ -55,7 +68,7 @@
 
     },
     mounted: function () {
-
+      this.loadAuthGroups();
     },
     methods: {
       onSubmit:function () {
@@ -63,6 +76,15 @@
           .then((r) => {
           this.$emit("submitSuccess")
         })
+      },
+      loadAuthGroups: function () {
+        this.axios.get('/manage/system/sysDictionary/findDictionaryInfoByGroupId/4')
+          .then((response) => {
+            this.AuthGroups = response.data.content;
+          })
+          .catch(err => {
+            this.$message.error('列表加载出错' + err, 2)
+          })
       }
     }
   }
