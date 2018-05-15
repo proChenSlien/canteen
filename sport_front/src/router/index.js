@@ -10,6 +10,8 @@ import store from '@/store'
 import AdImgInfo from '@/components/common/advertisement/AdImgInfo'
 import Card from '@/components/common/card/Card'
 import AdultVip from '@/components/common/adult/AdultVip'
+import VenueInfo from '@/components/operation/venue/VenueInfo'
+import SysDictionary from '@/components/operation/sysDictionary/SysDictionary'
 
 Vue.use(Router)
 
