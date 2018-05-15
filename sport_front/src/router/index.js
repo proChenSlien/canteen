@@ -12,6 +12,7 @@ import Card from '@/components/common/card/Card'
 import AdultVip from '@/components/common/adult/AdultVip'
 import VenueInfo from '@/components/operation/venue/VenueInfo'
 import SysDictionary from '@/components/operation/sysDictionary/SysDictionary'
+import Record from '@/components/common/conversionCard/Record'
 
 Vue.use(Router)
 
@@ -112,6 +113,19 @@ let businessRouters = [
         path: 'sysDictionary',
         component: SysDictionary,
         name: '字典信息',
+        icon: 'icon-user'
+      }
+    ]
+  },{
+    path: '/conversionCard',
+    name: '兑换卡',
+    icon: 'icon-lock',
+    component: Sub,
+    children: [
+      {
+        path: 'record',
+        component: Record,
+        name: '兑换记录',
         icon: 'icon-user'
       }
     ]
