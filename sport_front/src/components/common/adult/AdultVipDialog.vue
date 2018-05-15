@@ -1,7 +1,7 @@
 <template>
   <el-dialog :title="title" :visible.sync="opened" width="500px">
     <!--<input type="hidden" :model="currentModel.id">-->
-    <el-form ref="form" :model="currentModel" label-width="80px" >
+    <el-form ref="form" :rules="rules" :model="dialogForm" label-width="80px" >
       <el-form-item label="名称" >
         <span class="form-value">{{currentModel.loginName}}</span>
       </el-form-item>
@@ -26,8 +26,8 @@
         <img class="form-value" style="width: 200px;height: 200px" src="https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100"/>
       </el-form-item>
 
-      <el-form-item label="是否通过">
-        <el-select v-model="authState" placeholder="请选择活动区域">
+      <el-form-item label="是否通过" prop="authState">
+        <el-select clearable v-model="dialogForm.authState" placeholder="请选择是否通过">
           <el-option
             v-for="item in authGroups"
             :key="item.value"
@@ -40,7 +40,7 @@
     </el-form>
     <div slot="footer" class="dialog-footer">
       <el-button @click="opened = false">取 消</el-button>
-      <el-button type="primary" @click="onSubmit">确 定</el-button>
+      <el-button type="primary" @click="onSubmit('form')">确 定</el-button>
     </div>
   </el-dialog>
 </template>
@@ -58,29 +58,81 @@
     },
     data() {
       return {
-        authState: '',
-        AuthGroups: [],
+        authGroups: [],
         authTagTypes : ['info', 'warning', 'success', 'danger'],// 未认证，认证中，已认证，认证失败
-        useTagTypes: ['info', 'success', 'danger']// 未开通，已开通，已到期
+        useTagTypes: ['info', 'success', 'danger'],// 未开通，已开通，已到期
+        dialogForm:{
+          authState: ''
+        },
+        rules: {
+          authState: [
+            { required: true, message: '请选择认证状态', trigger: 'blur' },
+            {
+              validator: (rule, value, callback) => {
+                if(value==undefined) {
+                  callback(new Error('请选择认证状态'))
+                } else {
+                  callback()
+                }
+              }
+            }
+          ]
+        }
       }
     },
     computed: {
 
     },
     mounted: function () {
-      this.loadAuthGroups();
+      this.loadAuthGroups()
+    },
+    watch: {
+      currentModel: function (model) {
+        console.log('model',model)
+        this.dialogForm.authState = model.authState.status
+      }
     },
     methods: {
-      onSubmit:function () {
-        this.axios.post('/manage/system/card/merge',qs.stringify(this.currentModel, { skipNulls: true }))
-          .then((r) => {
-          this.$emit("submitSuccess")
+      onSubmit:function (formName) {
+        this.loading = true
+        var formData = this.dialogForm
+        this.$refs[formName].validate((valid) => {
+          if (valid) {
+            this.axios({
+              url: `/manage/system/vip/adult/verify/${this.currentModel.id}`,
+              method: 'post',
+              data: formData,
+              transformRequest: [function (data) {
+                let ret = ''
+                for (let it in data) {
+                  ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+                }
+                return ret
+              }],
+              headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+              }
+            }).then((r) => {
+              this.dialogShow = false
+              this.$message({
+                message: '操作成功',
+                type: 'success'
+              });
+              //this.$refs[formName].resetFields()
+              this.fileL= []
+              this.$emit("submitSuccess")
+            })
+          } else {
+            console.log('error submit!!');
+            return false;
+          }
         })
       },
       loadAuthGroups: function () {
         this.axios.get('/manage/system/sysDictionary/findDictionaryInfoByGroupId/4')
           .then((response) => {
-            this.AuthGroups = response.data.content;
+            console.log('response',response)
+            this.authGroups = response.data.content;
           })
           .catch(err => {
             this.$message.error('列表加载出错' + err, 2)

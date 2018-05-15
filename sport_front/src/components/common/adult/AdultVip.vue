@@ -23,10 +23,8 @@
     <!--工具条-->
     <div class="tool-bar">
       <el-button-group>
-        <el-button type="primary" icon="verify" @click="modifyOne">审核</el-button>
-        <el-button type="primary" icon="recharge" @click="modifyOne">充值</el-button>
-        <el-button type="primary" icon="share" @click="createOne">新增</el-button>
-        <el-button type="primary" icon="delete" @click="deleteOne">删除</el-button>
+        <el-button type="primary" icon="verify" @click="verify">审核</el-button>
+        <el-button type="primary" icon="recharge" @click="recharge">充值</el-button>
       </el-button-group>
     </div>
 
@@ -67,7 +65,9 @@
 
     <adult-vip-dialog :visible.sync="dialogVisible" @submitSuccess="loadMainData" :currentModel="currentModel"
                  :title="dialogTitle"></adult-vip-dialog>
-    <adult-vip-recharge-dialog :visible.sync="rechargeDialogVisible" ></adult-vip-recharge-dialog>
+
+    <adult-vip-recharge-dialog :visible.sync="rechargeDialogVisible" @submitSuccess="loadMainData" :currentModel="currentModel"
+                               :title="dialogTitle" ></adult-vip-recharge-dialog>
   </div>
 </template>
 
@@ -129,7 +129,7 @@
       },
 
       // tool-bar
-      modifyOne: function () {
+      verify: function () {
         if (this.currentRow == null) {
           this.$message.error('请先选中数据', 2)
           return
@@ -138,6 +138,16 @@
         this.dialogTitle = "会员审核"
         this.currentModel = this.currentRow
         this.dialogVisible = true
+      },
+
+      recharge: function () {
+        if (this.currentRow == null) {
+          this.$message.error('请先选中数据', 2)
+          return
+        }
+        this.dialogTitle = "会员充值"
+        this.currentModel = this.currentRow
+        this.rechargeDialogVisible = true
       },
       deleteOne: function () {
         if (this.currentRow == null) {
