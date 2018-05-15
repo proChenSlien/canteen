@@ -65,19 +65,20 @@
                    class="page">
     </el-pagination>
 
-    <card-dialog :visible.sync="dialogVisible" @submitSuccess="loadMainData" :currentModel="currentModel"
-                 :title="dialogTitle"></card-dialog>
-
+    <adult-vip-dialog :visible.sync="dialogVisible" @submitSuccess="loadMainData" :currentModel="currentModel"
+                 :title="dialogTitle"></adult-vip-dialog>
+    <adult-vip-recharge-dialog :visible.sync="rechargeDialogVisible" ></adult-vip-recharge-dialog>
   </div>
 </template>
 
 <script>
   import qs from 'qs'
-
-  import CardDialog from "./AdultVipDialog.vue";
+  import AdultVipDialog from "./AdultVipDialog.vue"
+  import AdultVipRechargeDialog from "./AdultVipRechargeDialog.vue"
   export default {
     components: {
-      CardDialog
+      AdultVipDialog,
+      AdultVipRechargeDialog
     },
     name: 'AdultVip',
     data() {
@@ -86,7 +87,11 @@
         page: {},       // 分页和数据
         currentRow: null, // 当前选中行
         dialogVisible: false,
-        currentModel: {},
+        rechargeDialogVisible : false,
+        currentModel: {
+          authState:{},
+          useState:{}
+        },
         dialogTitle: "新增会员卡",
         cardGroups:[]
       }
@@ -130,7 +135,7 @@
           return
         }
 
-        this.dialogTitle = "修改会员卡"
+        this.dialogTitle = "会员审核"
         this.currentModel = this.currentRow
         this.dialogVisible = true
       },
