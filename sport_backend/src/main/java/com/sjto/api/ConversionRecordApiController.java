@@ -5,6 +5,9 @@ import com.sjto.domain.ConversionRecord;
 import com.sjto.service.BaseService;
 import com.sjto.service.ConversionRecordService;
 import com.sjto.utils.Result;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +19,7 @@ import java.util.Date;
  * @Author: fanyongjiu
  * @Date: 18/5/12 11:07
  */
+@Api(description = "兑换信息")
 @RestController
 @RequestMapping("/api/conversion/record")
 public class ConversionRecordApiController extends BaseController<ConversionRecord, Long> {
@@ -28,6 +32,8 @@ public class ConversionRecordApiController extends BaseController<ConversionReco
     }
 
     @ApiOperation("兑换信息保存（APP）")
+    @ApiImplicitParams({ @ApiImplicitParam(paramType = "query", dataType = "String", name = "authImgUrl", value = "认证图片地址", required = true),
+            @ApiImplicitParam(paramType = "query", dataType = "String", name = "authImgUrl", value = "认证会员卡id", required = true)})
     @PostMapping(value = "/save")
     public Result save(@RequestBody ConversionRecord entity) {
         Result result = Result.createBySuccess();

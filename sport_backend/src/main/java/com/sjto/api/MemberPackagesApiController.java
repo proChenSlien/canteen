@@ -5,6 +5,9 @@ import com.sjto.domain.MemberPackages;
 import com.sjto.service.BaseService;
 import com.sjto.service.MemberPackagesService;
 import com.sjto.utils.Result;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +19,7 @@ import java.util.List;
  * @Author: fanyongjiu
  * @Date: 18/5/12 9:35
  */
+@Api(description = "产品套餐")
 @RestController
 @RequestMapping("/api/member/packages")
 public class MemberPackagesApiController extends BaseController<MemberPackages, Long> {
@@ -28,6 +32,7 @@ public class MemberPackagesApiController extends BaseController<MemberPackages, 
     }
 
     @ApiOperation("产品套餐信息查询（APP）")
+    @ApiImplicitParams({ @ApiImplicitParam(dataType = "Long", name = "id", value = "产品套餐编号", required = true)})
     @GetMapping("/getOne/{id}")
     public Result getAdImgInfo(@PathVariable Long id) {
         MemberPackages memberPackages = memberPackagesService.getOne(id);

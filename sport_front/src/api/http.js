@@ -7,9 +7,9 @@ import router from '../router'
 const adminApiGateway = '/api'
 
 const imageServer = `${adminApiGateway}`
-const imageUpload = `${adminApiGateway}/img/sysContent/uploadImg/`
-const imageDeleteShort = '/img/sysContent/imgDelete/'
-const imageView = `${adminApiGateway}/img/sysContent/image/`
+const imageUpload = `${adminApiGateway}/sport/uploadImg/`
+const imageDeleteShort = '/sport/imgDelete/'
+const imageView = `${adminApiGateway}/sport/image/`
 
 axios.defaults.timeout = 115000
 axios.defaults.baseURL = adminApiGateway
@@ -71,8 +71,8 @@ axios.interceptors.response.use(
 )
 
 
-//export {axios, imageServer, adminApiGateway, imageUpload, imageView, imageDeleteShort}
-export default axios
+export {axios, imageServer, adminApiGateway, imageUpload, imageView, imageDeleteShort}
+// export default axios
 
 
 

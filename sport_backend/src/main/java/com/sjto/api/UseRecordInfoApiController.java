@@ -8,6 +8,9 @@ import com.sjto.service.BaseService;
 import com.sjto.service.CardService;
 import com.sjto.service.UseRecordInfoService;
 import com.sjto.utils.Result;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +24,7 @@ import java.util.Optional;
  * @Author: fanyongjiu
  * @Date: 18/5/11 18:46
  */
+@Api(description = "使用记录")
 @RestController
 @RequestMapping("/api/card/useRec")
 public class UseRecordInfoApiController extends BaseController<UseRecordInfo, Long> {
@@ -51,6 +55,7 @@ public class UseRecordInfoApiController extends BaseController<UseRecordInfo, Lo
     }
 
     @ApiOperation("使用记录插入（APP）")
+    @ApiImplicitParams({ @ApiImplicitParam(dataType = "Long", name = "cardId", value = "卡编号", required = true)})
     @PostMapping(value = "/save")
     public Result save(@RequestParam Long cardId) {
         Result result = Result.createBySuccess();

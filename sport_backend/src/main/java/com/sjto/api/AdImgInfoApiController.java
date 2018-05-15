@@ -6,6 +6,9 @@ import com.sjto.service.AdImgInfoService;
 import com.sjto.service.BaseService;
 import com.sjto.utils.CommonUtil;
 import com.sjto.utils.Result;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +24,7 @@ import java.util.Map;
  * @Author: fanyongjiu
  * @Date: 18/5/11 16:13
  */
+@Api(description = "活动广告")
 @RestController
 @RequestMapping("/api/adImgInfo")
 public class AdImgInfoApiController extends BaseController<AdImgInfo, Long> {
@@ -46,6 +50,7 @@ public class AdImgInfoApiController extends BaseController<AdImgInfo, Long> {
     }
 
     @ApiOperation("活动广告详情查询（APP）")
+    @ApiImplicitParams({ @ApiImplicitParam(dataType = "Long", name = "id", value = "活动广告编号", required = true)})
     @GetMapping("/getOne/{id}")
     public Result getAdImgInfo(@PathVariable Long id) {
         Map<String, Object> map = adImgInfoService.getImgInfo(id);

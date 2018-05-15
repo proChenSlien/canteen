@@ -47,7 +47,7 @@
     </el-pagination>
 
     <!--添加-->
-    <el-dialog :title="title" :visible.sync="dialogShow" width="50%">
+    <el-dialog :title="title" :visible.sync="dialogShow" width="60%">
       <el-form ref="form" :model="dialogForm" :rules="rules" label-width="100px">
 
         <el-form-item label="广告名称" prop="name" style="margin-top: 25px;">
@@ -62,7 +62,7 @@
             :before-remove="fileBeforeRemove"
             :on-exceed="fileHandleExceed"
             :on-success="fileHandleSuccess"
-            :limit="1"
+            :limit="10"
             :file-list="fileL"
             list-type="picture-card"
             multiple>

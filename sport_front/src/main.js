@@ -5,7 +5,7 @@ import App from './App'
 import router from './router'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
-import axios from './api/http'
+import {axios} from './api/http'
 import store from './store'
 
 // 默认尺寸

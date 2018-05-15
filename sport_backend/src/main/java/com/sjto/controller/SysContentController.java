@@ -37,7 +37,7 @@ import java.util.Map;
 
 @Api(value = "图片接口", tags = {"图片相关"})
 @RestController
-@RequestMapping("/app/sport")
+@RequestMapping("/sport")
 public class SysContentController {
     protected final Logger log = LoggerFactory.getLogger(this.getClass());
 
