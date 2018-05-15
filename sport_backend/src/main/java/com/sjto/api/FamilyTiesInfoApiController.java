@@ -10,6 +10,7 @@ import com.sjto.service.BaseService;
 import com.sjto.service.FamilyTiesInfoService;
 import com.sjto.service.VipChildCardInfoService;
 import com.sjto.utils.Result;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -24,6 +25,7 @@ import java.util.Map;
  * @Author: chenpeng
  * @Date: 2018/5/13  15:30
  */
+@Api(description = "监护人前台接口列表")
 @RestController
 @RequestMapping("/api/family/familyTies")
 public class FamilyTiesInfoApiController extends BaseController<FamilyTiesInfo, Long> {

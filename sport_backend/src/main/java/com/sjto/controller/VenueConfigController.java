@@ -5,6 +5,7 @@ import com.sjto.service.BaseService;
 import com.sjto.service.VenueConfigService;
 import com.sjto.service.VenuePackService;
 import com.sjto.utils.Result;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+/**
+ * @Description:场馆配置
+ * @Author: chenpeng
+ * @Date: 2018/5/12  16:30
+ */
+@Api(description = "场馆配置后台请求接口列表")
 @RestController
 @RequestMapping("/manage/system/venueConfig")
 public class VenueConfigController extends BaseController<VenueConfigure, Long>{

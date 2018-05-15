@@ -5,6 +5,7 @@ import com.sjto.domain.VenuePackages;
 import com.sjto.service.BaseService;
 import com.sjto.service.VenuePackService;
 import com.sjto.utils.Result;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,7 +15,12 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.Map;
 
-
+/**
+ * @Description:次票
+ * @Author: chenpeng
+ * @Date: 2018/5/11  15:30
+ */
+@Api(description = "次票前台接口列表")
 @RestController
 @RequestMapping("/api/venue/venuePackages")
 public class VenuePackApiController extends BaseController<VenuePackages, Long> {
