@@ -1,11 +1,11 @@
 package com.sjto.service;
 
 import com.sjto.domain.SysDictionary;
-
-import java.util.Map;
+import com.sjto.dto.vo.SysDictionaryVo;
+import java.util.List;
 
 public interface SysDictionaryService extends BaseService<SysDictionary, Long> {
 
-    Map<String, Object> findDictionaryInfoById(Long id);
+    List<SysDictionaryVo> findDictionaryInfoByGroupId(Long id);
 
 }
