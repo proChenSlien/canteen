@@ -32,8 +32,6 @@ public class ConversionRecordApiController extends BaseController<ConversionReco
     }
 
     @ApiOperation("兑换信息保存（APP）")
-    @ApiImplicitParams({ @ApiImplicitParam(paramType = "query", dataType = "String", name = "authImgUrl", value = "认证图片地址", required = true),
-            @ApiImplicitParam(paramType = "query", dataType = "String", name = "authImgUrl", value = "认证会员卡id", required = true)})
     @PostMapping(value = "/save")
     public Result save(@RequestBody ConversionRecord entity) {
         Result result = Result.createBySuccess();
@@ -45,7 +43,7 @@ public class ConversionRecordApiController extends BaseController<ConversionReco
 //        }
 
         Long userId = 1L;
-        String userName = "范永久";
+        String userName = "admin";
 //        //校验兑换的礼品卡
 //        Long sid = entity.getSid();
 //

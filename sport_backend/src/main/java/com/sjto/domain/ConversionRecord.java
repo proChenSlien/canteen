@@ -2,6 +2,8 @@ package com.sjto.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -11,15 +13,19 @@ import java.util.Date;
  * @Author:
  * @Date: 18/5/10 15:26
  */
+@ApiModel("兑换信息")
 @Entity
 @Table(name = "conversion_record")
 @JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
 public class ConversionRecord {
     private Long id;
+    @ApiModelProperty("兑换的礼品卡编号")
     private Long sid;
     private Long userId;
     private String userName;
+    @ApiModelProperty("使用的健身卡实体编号【关联运动会员单人健身卡信息】")
     private Long pid;
+    @ApiModelProperty("兑换天数")
     private Integer days;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date createTime;
