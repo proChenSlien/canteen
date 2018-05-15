@@ -22,4 +22,15 @@ public interface SysDictionaryRepository extends JpaRepository<SysDictionary, Lo
      * @return
      */
     List<SysDictionary> findAll();
+
+    @Query(value = "select new com.sjto.dto.vo.SysDictionaryVo(sd.id, sd.val, sd.remark, sd.orderNum, sdg.groupName, sdg.groupRemark, sdg.orderNum) from SysDictionary sd " +
+            "left join SysDictionaryGroup sdg on sdg.groupId = sd.groupId " +
+            "where sd.id = ?1")
+    SysDictionaryVo findDictionaryInfoById(Long id);
+
+
+    @Query(value = "select new com.sjto.dto.vo.SysDictionaryVo(sd.id, sd.val, sd.remark, sd.orderNum, sdg.groupName, sdg.groupRemark, sdg.orderNum) from SysDictionary sd " +
+            "left join SysDictionaryGroup sdg on sdg.groupId = sd.groupId " +
+            "where sd.status = 1 ")
+    List<SysDictionaryVo> findDictionaryList();
 }

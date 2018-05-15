@@ -27,7 +27,7 @@ public class SysDictionaryController extends BaseController<SysDictionary, Long>
         return sysDictionaryService;
     }
 
-    @ApiOperation("字典查询")
+    @ApiOperation("字典查询（根据字典组id查询）")
     @ApiImplicitParams({ @ApiImplicitParam(dataType = "Long", name = "groupId", value = "字典组编号", required = true)})
     @GetMapping("/findDictionaryInfo/{groupId}")
     public Result findDictionaryInfoByGroupId(@PathVariable Long groupId){
@@ -36,6 +36,24 @@ public class SysDictionaryController extends BaseController<SysDictionary, Long>
             return Result.createByErrorMessage("未查询到该字典信息");
         }
         return Result.createBySuccess(list);
+    }
+
+    @ApiOperation("字典查询")
+    @ApiImplicitParams({ @ApiImplicitParam(dataType = "Long", name = "id", value = "字典编号", required = true)})
+    @GetMapping("/findDictionaryInfo/{id}")
+    public Result findDictionaryInfoById(@PathVariable Long id){
+        Map<String, Object> map = sysDictionaryService.findDictionaryInfoById(id);
+        if (map.size() == 0) {
+            return Result.createByErrorMessage("未查询到该字典信息");
+        }
+        return Result.createBySuccess(map);
+    }
+
+    @ApiOperation("字典列表查询")
+    @GetMapping("/findDictionaryList")
+    public Result findDictionaryList(){
+        List<Map<String, Object>> current = sysDictionaryService.findDictionaryList();
+        return Result.createBySuccess(current);
     }
 
 
