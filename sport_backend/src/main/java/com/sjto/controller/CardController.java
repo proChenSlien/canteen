@@ -4,6 +4,7 @@ import com.sjto.domain.Card;
 import com.sjto.service.BaseService;
 import com.sjto.service.CardService;
 import com.sjto.utils.Result;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,6 +19,7 @@ import java.util.Map;
  * @Author wangsai
  * @Date 2018/5/11 13:31
  **/
+@Api(description = "卡类管理接口列表")
 @RestController
 @RequestMapping("/manage/system/card")
 public class CardController extends BaseController<Card, Long> {
