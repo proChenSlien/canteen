@@ -18,7 +18,6 @@
 
     <!--分页-->
     <el-pagination v-show="page.content.length > 0"
-                   @size-change="handleSizeChange"
                    @current-change="handleCurrentChange"
                    :current-page.sync="currentPage"
                    :page-sizes="[5, 10, 15, 20]"
@@ -30,23 +29,8 @@
 
 
 
-    <user-dialog :visible.sync="venueDialogVisible" @submitSuccess="loadMainData" :currentModel="currentModel"
-                 :title="venueDialogTitle"></user-dialog>
-
-    <!--添加-->
-    <!--<el-dialog :title="title" :visible.sync="dialogShow" width="50%">
-      <el-form ref="form" :model="dialogForm" :rules="rules" label-width="100px">
-
-        <el-form-item label="场馆名称" prop="name" style="margin-top: 25px;">
-          <el-input v-model="dialogForm.venueName" style="width: 50%;"></el-input>
-        </el-form-item>
-
-      </el-form>
-      <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogShow = false">取 消</el-button>
-        <el-button type="primary" @click="onSubmit('form')">确 定</el-button>
-      </div>
-    </el-dialog>-->
+    <venue-info-dialog :visible.sync="venueDialogVisible" @submitSuccess="loadMainData" :currentModel="currentModel"
+                 :title="venueDialogTitle"></venue-info-dialog>
 
 
   </div>
@@ -54,8 +38,12 @@
 
 <script>
   import qs from 'qs'
+  import VenueInfoDialog from "./VenueInfoDialog.vue";
 
     export default {
+      components: {
+        VenueInfoDialog,
+      },
       name: "venueInfo",
       data() {
         return {
@@ -108,12 +96,12 @@
             return
           }
 
-          this.$confirm(`永久删除场馆${this.currentRow.username}, 是否继续?`, '提示', {
+          this.$confirm(`永久删除场馆${this.currentRow.venueName}, 是否继续?`, '提示', {
             confirmButtonText: '确定',
             cancelButtonText: '取消',
             type: 'warning'
           }).then(() => {
-            this.axios.get(`/manage/venue/delete/${this.currentRow.id}`)
+            this.axios.get(`/manage/venue/venueInfo/delete/${this.currentRow.id}`)
               .then((response) => {
                 this.$message.success('删除成功!')
                 this.loadMainData()

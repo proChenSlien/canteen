@@ -6,6 +6,8 @@ import com.sjto.repository.SysDictionaryRepository;
 import com.sjto.service.SysDictionaryService;
 import org.assertj.core.util.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
@@ -54,21 +56,23 @@ public class SysDictionaryServiceImpl extends AbstractGenericServiceImpl<SysDict
     }
 
     @Override
-    public List<Map<String, Object>> findDictionaryList() {
-        List<Map<String, Object>> result = new ArrayList<>();
-
-        List<SysDictionaryVo> list = repository.findDictionaryList();
-
-        for (SysDictionaryVo item : list) {
-            Map<String, Object> map = new HashMap<>();
-            map.put("sd_id", item.getSd_id());
-            map.put("sd_val", item.getValue());
-            map.put("sd_remark", item.getLabel());
-            map.put("sd_orderNum", item.getSd_orderNum());
-            map.put("sdg_groupName", item.getSdg_groupName());
-            map.put("sdg_groupRemark", item.getSdg_groupRemark());
-            result.add(map);
-        }
-        return result;
+    public Page findDictionaryList(Integer page, Integer pageSize) {
+        PageRequest pageRequest = PageRequest.of(page - 1, pageSize);
+        return repository.findDictionaryList(pageRequest);
+//        List<Map<String, Object>> result = new ArrayList<>();
+//
+//        List<SysDictionaryVo> list = repository.findDictionaryList();
+//
+//        for (SysDictionaryVo item : list) {
+//            Map<String, Object> map = new HashMap<>();
+//            map.put("sd_id", item.getSd_id());
+//            map.put("sd_val", item.getValue());
+//            map.put("sd_remark", item.getLabel());
+//            map.put("sd_orderNum", item.getSd_orderNum());
+//            map.put("sdg_groupName", item.getSdg_groupName());
+//            map.put("sdg_groupRemark", item.getSdg_groupRemark());
+//            result.add(map);
+//        }
+//        return result;
     }
 }
