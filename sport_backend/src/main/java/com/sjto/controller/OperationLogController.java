@@ -5,6 +5,7 @@ import com.sjto.domain.User;
 import com.sjto.service.BaseService;
 import com.sjto.service.OperationLogService;
 import com.sjto.utils.Result;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,12 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 
+/**
+ * @Description:日志
+ * @Author: chenpeng
+ * @Date: 2018/5/12  10:30
+ */
+@Api(description = "日志后台留痕接口列表")
 @RestController
 @RequestMapping("/manage/system/operationLog")
 public class OperationLogController  extends BaseController<OperationLog, Long> {

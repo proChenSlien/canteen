@@ -5,6 +5,7 @@ import com.sjto.dto.vo.SysDictionaryVo;
 import com.sjto.service.BaseService;
 import com.sjto.service.SysDictionaryService;
 import com.sjto.utils.Result;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -17,6 +18,12 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @Description:字典
+ * @Author: chenpeng
+ * @Date: 2018/5/13  16:30
+ */
+@Api(description = "字典后台请求接口列表")
 @RestController
 @RequestMapping("/manage/system/sysDictionary")
 public class SysDictionaryController extends BaseController<SysDictionary, Long> {
