@@ -31,6 +31,8 @@ public class VipSingleGymcardInfoRo {
     private String cardName;
     @ApiModelProperty("背景图片地址")
     private String bgImgUrl;
+    @ApiModelProperty("手机号码")
+    private Long phone;
 
     public Long getId() {
         return id;
@@ -110,5 +112,13 @@ public class VipSingleGymcardInfoRo {
 
     public void setAuthImgUrl(String authImgUrl) {
         this.authImgUrl = authImgUrl;
+    }
+
+    public Long getPhone() {
+        return phone;
+    }
+
+    public void setPhone(Long phone) {
+        this.phone = phone;
     }
 }

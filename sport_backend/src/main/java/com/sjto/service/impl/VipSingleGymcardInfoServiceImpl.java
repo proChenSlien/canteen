@@ -118,6 +118,11 @@ public class VipSingleGymcardInfoServiceImpl extends AbstractGenericServiceImpl<
             return Result.createByErrorMessage("充值用户不存在");
         }
 
+        if(vipSingleGymcardInfo.getActiveTime()== null){
+            // 激活第一次开通日期
+            vipSingleGymcardInfo.setActiveTime(new Date());
+        }
+
         try {
             Date endDate = vipSingleGymcardInfo.getEndDate();
 
@@ -149,9 +154,8 @@ public class VipSingleGymcardInfoServiceImpl extends AbstractGenericServiceImpl<
     }
 
     @Override
-    public Result<Map> queryAllVipCardInfoList(int page, int pageSize) {
-        PageRequest pageRequest = PageRequest.of(page - 1, pageSize);
-        Page<VipSingleGymcardInfo> pageAll = reponsitory.findAll(pageRequest);
+    public Result<Map> queryAllVipCardInfoList(int page, int pageSize, VipSingleGymcardInfo entity) {
+        Page<VipSingleGymcardInfo> pageAll = findAll(page - 1, pageSize, entity);
         List<VipSingleGymcardInfoRo> list = Lists.newArrayList();
         Iterator<VipSingleGymcardInfo> iterator = pageAll.iterator();
         while (iterator.hasNext()){
@@ -197,6 +201,10 @@ public class VipSingleGymcardInfoServiceImpl extends AbstractGenericServiceImpl<
         vipSingleGymcardInfoRo.setId(vipSingleGymcardInfo.getId());
 
         vipSingleGymcardInfoRo.setUserId(vipSingleGymcardInfo.getUserId());
+
+        vipSingleGymcardInfoRo.setLoginName(vipSingleGymcardInfo.getLoginName());
+
+        vipSingleGymcardInfoRo.setPhone(vipSingleGymcardInfo.getPhone());
 
         // 获取认证状态
         AuthState authState = AuthState.getEnumByCode(vipSingleGymcardInfo.getAuthState());

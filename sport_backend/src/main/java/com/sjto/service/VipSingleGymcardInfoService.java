@@ -25,7 +25,7 @@ public interface VipSingleGymcardInfoService extends BaseService<VipSingleGymcar
 
     Result<VipSingleGymcardInfoRo> verify(Long id, Integer authState);
 
-    Result<Map> queryAllVipCardInfoList(int page, int pageSize);
+    Result<Map> queryAllVipCardInfoList(int page, int pageSize, VipSingleGymcardInfo entity);
 
     Result<VipSingleGymcardInfoRo> queryOne(Long id);
 }
