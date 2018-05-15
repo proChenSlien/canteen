@@ -45,11 +45,17 @@ public class FamilyTiesInfoApiController extends BaseController<FamilyTiesInfo, 
         if (user == null) {
             return  Result.createByErrorCodeMessage(ResultCode.NEED_LOGIN.getCode(), ResultCode.NEED_LOGIN.getDesc());
         }*/
-        //entity.setUserId(user.getId);
 
         //添加之前要验证密码（调.net接口）
 
-        getService().save(entity);
+        //校验输入的账户是否存在
+        boolean flag = false;
+        flag = familyTiesInfoService.userIdIsExist(entity.getUserId());
+        if(flag){
+            getService().save(entity);
+        }else{
+            return Result.createByErrorMessage("该账户不存在，请检查！");
+        }
         return Result.createBySuccess("添加成功");
     }
 
@@ -62,25 +68,27 @@ public class FamilyTiesInfoApiController extends BaseController<FamilyTiesInfo, 
     }
 
     @ApiOperation("监护人删除")
-    @ApiImplicitParam(name = "entity", value = "监护人与亲子关系实体对象", required = true, dataType = "FamilyTiesInfo")
-    @PostMapping("/familyList")
-    public Result delete(@ModelAttribute FamilyTiesInfo entity){
+    @ApiImplicitParams({ @ApiImplicitParam(dataType = "Long", name = "id", value = "监护人与亲密卡关系主键", required = true),
+            @ApiImplicitParam(dataType = "Long", name = "sid", value = "亲密卡实体编号", required = true)})
+    @PostMapping("/deleteFamily")
+    public Result deleteFamily(Long id, Long sid){
         //删除之前判断是否为主体监护人
         User user = new User();//临时，需要删除该行
+        user.setId(123L);//临时，需要删除该行
 
         //获取当前登陆人userid
         /*RemoteUser user = getCurrentUser();
         if (user == null) {
             return  Result.createByErrorCodeMessage(ResultCode.NEED_LOGIN.getCode(), ResultCode.NEED_LOGIN.getDesc());
         }*/
-        FamilyAndVipChild familyAndVipChild = familyTiesInfoService.findChildMainUser(entity.getSid());
+        FamilyAndVipChild familyAndVipChild = familyTiesInfoService.findChildMainUser(sid);
         if(familyAndVipChild.getMainUserId() == user.getId()){
-            getService().deleteById(entity.getId());
+            getService().deleteById(id);
         }else{
             return Result.createByErrorMessage("非主体监护人没有删除权限");
         }
 
-        return Result.createBySuccess("删除成功");
+        return Result.createBySuccess("成功删除");
     }
 
 

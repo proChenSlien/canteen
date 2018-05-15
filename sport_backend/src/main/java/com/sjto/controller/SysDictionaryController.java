@@ -1,6 +1,7 @@
 package com.sjto.controller;
 
 import com.sjto.domain.SysDictionary;
+import com.sjto.dto.vo.SysDictionaryVo;
 import com.sjto.service.BaseService;
 import com.sjto.service.SysDictionaryService;
 import com.sjto.utils.Result;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -26,13 +28,15 @@ public class SysDictionaryController extends BaseController<SysDictionary, Long>
     }
 
     @ApiOperation("字典查询")
-    @ApiImplicitParams({ @ApiImplicitParam(dataType = "Long", name = "id", value = "字典编号", required = true)})
-    @GetMapping("/findDictionaryInfo/{id}")
-    public Result findDictionaryInfoById(@PathVariable Long id){
-        Map<String, Object> map = sysDictionaryService.findDictionaryInfoById(id);
-        if (map.size() == 0) {
+    @ApiImplicitParams({ @ApiImplicitParam(dataType = "Long", name = "groupId", value = "字典组编号", required = true)})
+    @GetMapping("/findDictionaryInfo/{groupId}")
+    public Result findDictionaryInfoByGroupId(@PathVariable Long groupId){
+        List<SysDictionaryVo> list = sysDictionaryService.findDictionaryInfoByGroupId(groupId);
+        if (list == null) {
             return Result.createByErrorMessage("未查询到该字典信息");
         }
-        return Result.createBySuccess(map);
+        return Result.createBySuccess(list);
     }
+
+
 }

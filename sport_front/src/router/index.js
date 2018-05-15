@@ -9,6 +9,7 @@ import Role from '@/components/system/role/Role'
 import store from '@/store'
 import AdImgInfo from '@/components/common/advertisement/AdImgInfo'
 import Record from '@/components/common/conversionCard/Record'
+import Card from '@/components/common/card/Card'
 
 Vue.use(Router)
 
@@ -60,12 +61,17 @@ let businessRouters = [
     ]
   },
   {
-    path: '/conversionCard',
-    name: '兑换卡',
+    path: '/card',
+    name: '会员卡管理',
     icon: 'icon-lock',
     component: Sub,
     children: [
       {
+        path: 'info',
+        component: Card,
+        name: '会员卡管理',
+        icon: 'icon-user'
+      },{
         path: 'record',
         component: Record,
         name: '兑换记录',

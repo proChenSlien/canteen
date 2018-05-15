@@ -13,4 +13,6 @@ public interface FamilyTiesInfoService extends BaseService<FamilyTiesInfo, Long>
     List<Map<String, Object>> findListFamily(Long id);
 
     FamilyAndVipChild findChildMainUser(Long id);
+
+    boolean userIdIsExist(Long id);
 }

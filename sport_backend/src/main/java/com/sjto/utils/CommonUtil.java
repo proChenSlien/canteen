@@ -28,6 +28,13 @@ public class CommonUtil {
         return sht == null ? "" : sht;
     }
 
+    public String imageShortToUrlWithOutSuffix(String sht){
+        if (StringUtils.hasText(sht)) {
+            return  imageUrl + sht.split(Constance.SEPARATOR_JAVA)[0];
+        }
+        return sht == null ? "" : sht;
+    }
+
     public List<String> imagesShortToUrl(String sht){
 
         List<String> iamgeList = new ArrayList<>();

@@ -24,7 +24,7 @@ import java.util.Map;
  **/
 @Api(description = "成人卡前台请求接口列表")
 @RestController
-@RequestMapping("/api/system/vip/single")
+@RequestMapping("/api/system/vip/adult")
 public class VipSingleGymcardInfoApiController extends BaseController<VipSingleGymcardInfo, Long> {
 
     @Autowired
@@ -45,7 +45,7 @@ public class VipSingleGymcardInfoApiController extends BaseController<VipSingleG
 
 
     @ApiOperation("获取会员单人健身实体卡信息")
-    @GetMapping("/card/info")
+    @GetMapping("/info")
     public Result<VipSingleGymcardInfoRo> queryCardInfo(){
 
         //用户是否登录

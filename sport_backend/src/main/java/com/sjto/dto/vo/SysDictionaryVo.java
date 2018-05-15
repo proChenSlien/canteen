@@ -4,22 +4,18 @@ import java.io.Serializable;
 
 public class SysDictionaryVo implements Serializable {
     private Long sd_id;
-    private Integer sd_val;
-    private String sd_remark;
+    private Integer value;
+    private String label;
     private Integer sd_orderNum;
     private String sdg_groupName;
     private String sdg_groupRemark;
     private Integer sdg_orderNum;
 
-    public SysDictionaryVo(Long sd_id, Integer sd_val, String sd_remark, Integer sd_orderNum, String sdg_groupName, String sdg_groupRemark, Integer sdg_orderNum) {
+    public SysDictionaryVo(Long sd_id, Integer sd_val, String sd_remark, Integer sd_orderNum) {
         this.sd_id = sd_id;
-        this.sd_val = sd_val;
-        this.sd_remark = sd_remark;
+        this.value = sd_val;
+        this.label = sd_remark;
         this.sd_orderNum = sd_orderNum;
-        this.sdg_groupName = sdg_groupName;
-        this.sdg_groupRemark = sdg_groupRemark;
-        this.sdg_orderNum = sdg_orderNum;
-
     }
 
     public Long getSd_id() {
@@ -30,20 +26,20 @@ public class SysDictionaryVo implements Serializable {
         this.sd_id = sd_id;
     }
 
-    public Integer getSd_val() {
-        return sd_val;
+    public Integer getValue() {
+        return value;
     }
 
-    public void setSd_val(Integer sd_val) {
-        this.sd_val = sd_val;
+    public void setValue(Integer value) {
+        this.value = value;
     }
 
-    public String getSd_remark() {
-        return sd_remark;
+    public String getLabel() {
+        return label;
     }
 
-    public void setSd_remark(String sd_remark) {
-        this.sd_remark = sd_remark;
+    public void setLabel(String label) {
+        this.label = label;
     }
 
     public Integer getSd_orderNum() {

@@ -4,6 +4,8 @@ import com.sjto.domain.FamilyTiesInfo;
 import com.sjto.domain.VipChildCardInfo;
 import com.sjto.dto.vo.FamilyAndVipChild;
 import com.sjto.dto.vo.FamilyTiesVo;
+import com.sjto.dto.vo.VipSingleAndFamily;
+import com.sjto.dto.vo.VipSingleGymcardInfoVo;
 import com.sjto.repository.FamilyTiesInfoRepository;
 import com.sjto.service.FamilyTiesInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +55,16 @@ public class FamilyTiesInfoServiceImpl extends AbstractGenericServiceImpl<Family
     @Override
     public FamilyAndVipChild findChildMainUser(Long id) {
         return repository.findChildMainUser(id);
+    }
+
+    @Override
+    public boolean userIdIsExist(Long id) {
+        List<VipSingleAndFamily> list = repository.userIdIsExist(id);
+        if(list.size() == 0){
+            return false;
+        }else {
+            return true;
+        }
     }
 
 

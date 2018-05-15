@@ -35,12 +35,13 @@ public class VenuePackApiController extends BaseController<VenuePackages, Long> 
         //先判断是否有配置多个场馆
         List<Map<String, Object>> current;
 
-        List<VenuePackages> list = venuePackService.queryListConfigure();
-        if(list.size() == 0){//没有配置多个场馆就查询出一个主场馆
+//        List<VenuePackages> list = venuePackService.queryListConfigure();
+//        if(list.size() == 0){//没有配置多个场馆就查询出一个主场馆
+            //目前只做一个主场馆
             current = venuePackService.queryVenuePackMain();
-        }else{
-            current = venuePackService.queryVenuePackList();
-        }
+//        }else{
+//            current = venuePackService.queryVenuePackList();
+//        }
         return Result.createBySuccess(current);
     }
 
