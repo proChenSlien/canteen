@@ -18,6 +18,16 @@ public class SysDictionaryVo implements Serializable {
         this.sd_orderNum = sd_orderNum;
     }
 
+    public SysDictionaryVo(Long sd_id, Integer value, String label, Integer sd_orderNum, String sdg_groupName, String sdg_groupRemark, Integer sdg_orderNum) {
+        this.sd_id = sd_id;
+        this.value = value;
+        this.label = label;
+        this.sd_orderNum = sd_orderNum;
+        this.sdg_groupName = sdg_groupName;
+        this.sdg_groupRemark = sdg_groupRemark;
+        this.sdg_orderNum = sdg_orderNum;
+
+    }
     public Long getSd_id() {
         return sd_id;
     }
