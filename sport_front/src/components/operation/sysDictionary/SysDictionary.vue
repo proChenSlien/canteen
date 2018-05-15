@@ -1,19 +1,21 @@
 <template>
   <div class="root">
 
+
     <!--列表展示-->
     <div class="align-left">
       <el-button-group>
-        <el-button type="primary" icon="plus" @click="createOne">添加</el-button>
-        <el-button type="primary" icon="edit" @click="modifyOne">修改</el-button>
+        <!--<el-button type="primary" icon="plus" @click="createOne">添加</el-button>
+        <el-button type="primary" icon="edit" @click="modifyOne">修改</el-button>-->
         <el-button type="primary" icon="delete" @click="deleteOne">删除</el-button>
       </el-button-group>
     </div>
     <el-table :data="page.content" ref="singleTable" highlight-current-row @current-change="selectRow" stripe style="width: 100%">
       <el-table-column type="index" width="100"></el-table-column>
-      <el-table-column prop="val" label="字典值" width="width: 25%" ></el-table-column>
-      <el-table-column prop="remark" label="字典描述" width="width: 25%" ></el-table-column>
-      <el-table-column prop="endTime" label="字典组名称" width="width: 25%" ></el-table-column>
+      <el-table-column prop="value" label="字典值" width="width: 50%" ></el-table-column>
+      <el-table-column prop="label" label="字典描述" width="width: 50%" ></el-table-column>
+      <el-table-column prop="sdg_groupId" label="字典组id" width="width: 50%" ></el-table-column>
+      <el-table-column prop="sdg_groupName" label="字典组值" width="width: 50%" ></el-table-column>
       <el-table-column prop="status" label="状态" width="100">
         <template slot-scope="scope">
           <el-tag
@@ -38,16 +40,20 @@
 
 
 
-    <user-dialog :visible.sync="dictionaryDialogVisible" @submitSuccess="loadMainData" :currentModel="currentModel"
-                 :title="dictionaryTitle"></user-dialog>
+    <sys-dictionary-dialog :visible.sync="dictionaryDialogVisible" @submitSuccess="loadMainData" :currentModel="currentModel"
+                 :title="dictionaryTitle"></sys-dictionary-dialog>
 
   </div>
 </template>
 
 <script>
   import qs from 'qs'
+  import SysDictionaryDialog from "./SysDictionaryDialog.vue";
 
   export default {
+    components: {
+      SysDictionaryDialog,
+      },
     name: "venueInfo",
     data() {
       return {
@@ -68,7 +74,7 @@
       loadMainData: function () {
         this.dictionaryDialogVisible = false
 
-        this.axios.get('/manage/system/sysDictionary/list?' + qs.stringify(this.searchForm))
+        this.axios.get('/manage/system/sysDictionary/findDictionaryList?' + qs.stringify(this.searchForm))
           .then((response) => {
             console.log('response', response)
             this.page = response.data.content.page;
@@ -100,12 +106,12 @@
           return
         }
 
-        this.$confirm(`永久删除字典${this.currentRow.username}, 是否继续?`, '提示', {
+        this.$confirm(`永久删除字典${this.currentRow.value}, 是否继续?`, '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          this.axios.get(`/manage/venue/delete/${this.currentRow.id}`)
+          this.axios.get(`/manage/system/sysDictionary/delete/${this.currentRow.id}`)
             .then((response) => {
               this.$message.success('删除成功!')
               this.loadMainData()

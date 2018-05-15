@@ -2,15 +2,16 @@
   <el-dialog :title="title" :visible.sync="opened" width="500px">
     <!--<input type="hidden" :model="currentModel.id">-->
     <el-form ref="form" :model="currentModel" label-width="80px" >
-      <el-form-item label="场馆名称" >
-        <el-input v-model="currentModel.venueName"></el-input>
+      <el-form-item label="字典值">
+        <el-input v-model="currentModel.val"></el-input>
       </el-form-item>
 
-      <el-form-item label="租赁到期时间">
-        <el-col :span="11">
-          <el-date-picker type="datetime" placeholder="选择日期时间" v-model="currentModel.endTime" style="width: 100%;"></el-date-picker>
-        </el-col>
+      <el-form-item label="字典说明">
+        <el-input v-model="currentModel.remark"></el-input>
+      </el-form-item>
 
+      <el-form-item label="序号">
+        <el-input v-model="currentModel.label"></el-input>
       </el-form-item>
 
     </el-form>
@@ -26,7 +27,7 @@
   import qs from 'qs'
 
   export default {
-    name: 'venueInfoDialog',
+    name: 'sysDictionaryDialog',
     mixins:[ Popup ],
     props: {
       currentModel: Object,
@@ -42,7 +43,7 @@
     methods: {
       onSubmit:function () {
         console.log('this.currentModel',this.currentModel)
-        this.axios.post('/manage/venue/venueInfo/merge',qs.stringify(this.currentModel, { skipNulls: true }))
+        this.axios.post('/manage/system/sysDictionary/merge',qs.stringify(this.currentModel, { skipNulls: true }))
           .then((r) => {
             this.$emit("submitSuccess")
           })

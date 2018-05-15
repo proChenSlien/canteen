@@ -7,9 +7,11 @@ public class SysDictionaryVo implements Serializable {
     private Integer value;
     private String label;
     private Integer sd_orderNum;
+    private Long sdg_groupId;
     private String sdg_groupName;
     private String sdg_groupRemark;
     private Integer sdg_orderNum;
+    private Integer status;
 
     public SysDictionaryVo(Long sd_id, Integer sd_val, String sd_remark, Integer sd_orderNum) {
         this.sd_id = sd_id;
@@ -18,7 +20,7 @@ public class SysDictionaryVo implements Serializable {
         this.sd_orderNum = sd_orderNum;
     }
 
-    public SysDictionaryVo(Long sd_id, Integer value, String label, Integer sd_orderNum, String sdg_groupName, String sdg_groupRemark, Integer sdg_orderNum) {
+    public SysDictionaryVo(Long sd_id, Integer value, String label, Integer sd_orderNum, Long sdg_groupId, String sdg_groupName, String sdg_groupRemark, Integer sdg_orderNum, Integer status) {
         this.sd_id = sd_id;
         this.value = value;
         this.label = label;
@@ -26,8 +28,26 @@ public class SysDictionaryVo implements Serializable {
         this.sdg_groupName = sdg_groupName;
         this.sdg_groupRemark = sdg_groupRemark;
         this.sdg_orderNum = sdg_orderNum;
-
+        this.sdg_groupId = sdg_groupId;
+        this.status = status;
     }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public Long getSdg_groupId() {
+        return sdg_groupId;
+    }
+
+    public void setSdg_groupId(Long sdg_groupId) {
+        this.sdg_groupId = sdg_groupId;
+    }
+
     public Long getSd_id() {
         return sd_id;
     }
