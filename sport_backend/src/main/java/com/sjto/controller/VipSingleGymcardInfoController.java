@@ -21,7 +21,7 @@ import java.util.Map;
 
 @Api(description = "成人卡后台请求接口列表")
 @RestController
-@RequestMapping("/manage/system/vip/single")
+@RequestMapping("/manage/system/vip/adult")
 public class VipSingleGymcardInfoController extends BaseController<VipSingleGymcardInfo, Long>  {
 
     @Autowired
@@ -29,7 +29,7 @@ public class VipSingleGymcardInfoController extends BaseController<VipSingleGymc
 
 
     @ApiOperation("获取所有的成人会员健身实体卡列表")
-    @GetMapping("/query/cards")
+    @GetMapping("/query/list")
     public Result<Map> queryAdultCards(@RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "1") int page){
 
         return vipSingleGymcardInfoService.queryAllVipCardInfoList(page, size);
@@ -42,8 +42,8 @@ public class VipSingleGymcardInfoController extends BaseController<VipSingleGymc
     }
 
     @ApiOperation("照片审核")
-    @PostMapping("/card/verify")
-    public Result<VipSingleGymcardInfoRo> verify(Long id, Integer authState){
+    @PostMapping("/verify/{id}")
+    public Result<VipSingleGymcardInfoRo> verify(@PathVariable Long id, Integer authState){
         return vipSingleGymcardInfoService.verify(id,authState);
     }
 

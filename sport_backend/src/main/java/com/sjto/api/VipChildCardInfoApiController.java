@@ -31,7 +31,7 @@ public class VipChildCardInfoApiController extends BaseController<VipChildCardIn
     private VipChildCardInfoServiceImpl vipChildCardInfoService;
 
     @ApiOperation("获取用户的儿童会员健身实体卡列表")
-    @GetMapping("/query/child/cards")
+    @GetMapping("/query/list")
     public Result<List<VipChildCardInfoRo>> queryChildCards(){
         //用户是否登录
         /*RemoteUser user = getCurrentUser();
@@ -44,8 +44,8 @@ public class VipChildCardInfoApiController extends BaseController<VipChildCardIn
 
     @ApiOperation("获取儿童会员健身实体卡信息")
     @ApiImplicitParams({ @ApiImplicitParam(paramType = "query", dataType = "Long", name = "id", value = "亲密卡id", required = true)})
-    @GetMapping("/card/info")
-    public Result<VipChildCardInfoRo> queryCardInfo(@RequestParam Long id){
+    @GetMapping("/query/one/{id}")
+    public Result<VipChildCardInfoRo> queryCardInfo(@PathVariable Long id) {
         //用户是否登录
         /*RemoteUser user = getCurrentUser();
         if (user == null) {
@@ -55,9 +55,9 @@ public class VipChildCardInfoApiController extends BaseController<VipChildCardIn
     }
 
     @ApiOperation("获取儿童会员健身实体卡认证状态")
-    @GetMapping("/auth/state")
+    @GetMapping("/auth/state/{id}")
     @ApiImplicitParams({ @ApiImplicitParam(paramType = "query", dataType = "Long", name = "id", value = "亲密卡id", required = true) })
-    public Result<Map> getAuthState(@RequestParam Long id){
+    public Result<Map> getAuthState(@PathVariable Long id){
         return vipChildCardInfoService.getAuthState(id);
     }
 
@@ -76,8 +76,8 @@ public class VipChildCardInfoApiController extends BaseController<VipChildCardIn
 
     @ApiOperation("儿童会员健身实体卡到期天数充值")
     @ApiImplicitParams({ @ApiImplicitParam(dataType = "Long", name = "days", value = "充值的天数", required = true)})
-    @PostMapping("/recharge")
-    public Result<VipChildCardInfoRo> recharge(@RequestParam Integer days, Long id){
+    @PostMapping("/recharge/{id}")
+    public Result<VipChildCardInfoRo> recharge(@RequestParam Integer days,@PathVariable Long id){
         //用户是否登录
         /*RemoteUser user = getCurrentUser();
         if (user == null) {
@@ -91,8 +91,8 @@ public class VipChildCardInfoApiController extends BaseController<VipChildCardIn
     @ApiOperation("儿童会员健身实体卡认证")
     @ApiImplicitParams({ @ApiImplicitParam(paramType = "query", dataType = "String", name = "authImgUrl", value = "认证图片地址", required = true),
             @ApiImplicitParam(paramType = "query", dataType = "String", name = "authImgUrl", value = "认证会员卡id", required = true)})
-    @PostMapping("/auth")
-    public Result<VipChildCardInfoRo> auth(String authImgUrl, Long id) {
+    @PostMapping("/auth/{id}")
+    public Result<VipChildCardInfoRo> auth(String authImgUrl, @PathVariable Long id) {
 
         //用户是否登录
         /*RemoteUser user = getCurrentUser();

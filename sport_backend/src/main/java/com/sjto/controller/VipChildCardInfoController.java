@@ -29,7 +29,7 @@ public class VipChildCardInfoController extends BaseController<VipChildCardInfo,
     private VipChildCardInfoServiceImpl vipChildCardInfoService;
 
     @ApiOperation("获取所有的儿童会员健身实体卡列表")
-    @GetMapping("/query/cards")
+    @GetMapping("/query/list")
     public Result<Map> queryChildCards(@RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "1") int page){
 
         return vipChildCardInfoService.queryList(page, size);
@@ -44,14 +44,14 @@ public class VipChildCardInfoController extends BaseController<VipChildCardInfo,
 
     @ApiOperation("儿童会员健身实体卡到期天数充值")
     @ApiImplicitParams({ @ApiImplicitParam(dataType = "Long", name = "days", value = "充值的天数", required = true)})
-    @PostMapping("/recharge")
-    public Result<VipChildCardInfoRo> recharge(@RequestParam Integer days, Long id){
+    @PostMapping("/recharge/{id}")
+    public Result<VipChildCardInfoRo> recharge(@RequestParam Integer days, @PathVariable Long id){
         return vipChildCardInfoService.recharge(days, id);
     }
 
     @ApiOperation("儿童会员健身实体卡照片审核")
-    @PostMapping("/card/verify")
-    public Result<VipChildCardInfoRo> verify(Long id, Integer authState){
+    @PostMapping("/verify/{id}")
+    public Result<VipChildCardInfoRo> verify(@PathVariable Long id, Integer authState){
         return vipChildCardInfoService.verify(id,authState);
     }
 
