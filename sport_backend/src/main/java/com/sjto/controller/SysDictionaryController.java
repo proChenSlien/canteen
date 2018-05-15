@@ -30,11 +30,13 @@ public class SysDictionaryController extends BaseController<SysDictionary, Long>
     @ApiOperation("字典查询")
     @ApiImplicitParams({ @ApiImplicitParam(dataType = "Long", name = "groupId", value = "字典组编号", required = true)})
     @GetMapping("/findDictionaryInfo/{groupId}")
-    public Result findDictionaryInfoById(@PathVariable Long groupId){
+    public Result findDictionaryInfoByGroupId(@PathVariable Long groupId){
         List<SysDictionaryVo> list = sysDictionaryService.findDictionaryInfoByGroupId(groupId);
         if (list == null) {
             return Result.createByErrorMessage("未查询到该字典信息");
         }
         return Result.createBySuccess(list);
     }
+
+
 }
