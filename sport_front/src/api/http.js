@@ -11,8 +11,6 @@ const imageUpload = `${adminApiGateway}/img/sysContent/uploadImg/`
 const imageDeleteShort = '/img/sysContent/imgDelete/'
 const imageView = `${adminApiGateway}/img/sysContent/image/`
 
-
-
 axios.defaults.timeout = 115000
 axios.defaults.baseURL = adminApiGateway
 axios.defaults.headers.common['Content-Type'] = 'application/json'
@@ -72,6 +70,8 @@ axios.interceptors.response.use(
   }
 )
 
+
+//export {axios, imageServer, adminApiGateway, imageUpload, imageView, imageDeleteShort}
 export default axios
 
 
