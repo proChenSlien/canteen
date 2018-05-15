@@ -85,6 +85,34 @@ let businessRouters = [
         icon: 'icon-user'
       }
     ]
+  },
+  {
+    path: '/venue',
+    name: '场馆信息',
+    icon: 'icon-lock',
+    component: Sub,
+    children: [
+      {
+        path: 'venue',
+        component: VenueInfo,
+        name: '场馆信息',
+        icon: 'icon-user'
+      }
+    ]
+  },
+  {
+    path: '/sysDictionary',
+    name: '字典信息',
+    icon: 'icon-lock',
+    component: Sub,
+    children: [
+      {
+        path: 'sysDictionary',
+        component: SysDictionary,
+        name: '字典信息',
+        icon: 'icon-user'
+      }
+    ]
   }
 ]
 
