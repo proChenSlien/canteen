@@ -45,11 +45,17 @@ public class FamilyTiesInfoApiController extends BaseController<FamilyTiesInfo, 
         if (user == null) {
             return  Result.createByErrorCodeMessage(ResultCode.NEED_LOGIN.getCode(), ResultCode.NEED_LOGIN.getDesc());
         }*/
-        //entity.setUserId(user.getId);
 
         //添加之前要验证密码（调.net接口）
 
-        getService().save(entity);
+        //校验输入的账户是否存在
+        boolean flag = false;
+        flag = familyTiesInfoService.userIdIsExist(entity.getUserId());
+        if(flag){
+            getService().save(entity);
+        }else{
+            return Result.createByErrorMessage("该账户不存在，请检查！");
+        }
         return Result.createBySuccess("添加成功");
     }
 
