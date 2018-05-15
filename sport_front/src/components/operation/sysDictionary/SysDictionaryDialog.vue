@@ -10,9 +10,7 @@
         <el-input v-model="currentModel.remark"></el-input>
       </el-form-item>
 
-      <el-form-item label="序号">
-        <el-input v-model="currentModel.label"></el-input>
-      </el-form-item>
+
 
     </el-form>
     <div slot="footer" class="dialog-footer">

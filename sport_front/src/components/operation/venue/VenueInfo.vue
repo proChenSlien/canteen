@@ -18,7 +18,6 @@
 
     <!--分页-->
     <el-pagination v-show="page.content.length > 0"
-                   @size-change="handleSizeChange"
                    @current-change="handleCurrentChange"
                    :current-page.sync="currentPage"
                    :page-sizes="[5, 10, 15, 20]"
@@ -40,6 +39,7 @@
 <script>
   import qs from 'qs'
   import VenueInfoDialog from "./VenueInfoDialog.vue";
+
     export default {
       components: {
         VenueInfoDialog,

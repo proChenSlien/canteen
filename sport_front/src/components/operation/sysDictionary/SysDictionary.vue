@@ -5,6 +5,7 @@
     <!--列表展示-->
     <div class="align-left">
       <el-button-group>
+        <!-- 字典信息添加放在字典组 -->
         <!--<el-button type="primary" icon="plus" @click="createOne">添加</el-button>
         <el-button type="primary" icon="edit" @click="modifyOne">修改</el-button>-->
         <el-button type="primary" icon="delete" @click="deleteOne">删除</el-button>
