@@ -10,6 +10,7 @@ import store from '@/store'
 import AdImgInfo from '@/components/common/advertisement/AdImgInfo'
 import Card from '@/components/common/card/Card'
 import AdultVip from '@/components/common/adult/AdultVip'
+import ChildtVip from '@/components/common/child/ChildVip'
 import VenueInfo from '@/components/operation/venue/VenueInfo'
 import SysDictionary from '@/components/operation/sysDictionary/SysDictionary'
 import Record from '@/components/common/conversionCard/Record'
@@ -84,7 +85,7 @@ let businessRouters = [
       },
       {
         path: 'child',
-        component: Card,
+        component: ChildtVip,
         name: '儿童会员管理',
         icon: 'icon-user'
       }
