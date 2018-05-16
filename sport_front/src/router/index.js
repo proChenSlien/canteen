@@ -13,6 +13,7 @@ import AdultVip from '@/components/common/adult/AdultVip'
 import VenueInfo from '@/components/operation/venue/VenueInfo'
 import SysDictionary from '@/components/operation/sysDictionary/SysDictionary'
 import Record from '@/components/common/conversionCard/Record'
+import SysDictionaryGroup from '@/components/operation/sysDictionary/SysDictionaryGroup'
 
 Vue.use(Router)
 
@@ -109,6 +110,12 @@ let businessRouters = [
     icon: 'icon-lock',
     component: Sub,
     children: [
+      {
+        path: 'sysDictionaryGroup',
+        component: SysDictionaryGroup,
+        name: '字典组信息',
+        icon: 'icon-user'
+      },
       {
         path: 'sysDictionary',
         component: SysDictionary,
