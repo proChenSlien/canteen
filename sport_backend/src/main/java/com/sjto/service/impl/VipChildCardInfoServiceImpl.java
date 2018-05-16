@@ -185,9 +185,8 @@ public class VipChildCardInfoServiceImpl extends AbstractGenericServiceImpl<VipC
     }
 
     @Override
-    public Result<Map> queryList(Integer page, Integer pageSize) {
-        PageRequest pageRequest = PageRequest.of(page - 1, pageSize);
-        Page<VipChildCardInfo> pageAll = repository.findAll(pageRequest);
+    public Result<Map> queryList(Integer page, Integer pageSize, VipChildCardInfo entity) {
+        Page<VipChildCardInfo> pageAll = findAll(page - 1, pageSize, entity);
         List<VipChildCardInfoRo> list = Lists.newArrayList();
         Iterator<VipChildCardInfo> iterator = pageAll.iterator();
         while (iterator.hasNext()){

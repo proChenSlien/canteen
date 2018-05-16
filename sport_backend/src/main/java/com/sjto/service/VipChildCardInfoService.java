@@ -30,7 +30,7 @@ public interface VipChildCardInfoService {
 
     Result<VipChildCardInfoRo> auth(String authImgUrl, Long id);
 
-    Result<Map> queryList(Integer page, Integer pageSize);
+    Result<Map> queryList(Integer page, Integer pageSize, VipChildCardInfo entity);
 
     Result<VipChildCardInfoRo> verify(Long id, Integer authState);
 }
