@@ -13,6 +13,7 @@ import AdultVip from '@/components/common/adult/AdultVip'
 import VenueInfo from '@/components/operation/venue/VenueInfo'
 import SysDictionary from '@/components/operation/sysDictionary/SysDictionary'
 import Record from '@/components/common/conversionCard/Record'
+// import Button from '@/components/common/button/button'
 
 Vue.use(Router)
 
@@ -128,6 +129,19 @@ let businessRouters = [
         name: '兑换记录',
         icon: 'icon-user'
       }
+    ]
+  },{
+    path: '/common',
+    name: '常用配置',
+    icon: 'icon-lock',
+    component: Sub,
+    children: [
+      // {
+      //   path: 'button',
+      //   component: Button,
+      //   name: '按钮',
+      //   icon: 'icon-user'
+      // }
     ]
   }
 ]

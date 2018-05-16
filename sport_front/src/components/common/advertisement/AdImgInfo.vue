@@ -5,8 +5,6 @@
     <div class="align-left">
       <el-button-group>
         <el-button type="primary" icon="plus" @click="createItem">添加</el-button>
-        <el-button type="primary" icon="edit" @click="modifyOne">修改</el-button>
-        <el-button type="primary" icon="delete" @click="deleteOne">删除</el-button>
       </el-button-group>
     </div>
     <el-table :data="tableData" ref="singleTable" highlight-current-row @current-change="selectRow" stripe style="width: 100%">
@@ -70,27 +68,11 @@
           </el-upload>
         </el-form-item>
 
-        <el-form-item label="广告类型" style="margin-top: 70px;">
-          <el-select v-model="dialogForm.type" placeholder="状态">
-            <el-option label="商城首页" value="1"></el-option>
-            <el-option label="积分中心入口" value="2"></el-option>
-            <el-option label="积分首页" value="3"></el-option>
-            <el-option label="签到页广告" value="4"></el-option>
-          </el-select>
-        </el-form-item>
-
         <el-form-item label="跳转小程序地址" prop="pageUrlXCX" style="margin-top: 25px;">
           <el-input v-model="dialogForm.pageUrlXCX" style="width: 90%;"></el-input>
         </el-form-item>
         <el-form-item label="跳转h5地址" prop="pageUrlH5" style="margin-top: 25px;">
           <el-input v-model="dialogForm.pageUrlH5" style="width: 90%;"></el-input>
-        </el-form-item>
-
-        <el-form-item label="状态" style="margin-top: 25px;">
-          <el-select v-model="dialogForm.flag" placeholder="状态">
-            <el-option label="启用" value="1"></el-option>
-            <el-option label="禁用" value="0"></el-option>
-          </el-select>
         </el-form-item>
 
       </el-form>
@@ -252,14 +234,18 @@
       },
 
       fileHandleRemove(file, fileList) {
-        console.log('file',file)
-        this.axios.get(this.imageDeleteShortSrc + file.name).then((r) => {
+        console.log('file2',file);
+        console.log('fileList2',fileList);
+        return;
+        this.axios.get(this.imageDeleteShort + file.name).then((r) => {
           if (r.data.ok || r.data.code == 104) {
             this.fileL = fileList
           }
         })
       },
       fileHandleSuccess(response, file, fileList) {
+        console.log('file',file);
+        console.log('fileList',fileList);
         file.name = response.content.data[0]
         file.url = imageView + file.name + '.jpg'
         this.fileL = fileList;
@@ -268,7 +254,7 @@
         return this.$confirm(`确定删除？？？？？ ${ file.name }？`);
       },
       fileHandleExceed(files, fileList) {
-        this.$message.warning(`当前限制选择 1 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
+        this.$message.warning(`当前限制选择 10 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
       },
 
       //新建对象
@@ -283,18 +269,6 @@
           pageUrlXCX: '',
           pageUrlH5: '',
         }
-        this.dialogShow = true;
-      },
-      //需改
-      modifyOne: function () {
-        if (this.currentRow == null) {
-          this.$message.error('请先选中数据', 2)
-          return
-        }
-        this.dialogForm = this.currentRow;
-        let imageUrl = this.currentRow.imageUrl
-        this.strToFileList(imageUrl)
-        this.title = "修改广告配置"
         this.dialogShow = true;
       },
       strToFileList(str) {
@@ -327,50 +301,6 @@
               this.$message.success('删除成功!')
               this.loadData()
             })
-        })
-      },
-      //修改状态
-      updateFlag:function (data) {
-        var flag = data.flag
-        var msg = ''
-        if(flag=='1'){
-          msg='确定禁用？'
-        }else{
-          msg='确定启用？'
-        }
-        this.$confirm(msg, '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(() => {
-          var flag = data.flag
-          if(flag=='1'){
-            data.flag='0'
-          }else{
-            data.flag='1'
-          }
-          this.axios({
-            url: '/shop/sysAdvertisement/merge',
-            method: 'post',
-            data: data,
-            transformRequest: [function (data) {
-              let ret = ''
-              for (let it in data) {
-                ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
-              }
-              return ret
-            }],
-            headers: {
-              'Content-Type': 'application/x-www-form-urlencoded'
-            }
-          }).then((r) => {
-            this.dialogShow = false
-            this.$message({
-              message: '操作成功',
-              type: 'success'
-            });
-            this.loadData()
-          })
         })
       },
 

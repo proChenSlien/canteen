@@ -7,9 +7,9 @@ import router from '../router'
 const adminApiGateway = '/api'
 
 const imageServer = `${adminApiGateway}`
-const imageUpload = `${adminApiGateway}/sport/uploadImg/`
-const imageDeleteShort = '/sport/imgDelete/'
-const imageView = `${adminApiGateway}/sport/image/`
+const imageUpload = `${adminApiGateway}/file/uploadImg/`
+const imageDeleteShort = '/file/imgDelete/'
+const imageView = `${adminApiGateway}/file/image/`
 
 axios.defaults.timeout = 115000
 axios.defaults.baseURL = adminApiGateway

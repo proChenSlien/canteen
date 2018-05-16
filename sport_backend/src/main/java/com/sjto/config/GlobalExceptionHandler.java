@@ -16,7 +16,6 @@ import javax.validation.ConstraintViolationException;
  * @auther: liufeng
  * @Date: 2017/8/28 9:57
  */
-//@EnableWebMvc  // 使用springboot的时候不可以使用@EnableWebMvc，此标签会再启动一个web环境，导致配置失效
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
