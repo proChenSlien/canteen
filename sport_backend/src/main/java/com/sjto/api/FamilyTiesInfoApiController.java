@@ -50,13 +50,20 @@ public class FamilyTiesInfoApiController extends BaseController<FamilyTiesInfo, 
 
         //添加之前要验证密码（调.net接口）
 
-        //校验输入的账户是否存在
-        boolean flag = false;
-        flag = familyTiesInfoService.userIdIsExist(entity.getUserId());
-        if(flag){
-            getService().save(entity);
+        entity.setPhone(entity.getUserId());
+        if(entity.getSid() == null){
+            return Result.createByErrorMessage("未获得亲密卡编号，请检查！");
+        }else if(entity.getShipName() == null){
+            return Result.createByErrorMessage("请选择监护人！");
         }else{
-            return Result.createByErrorMessage("该账户不存在，请检查！");
+            //校验输入的账户是否存在
+            boolean flag = false;
+            flag = familyTiesInfoService.userIdIsExist(entity.getUserId());
+            if(flag){
+                getService().save(entity);
+            }else{
+                return Result.createByErrorMessage("该账户不存在，请检查！");
+            }
         }
         return Result.createBySuccess("添加成功");
     }
