@@ -55,7 +55,7 @@
     components: {
       SysDictionaryDialog,
       },
-    name: "venueInfo",
+    name: "sysDictionary",
     data() {
       return {
         searchForm: {},  //搜索

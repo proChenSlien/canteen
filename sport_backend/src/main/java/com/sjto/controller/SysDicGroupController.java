@@ -30,9 +30,8 @@ public class SysDicGroupController extends BaseController<SysDictionaryGroup, Lo
     }
 
     @ApiOperation("删除字典组信息")
-    @Override
-    @PostMapping("/delete/{groupId}")
-    public Result delete(@PathVariable Long groupId) {
+    @GetMapping("/deleteGAndD/{groupId}")
+    public Result deleteGAndD(@PathVariable Long groupId) {
 //        getService().deleteById(groupId);
         sysDicGroupService.deleteByGroupId(groupId);
         //级联删除字典组下的字典
