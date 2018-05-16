@@ -12,4 +12,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface SysDicGroupRepository extends JpaRepository<SysDictionaryGroup, Long>, QuerydslPredicateExecutor<SysDictionaryGroup> {
+    void deleteByGroupId(Long id);
 }

@@ -11,6 +11,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -74,5 +75,11 @@ public class SysDictionaryServiceImpl extends AbstractGenericServiceImpl<SysDict
 //            result.add(map);
 //        }
 //        return result;
+    }
+
+    @Override
+    @Transactional
+    public void deleteByGroupId(Long groupId) {
+        repository.deleteByGroupId(groupId);
     }
 }

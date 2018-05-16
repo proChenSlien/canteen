@@ -15,4 +15,6 @@ public interface SysDictionaryService extends BaseService<SysDictionary, Long> {
 
     Page findDictionaryList(Integer page, Integer pageSize);
 
+    void deleteByGroupId(Long groupId);
+
 }

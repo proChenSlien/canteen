@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 /**
  * @Description:
  * @Author: chenpeng
@@ -20,5 +22,11 @@ public class SysDicGroupServiceImpl extends AbstractGenericServiceImpl<SysDictio
     @Override
     public JpaRepository<SysDictionaryGroup, Long> getRepository() {
         return repository;
+    }
+
+    @Override
+    @Transactional
+    public void deleteByGroupId(Long groupId) {
+        repository.deleteByGroupId(groupId);
     }
 }

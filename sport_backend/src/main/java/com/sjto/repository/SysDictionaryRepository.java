@@ -35,4 +35,6 @@ public interface SysDictionaryRepository extends JpaRepository<SysDictionary, Lo
             "left join SysDictionaryGroup sdg on sdg.groupId = sd.groupId " +
             "where sd.status = 1 ")
     Page findDictionaryList(Pageable pageable);
+
+    void deleteByGroupId(Long groupId);
 }
