@@ -102,7 +102,10 @@
     },
     methods: {
       // 主表数据加载
-      loadMainData: function () {
+      loadMainData: function (res) {
+        if(res && res.ok){
+          this.currentModel = res.content
+        }
         this.dialogVisible = false
         this.axios.get('/manage/system/vip/adult/query/list?' + qs.stringify(this.searchForm))
           .then((response) => {
