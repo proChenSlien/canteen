@@ -1,13 +1,18 @@
 <template>
   <el-dialog :title="title" :visible.sync="opened" width="500px">
-    <!--<input type="hidden" :model="currentModel.id">-->
     <el-form ref="form" :rules="rules" :model="dialogForm" label-width="80px" >
-      <el-form-item label="名称" >
-        <span class="form-value">{{currentModel.loginName}}</span>
+      <el-form-item label="姓名" >
+        <span class="form-value">{{currentModel.babyName}}</span>
       </el-form-item>
 
-      <el-form-item label="手机号码" >
-        <span class="form-value">{{currentModel.phone}}</span>
+      <el-form-item label="性别">
+        <span class="form-value"><el-tag :type="sexTagTypes[currentModel.babySex]">
+          {{ currentModel.babySex == 1 ? '男' : '女'}}
+        </el-tag></span>
+      </el-form-item>
+
+      <el-form-item label="创建人" >
+        <span class="form-value">{{currentModel.mainUserId}}</span>
       </el-form-item>
 
       <el-form-item label="认证状态">
@@ -22,21 +27,9 @@
         <span class="form-value">{{currentModel.endDate}}</span>
       </el-form-item>
 
-      <el-form-item label="认证头像" >
-        <img class="form-value" style="width: 200px;height: 200px" src="https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100"/>
+      <el-form-item label="天数" prop="days">
+        <el-input v-model.number="dialogForm.days"></el-input>
       </el-form-item>
-
-      <el-form-item label="是否通过" prop="authState">
-        <el-select clearable v-model="dialogForm.authState" placeholder="请选择是否通过">
-          <el-option
-            v-for="item in authGroups"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value">
-          </el-option>
-        </el-select>
-      </el-form-item>
-
     </el-form>
     <div slot="footer" class="dialog-footer">
       <el-button @click="opened = false">取 消</el-button>
@@ -50,7 +43,7 @@
   import qs from 'qs'
 
   export default {
-    name: 'AdultVipDialog',
+    name: 'AdultVipRechargeDialog',
     mixins:[ Popup ],
     props: {
       currentModel: Object,
@@ -61,18 +54,22 @@
         authGroups: [],
         authTagTypes : ['info', 'warning', 'success', 'danger'],// 未认证，认证中，已认证，认证失败
         useTagTypes: ['info', 'success', 'danger'],// 未开通，已开通，已到期
+        sexTagTypes: ['','primary','warning'],
         dialogForm:{
-          authState: ''
         },
         rules: {
-          authState: [
-            { required: true, message: '请选择认证状态', trigger: 'blur' },
+          days: [
+            { required: true, message: '请输入金额', trigger: 'blur' },
             {
               validator: (rule, value, callback) => {
-                if(value==undefined) {
-                  callback(new Error('请选择认证状态'))
+                if (!Number.isInteger(value)) {
+                  callback(new Error('请输入数字值'));
                 } else {
-                  callback()
+                  if (value <= 0) {
+                    callback(new Error('金额必须大于0'));
+                  } else {
+                    callback();
+                  }
                 }
               }
             }
@@ -86,12 +83,6 @@
     mounted: function () {
       this.loadAuthGroups()
     },
-    watch: {
-      currentModel: function (model) {
-        console.log('model',model)
-        this.dialogForm.authState = model.authState.status
-      }
-    },
     methods: {
       onSubmit:function (formName) {
         this.loading = true
@@ -99,7 +90,7 @@
         this.$refs[formName].validate((valid) => {
           if (valid) {
             this.axios({
-              url: `/manage/system/vip/adult/verify/${this.currentModel.id}`,
+              url: `/manage/system/vip/child/recharge/${this.currentModel.id}`,
               method: 'post',
               data: formData,
               transformRequest: [function (data) {
@@ -115,12 +106,12 @@
             }).then((r) => {
               this.dialogShow = false
               this.$message({
-                message: '操作成功',
+                message: '充值成功',
                 type: 'success'
               });
-              //this.$refs[formName].resetFields()
+              this.$refs[formName].resetFields()
               this.fileL= []
-              this.$emit("submitSuccess")
+              this.$emit("submitSuccess", r.data)
             })
           } else {
             console.log('error submit!!');

@@ -2,8 +2,8 @@
   <div class="root">
     <!--查询条件-->
     <el-form :inline="true" :model="searchForm" class="search-form">
-      <el-form-item label="用户名">
-        <el-input v-model="searchForm.loginName" placeholder="名称"></el-input>
+      <el-form-item label="姓名">
+        <el-input v-model="searchForm.babyName" placeholder="名称"></el-input>
       </el-form-item>
       <el-form-item label="认证状态">
         <el-select v-model="searchForm.authState" clearable placeholder="请选择">
@@ -35,11 +35,17 @@
         type="index"
         :index="customIndex">
       </el-table-column>
-      <el-table-column prop="loginName" label="用户名" width="180"></el-table-column>
+      <el-table-column prop="babyName" label="姓名" width="180"></el-table-column>
       <el-table-column prop="authState.msg" label="认证状态" width="180" ></el-table-column>
       <el-table-column prop="useState.msg" label="使用状态" width="180" ></el-table-column>
-      <el-table-column prop="phone" label="手机号码" width="180"></el-table-column>
-
+      <el-table-column prop="babySex" label="性别" width="180">
+        <template slot-scope="scope">
+          <el-tag
+            :type="scope.row.babySex == 1 ? 'primary' : 'warning'"
+            close-transition>{{ scope.row.babySex == 1 ? '男' : '女'}}
+          </el-tag>
+        </template>
+      </el-table-column>
       <el-table-column label="到期时间" width="180">
         <template slot-scope="scope">
           <span>{{ scope.row.endDate }}</span>
@@ -52,6 +58,8 @@
         </template>
       </el-table-column>
 
+      <el-table-column prop="mainUserId" label="创建人" width="180"></el-table-column>
+
     </el-table>
 
     <!--分页-->
@@ -63,22 +71,22 @@
                    class="page">
     </el-pagination>
 
-    <adult-vip-dialog :visible.sync="dialogVisible" @submitSuccess="loadMainData" :currentModel="currentModel"
-                 :title="dialogTitle"></adult-vip-dialog>
+    <child-vip-dialog :visible.sync="dialogVisible" @submitSuccess="loadMainData" :currentModel="currentModel"
+                 :title="dialogTitle"></child-vip-dialog>
 
-    <adult-vip-recharge-dialog :visible.sync="rechargeDialogVisible" @submitSuccess="loadMainData" :currentModel="currentModel"
-                               :title="dialogTitle" ></adult-vip-recharge-dialog>
+    <child-vip-recharge-dialog :visible.sync="rechargeDialogVisible" @submitSuccess="loadMainData" :currentModel="currentModel"
+                               :title="dialogTitle" ></child-vip-recharge-dialog>
   </div>
 </template>
 
 <script>
   import qs from 'qs'
-  import AdultVipDialog from "./AdultVipDialog.vue"
-  import AdultVipRechargeDialog from "./AdultVipRechargeDialog.vue"
+  import ChildVipDialog from "./ChildVipDialog.vue"
+  import ChildVipRechargeDialog from "./ChildVipRechargeDialog.vue"
   export default {
     components: {
-      AdultVipDialog,
-      AdultVipRechargeDialog
+      ChildVipDialog,
+      ChildVipRechargeDialog
     },
     name: 'AdultVip',
     data() {
@@ -107,7 +115,7 @@
           this.currentModel = res.content
         }
         this.dialogVisible = false
-        this.axios.get('/manage/system/vip/adult/query/list?' + qs.stringify(this.searchForm))
+        this.axios.get('/manage/system/vip/child/query/list?' + qs.stringify(this.searchForm))
           .then((response) => {
             console.log('list',response)
             this.page = response.data.content.page;

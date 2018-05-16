@@ -1,5 +1,6 @@
 package com.sjto.controller;
 
+import com.google.common.collect.Maps;
 import com.sjto.domain.SysDictionary;
 import com.sjto.dto.vo.SysDictionaryVo;
 import com.sjto.service.BaseService;
@@ -10,10 +11,8 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.domain.Page;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
@@ -36,7 +35,7 @@ public class SysDictionaryController extends BaseController<SysDictionary, Long>
 
     @ApiOperation("字典查询（根据字典组id查询）")
     @ApiImplicitParams({ @ApiImplicitParam(dataType = "Long", name = "groupId", value = "字典组编号", required = true)})
-    @GetMapping("/findDictionaryInfo/{groupId}")
+    @GetMapping("/findDictionaryInfoByGroupId/{groupId}")
     public Result findDictionaryInfoByGroupId(@PathVariable Long groupId){
         List<SysDictionaryVo> list = sysDictionaryService.findDictionaryInfoByGroupId(groupId);
         if (list == null) {
@@ -58,9 +57,12 @@ public class SysDictionaryController extends BaseController<SysDictionary, Long>
 
     @ApiOperation("字典列表查询")
     @GetMapping("/findDictionaryList")
-    public Result findDictionaryList(){
-        List<Map<String, Object>> current = sysDictionaryService.findDictionaryList();
-        return Result.createBySuccess(current);
+    public Result findDictionaryList(@RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "1") int page){
+//        List<SysDictionaryVo> list = sysDictionaryService.findDictionaryList(page, size);
+        Page current = sysDictionaryService.findDictionaryList(page, size);
+        Map map = Maps.newHashMap();
+        map.put("page", current);
+        return Result.createBySuccess(map);
     }
 
 

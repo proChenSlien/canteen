@@ -30,9 +30,9 @@ public class VipChildCardInfoController extends BaseController<VipChildCardInfo,
 
     @ApiOperation("获取所有的儿童会员健身实体卡列表")
     @GetMapping("/query/list")
-    public Result<Map> queryChildCards(@RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "1") int page){
+    public Result<Map> queryChildCards(@RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "1") int page, @ModelAttribute VipChildCardInfo entity){
 
-        return vipChildCardInfoService.queryList(page, size);
+        return vipChildCardInfoService.queryList(page, size, entity);
     }
 
     @ApiOperation("获取儿童会员健身实体卡信息")

@@ -2,12 +2,18 @@
   <el-dialog :title="title" :visible.sync="opened" width="500px">
     <!--<input type="hidden" :model="currentModel.id">-->
     <el-form ref="form" :rules="rules" :model="dialogForm" label-width="80px" >
-      <el-form-item label="名称" >
-        <span class="form-value">{{currentModel.loginName}}</span>
+      <el-form-item label="姓名" >
+        <span class="form-value">{{currentModel.babyName}}</span>
       </el-form-item>
 
-      <el-form-item label="手机号码" >
-        <span class="form-value">{{currentModel.phone}}</span>
+      <el-form-item label="性别">
+        <span class="form-value"><el-tag :type="sexTagTypes[currentModel.babySex]">
+          {{ currentModel.babySex == 1 ? '男' : '女'}}
+        </el-tag></span>
+      </el-form-item>
+
+      <el-form-item label="创建人" >
+        <span class="form-value">{{currentModel.mainUserId}}</span>
       </el-form-item>
 
       <el-form-item label="认证状态">
@@ -61,6 +67,7 @@
         authGroups: [],
         authTagTypes : ['info', 'warning', 'success', 'danger'],// 未认证，认证中，已认证，认证失败
         useTagTypes: ['info', 'success', 'danger'],// 未开通，已开通，已到期
+        sexTagTypes: ['','primary','warning'],
         dialogForm:{
           authState: ''
         },
@@ -89,7 +96,14 @@
     watch: {
       currentModel: function (model) {
         console.log('model',model)
-        this.dialogForm.authState = model.authState.status
+
+        if(model.authState.status){
+          if(model.authState.status == 2 || model.authState.status ==3){
+            this.dialogForm.authState = model.authState.status
+          }else{
+            this.dialogForm.authState = ''
+          }
+        }
       }
     },
     methods: {
@@ -99,7 +113,7 @@
         this.$refs[formName].validate((valid) => {
           if (valid) {
             this.axios({
-              url: `/manage/system/vip/adult/verify/${this.currentModel.id}`,
+              url: `/manage/system/vip/child/verify/${this.currentModel.id}`,
               method: 'post',
               data: formData,
               transformRequest: [function (data) {

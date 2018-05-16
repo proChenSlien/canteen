@@ -2,6 +2,8 @@ package com.sjto.service;
 
 import com.sjto.domain.SysDictionary;
 import com.sjto.dto.vo.SysDictionaryVo;
+import org.springframework.data.domain.Page;
+
 import java.util.List;
 import java.util.Map;
 
@@ -11,6 +13,8 @@ public interface SysDictionaryService extends BaseService<SysDictionary, Long> {
 
     Map<String, Object> findDictionaryInfoById(Long id);
 
-    List<Map<String, Object>> findDictionaryList();
+    Page findDictionaryList(Integer page, Integer pageSize);
+
+    void deleteByGroupId(Long groupId);
 
 }

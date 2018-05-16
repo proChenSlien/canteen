@@ -26,6 +26,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -142,6 +143,9 @@ public class VipChildCardInfoServiceImpl extends AbstractGenericServiceImpl<VipC
         if(vipChildCardInfo == null){
             return Result.createByErrorMessage("卡号不存在");
         }
+        if(vipChildCardInfo.getActiveTime() == null){
+            vipChildCardInfo.setActiveTime(new Date());// 第一次激活时间
+        }
         try {
             Date endDate = vipChildCardInfo.getEndDate();
 
@@ -181,9 +185,8 @@ public class VipChildCardInfoServiceImpl extends AbstractGenericServiceImpl<VipC
     }
 
     @Override
-    public Result<Map> queryList(Integer page, Integer pageSize) {
-        PageRequest pageRequest = PageRequest.of(page - 1, pageSize);
-        Page<VipChildCardInfo> pageAll = repository.findAll(pageRequest);
+    public Result<Map> queryList(Integer page, Integer pageSize, VipChildCardInfo entity) {
+        Page<VipChildCardInfo> pageAll = findAll(page - 1, pageSize, entity);
         List<VipChildCardInfoRo> list = Lists.newArrayList();
         Iterator<VipChildCardInfo> iterator = pageAll.iterator();
         while (iterator.hasNext()){
@@ -197,6 +200,7 @@ public class VipChildCardInfoServiceImpl extends AbstractGenericServiceImpl<VipC
     }
 
     @Override
+    @Transactional
     public Result<VipChildCardInfoRo> verify(Long id, Integer authState) {
 
         if(id == null){

@@ -10,10 +10,15 @@ import store from '@/store'
 import AdImgInfo from '@/components/common/advertisement/AdImgInfo'
 import Card from '@/components/common/card/Card'
 import AdultVip from '@/components/common/adult/AdultVip'
+import ChildtVip from '@/components/common/child/ChildVip'
 import VenueInfo from '@/components/operation/venue/VenueInfo'
 import SysDictionary from '@/components/operation/sysDictionary/SysDictionary'
 import Record from '@/components/common/conversionCard/Record'
+<<<<<<< HEAD
 // import Button from '@/components/common/button/button'
+=======
+import SysDictionaryGroup from '@/components/operation/sysDictionary/SysDictionaryGroup'
+>>>>>>> 81d3ad355ba056f94dd0db10d3e2543151570595
 
 Vue.use(Router)
 
@@ -84,7 +89,7 @@ let businessRouters = [
       },
       {
         path: 'child',
-        component: Card,
+        component: ChildtVip,
         name: '儿童会员管理',
         icon: 'icon-user'
       }
@@ -110,6 +115,12 @@ let businessRouters = [
     icon: 'icon-lock',
     component: Sub,
     children: [
+      {
+        path: 'sysDictionaryGroup',
+        component: SysDictionaryGroup,
+        name: '字典组信息',
+        icon: 'icon-user'
+      },
       {
         path: 'sysDictionary',
         component: SysDictionary,
