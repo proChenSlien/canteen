@@ -52,8 +52,8 @@ public class VipSingleGymcardInfoController extends BaseController<VipSingleGymc
     @ApiOperation("单人会员健身实体卡到期天数充值")
     @ApiImplicitParams({ @ApiImplicitParam(dataType = "Long", name = "days", value = "充值的天数"),
             @ApiImplicitParam(dataType = "Long", name = "userId", value = "用户id")})
-    @PostMapping("/recharge")
-    public Result<VipSingleGymcardInfoRo> recharge(@RequestParam Integer days, @RequestParam Long userId){
+    @PostMapping("/recharge/{userId}")
+    public Result<VipSingleGymcardInfoRo> recharge(@RequestParam Integer days, @PathVariable Long userId){
 
         return vipSingleGymcardInfoService.recharge(days, userId);
     }
