@@ -15,7 +15,7 @@ public class GoodsType {
     @Column(name = "type_name", nullable = false, columnDefinition = "varchar(64) COMMENT '类型名称'")
     private String typeName;
     @Column(name = "valid", nullable = false, columnDefinition = "int COMMENT '有效性'")
-    private Integer valid;
+    private Integer valid = 1;
 
     public String getId() {
         return id;

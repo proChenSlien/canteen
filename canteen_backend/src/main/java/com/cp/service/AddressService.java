@@ -7,4 +7,5 @@ import com.cp.domain.Address;
  * @Date: 2018-05-24 11:31
  */
 public interface AddressService extends BaseService<Address, Long>{
+    void updateStaById(String id);
 }

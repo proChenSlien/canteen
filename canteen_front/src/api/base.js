@@ -1,4 +1,4 @@
-const appName ='盛基基本项目'
+const appName ='礼拜天'
 
 
 export {appName}

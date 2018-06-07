@@ -18,22 +18,22 @@ public class Goods {
     private String typeId;
     @Column(name = "price", nullable = false, columnDefinition = "double COMMENT '商品单价'")
     private Double price;
-    @Column(name = "img", nullable = false, columnDefinition = "varchar(64) COMMENT '商品图片'")
+    @Column(name = "img", columnDefinition = "varchar(64) COMMENT '商品图片'")
     private String img;
-    @Column(name = "remark", nullable = false, columnDefinition = "text COMMENT '商品说明'")
+    @Column(name = "remark", columnDefinition = "text COMMENT '商品说明'")
     private String remark;
-    @Column(name = "stock", nullable = false, columnDefinition = "int COMMENT '库存'")
+    @Column(name = "stock", columnDefinition = "int COMMENT '库存'")
     private Integer stock;
-    @Column(name = "volume_day", nullable = false, columnDefinition = "int COMMENT '日销量'")
-    private Integer volumeDay;
-    @Column(name = "volume_month", nullable = false, columnDefinition = "int COMMENT '月销量'")
-    private Integer volumeMonth;
-    @Column(name = "volume_year", nullable = false, columnDefinition = "int COMMENT '年销量'")
-    private Integer volumeYear;
+    @Column(name = "volume_day",  columnDefinition = "int COMMENT '日销量'")
+    private Integer volumeDay = 0;
+    @Column(name = "volume_month", columnDefinition = "int COMMENT '月销量'")
+    private Integer volumeMonth = 0;
+    @Column(name = "volume_year", columnDefinition = "int COMMENT '年销量'")
+    private Integer volumeYear = 0;
     @Column(name = "state", nullable = false, columnDefinition = "int COMMENT '状态上下架'")
     private Integer state;
     @Column(name = "valid", nullable = false, columnDefinition = "int COMMENT '有效性'")
-    private Integer valid;
+    private Integer valid = 1;
 
     public String getId() {
         return id;

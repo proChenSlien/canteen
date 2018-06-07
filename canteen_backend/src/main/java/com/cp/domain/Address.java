@@ -12,15 +12,15 @@ public class Address {
     @GenericGenerator(name = "uuid", strategy = "uuid")
     @Column(name = "id",unique = true, nullable = false, length = 40)
     private String id;
-    @Column(name = "user_id", nullable = false, columnDefinition = "varchar(64) COMMENT '用户id'")
+    @Column(name = "user_id", columnDefinition = "varchar(64) COMMENT '用户id'")
     private String userId;
-    @Column(name = "address", nullable = false, columnDefinition = "text COMMENT '配送地址'")
+    @Column(name = "address", nullable = false, columnDefinition = "varchar(255) COMMENT '配送地址'")
     private String address;
-    @Column(name = "state", nullable = false, columnDefinition = "int COMMENT '启用状态'")
+    @Column(name = "state", columnDefinition = "int COMMENT '启用状态'")
     private Integer state;
-    @Column(name = "is_default", nullable = false, columnDefinition = "int COMMENT '默认状态'")
+    @Column(name = "is_default", columnDefinition = "int COMMENT '默认状态'")
     private Integer isDefault;
-    @Column(name = "valid", nullable = false, columnDefinition = "int COMMENT '有效性'")
+    @Column(name = "valid", columnDefinition = "int COMMENT '有效性'")
     private Integer valid;
 
     public String getId() {

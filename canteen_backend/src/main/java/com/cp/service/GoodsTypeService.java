@@ -7,4 +7,5 @@ import com.cp.domain.GoodsType;
  * @Date: 2018-05-24 14:46
  */
 public interface GoodsTypeService extends BaseService<GoodsType, Long>{
+    void updateStaById(String id);
 }

@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 /**
  * @author: Slien
  * @Date: 2018-05-24 11:32
@@ -18,5 +20,11 @@ public class AddressServiceImpl extends AbstractGenericServiceImpl<Address, Long
     @Override
     public JpaRepository<Address, Long> getRepository() {
         return repository;
+    }
+
+    @Override
+    @Transactional
+    public void updateStaById(String id) {
+        repository.updateStaById(id);
     }
 }

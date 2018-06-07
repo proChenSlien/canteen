@@ -2,6 +2,7 @@ package com.cp.utils;
 
 
 import com.cp.domain.User;
+import com.cp.domain.UserApi;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.util.ByteSource;
 
@@ -16,6 +17,12 @@ public class PasswordHelper {
 
     public static void encryptPassword(User user) {
         String newPassword = new SimpleHash(algorithmName, user.getPassword(), ByteSource.Util.bytes(user.getUsername()), hashIterations).toHex();
+        user.setPassword(newPassword);
+
+    }
+
+    public static void encryptPassword(UserApi user) {
+        String newPassword = new SimpleHash(algorithmName, user.getPassword(), ByteSource.Util.bytes(user.getUserName()), hashIterations).toHex();
         user.setPassword(newPassword);
 
     }

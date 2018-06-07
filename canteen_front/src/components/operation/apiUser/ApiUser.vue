@@ -1,5 +1,24 @@
 <template>
   <div class="root">
+    <!--查询条件-->
+    <el-form :inline="true" :model="searchForm" class="search-form">
+      <el-form-item label="">
+        <el-input v-model="searchForm.userName" placeholder="用户名"></el-input>
+      </el-form-item>
+      <el-form-item label="">
+        <el-select v-model="searchForm.state" placeholder="是否启用">
+          <el-option
+            v-for="item in [{label:'全部'},{label:'启用',value: 1},{label:'禁用',value: 0}]"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value">
+          </el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item>
+        <el-button type="primary" @click="searchIt">查询</el-button>
+      </el-form-item>
+    </el-form>
 
     <!--列表展示-->
     <div class="align-left">
@@ -32,9 +51,17 @@
           </el-tag>
         </template>
       </el-table-column>
+      <el-table-column prop="valid" label="有效性" width="100">
+        <template slot-scope="scope">
+          <el-tag
+            :type="scope.row.valid=='1' ? 'primary' : 'warning'"
+            close-transition>{{ scope.row.valid==1 ? '有效' : '无效'}}
+          </el-tag>
+        </template>
+      </el-table-column>
     </el-table>
 
-    
+
     <!--分页-->
     <el-pagination v-show="page.content.length > 0"
                    @size-change="handleSizeChange"
@@ -119,7 +146,7 @@
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          this.axios.get(`/manage/apiUser/delete/${this.currentRow.id}`)
+          this.axios.get(`/manage/apiUser/deleteUser/${this.currentRow.id}`)
             .then((response) => {
               this.$message.success('删除成功!')
               this.loadMainData()

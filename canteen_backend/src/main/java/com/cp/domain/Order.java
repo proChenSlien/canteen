@@ -27,13 +27,13 @@ public class Order {
     private String addressId;
     @Column(name = "distributor", columnDefinition = "varchar(64) COMMENT '配送员'")
     private String distributor;
-    @Column(name = "reach_time", columnDefinition = "varchar(64) COMMENT '送达时间'")
+    @Column(name = "reach_time", columnDefinition = "datetime COMMENT '送达时间'")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date reachTime;
-    @Column(name = "require_time", columnDefinition = "varchar(64) COMMENT '期望送达时间'")
+    @Column(name = "require_time", columnDefinition = "datetime COMMENT '期望送达时间'")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date requireTime;
-    @Column(name = "prereach_time", columnDefinition = "varchar(64) COMMENT '预计送达时间'")
+    @Column(name = "prereach_time", columnDefinition = "datetime COMMENT '预计送达时间'")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date prereachTime;
     @Column(name = "remark", columnDefinition = "text COMMENT '账单详情'")

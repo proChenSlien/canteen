@@ -33,8 +33,8 @@ public class UserApi {
     private Date loginTimeLast;
     @Column(name = "state", nullable = false, columnDefinition = "int COMMENT '状态'")
     private Integer state;
-    @Column(name = "valid", columnDefinition = "int COMMENT '有效性'")
-    private Integer valid;
+    @Column(name = "valid", nullable = false, columnDefinition = "int COMMENT '有效性'")
+    private Integer valid = 1;
 
     public String getId() {
         return id;

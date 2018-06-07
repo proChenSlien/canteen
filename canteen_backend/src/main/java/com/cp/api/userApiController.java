@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/api/system/userApi")
-public class userApiController extends BaseController<UserApi, Long> {
+public class UserApiController extends BaseController<UserApi, Long> {
     @Autowired
     private ApiUserService apiUserService;
     @Override

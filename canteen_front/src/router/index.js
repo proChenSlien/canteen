@@ -8,6 +8,10 @@ import User from '@/components/system/user/User'
 import Role from '@/components/system/role/Role'
 import store from '@/store'
 import ApiUser from '@/components/operation/apiUser/ApiUser'
+import GoodsType from '@/components/operation/goods/GoodsType'
+import Goods from '@/components/operation/goods/Goods'
+import Address from '@/components/operation/address/Address'
+import Order from '@/components/operation/order/Order'
 
 Vue.use(Router)
 
@@ -58,7 +62,54 @@ let businessRouters = [
       }
     ]
   },
-
+  {
+    path: '/goods',
+    name: '商品管理',
+    icon: 'icon-lock',
+    component: Sub,
+    children: [
+      {
+        path: 'goodsType',
+        component: GoodsType,
+        name: '商品类型管理',
+        icon: 'icon-user'
+      },
+      {
+        path: 'goods',
+        component: Goods,
+        name: '商品管理',
+        icon: 'icon-user'
+      }
+    ]
+  },
+  {
+    path: '/address',
+    name: '地址管理',
+    icon: 'icon-lock',
+    component: Sub,
+    children: [
+      {
+        path: 'address',
+        component: Address,
+        name: '地址管理',
+        icon: 'icon-user'
+      }
+    ]
+  },
+  {
+    path: '/order',
+    name: '订单管理',
+    icon: 'icon-lock',
+    component: Sub,
+    children: [
+      {
+        path: 'order',
+        component: Order,
+        name: '订单管理',
+        icon: 'icon-user'
+      }
+    ]
+  },
 
 ]
 
