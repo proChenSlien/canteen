@@ -27,7 +27,7 @@ public class ShoppingCar {
     @Column(name = "state", nullable = false, columnDefinition = "int COMMENT '状态'")
     private Integer state;
     @Column(name = "valid", nullable = false, columnDefinition = "int COMMENT '有效性'")
-    private Integer valid;
+    private Integer valid = 1;
 
     public String getId() {
         return id;

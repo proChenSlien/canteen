@@ -12,6 +12,8 @@ import GoodsType from '@/components/operation/goods/GoodsType'
 import Goods from '@/components/operation/goods/Goods'
 import Address from '@/components/operation/address/Address'
 import Order from '@/components/operation/order/Order'
+import ValueVoucher from '@/components/operation/valueVoucher/ValueVoucher'
+import UserVoucher from '@/components/operation/userVoucher/UserVoucher'
 
 Vue.use(Router)
 
@@ -106,6 +108,26 @@ let businessRouters = [
         path: 'order',
         component: Order,
         name: '订单管理',
+        icon: 'icon-user'
+      }
+    ]
+  },
+  {
+    path: '/valueVoucher',
+    name: '优惠券管理',
+    icon: 'icon-lock',
+    component: Sub,
+    children: [
+      {
+        path: 'valueVoucher',
+        component: ValueVoucher,
+        name: '优惠券管理',
+        icon: 'icon-user'
+      },
+      {
+        path: 'userVoucher',
+        component: UserVoucher,
+        name: '用户优惠券',
         icon: 'icon-user'
       }
     ]

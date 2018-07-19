@@ -41,7 +41,7 @@ public class Order {
     @Column(name = "pay_type", columnDefinition = "int COMMENT '支付方式'")
     private Integer payType;
     @Column(name = "valid", nullable = false, columnDefinition = "int COMMENT '有效性'")
-    private Integer valid;
+    private Integer valid = 1;
 
     public String getId() {
         return id;

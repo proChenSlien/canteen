@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: com.cp.canteen_backend.CanteenBackendApplicationTests
--------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 52.853 s - in com.cp.canteen_backend.CanteenBackendApplicationTests

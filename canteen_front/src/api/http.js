@@ -70,8 +70,11 @@ axios.interceptors.response.use(
   }
 )
 
+const postUpload = params => {
+  return Promise.post(`${adminApiGateway}/file/uploadImg/`, params).then(res => res.data)
+}
 
-export {axios, imageServer, adminApiGateway, imageUpload, imageView, imageDeleteShort}
+export {axios, imageServer, adminApiGateway, imageUpload, imageView, imageDeleteShort, postUpload}
 // export default axios
 
 

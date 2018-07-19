@@ -25,7 +25,7 @@ public class OrderController extends BaseController<Order, Long>{
         return orderService;
     }
 
-    @ApiOperation("删除商品")
+    @ApiOperation("删除订单")
     @GetMapping("/deleteOrder/{id}")
     public Result delete(@PathVariable String id) {
         orderService.updateStaById(id);

@@ -56,7 +56,7 @@ public class ShiroConfig {
 
         shiroFilterFactoryBean.getFilters().put("custAuthc", authenticatingFilter());
         shiroFilterFactoryBean.getFilters().put("custPerms", permissionsFilter());
-        // 如果不设置默认会自动寻找Web工程根目录下的'/login.jsp'页面
+        // 如果不设置默认会自动寻找Web工程根目录下的'/.jsp'页面
         shiroFilterFactoryBean.setLoginUrl("/login");
         //登陆成功后要跳转的链接
 //        shiroFilterFactoryBean.setSuccessUrl("/main");

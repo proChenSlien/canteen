@@ -57,8 +57,8 @@
                    class="page">
     </el-pagination>
 
-    <goods-dialog :visible.sync="goodsDialogVisible" @submitSuccess="loadMainData" :currentModel="currentModel"
-                  :title="goodsDialogTitle"></goods-dialog>
+    <order-dialog :visible.sync="orderDialogVisible" @submitSuccess="loadMainData" :currentModel="currentModel"
+                  :title="orderDialogTitle"></order-dialog>
 
 
   </div>

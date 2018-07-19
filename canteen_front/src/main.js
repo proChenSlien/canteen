@@ -7,6 +7,7 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import {axios} from './api/http'
 import store from './store'
+import "babel-polyfill"
 
 // 默认尺寸
 Vue.use(ElementUI, { size: 'small' })

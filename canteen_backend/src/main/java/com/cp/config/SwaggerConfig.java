@@ -21,15 +21,15 @@ public class SwaggerConfig {
     @Bean
     public Docket productApi() {
         return new Docket(DocumentationType.SWAGGER_2).apiInfo(apiInfo())
-                .select().apis(RequestHandlerSelectors.basePackage("com.sj"))
+                .select().apis(RequestHandlerSelectors.basePackage("com.cp"))
                 .build();
     }
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("盛基java体育项目")
-                .description("盛基体育项目api文档，对外Http接口")
-                .termsOfServiceUrl("http://www.shengji.com/")
+                .title("测试项目")
+                .description("测试项目api文档，对外Http接口")
+                .termsOfServiceUrl("http://101.132.139.178/")
                 .version("1.0")
                 .build();
     }
